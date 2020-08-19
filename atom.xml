@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Brenda Yu&#39;s blog</title>
+  <title>Buland Yu&#39;s blog</title>
   
   
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-08-17T08:23:44.671Z</updated>
+  <updated>2020-08-19T02:51:19.289Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>hexo + github pages 博客搭建记录</title>
+    <link href="http://yoursite.com/2020/08/19/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"/>
+    <id>http://yoursite.com/2020/08/19/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-08-19T02:55:36.057Z</published>
+    <updated>2020-08-19T02:51:19.289Z</updated>
+    
+    <content type="html"><![CDATA[<p>很早就有建一个自己的博客网站的想法了，可能也是想可以倒逼自己多写点东西吧。从安装hexo开始、更换主题、添加功能和第三方服务、部署到github pages上，一步步完善自己的博客。期间踩到了数不清的坑，历时一个月，终于把博客的雏形给做出来了。    <a id="more"></a></p><h1 id="添加小功能"><a href="#添加小功能" class="headerlink" title="添加小功能"></a>添加小功能</h1><h2 id="添加文章时自动打开编辑器"><a href="#添加文章时自动打开编辑器" class="headerlink" title="添加文章时自动打开编辑器"></a>添加文章时自动打开编辑器</h2><p>参考 <a href="%5Bhttps://notes.doublemine.me/2015-06-29-Hexo%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8.html%5D(https://notes.doublemine.me/2015-06-29-Hexo%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8.html)">Hexo 添加文章时自动打开编辑器 - Doublemine</a> 。以下为博客内容：</p><ul><li>首先在Hexo目录下的<code>scripts</code>目录中创建一个JavaScript脚本文件。</li><li>如果没有这个<code>scripts</code>目录，则新建一个。</li><li><code>scripts</code>目录新建的JavaScript脚本文件可以任意取名。</li></ul><p>通过这个脚本，我们用其来监听<code>hexo new</code>这个动作，并在检测到<code>hexo new</code>之后，执行编辑器打开的命令。</p><p>如果你是windows平台的Hexo用户，则将下列内容写入你的脚本：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> spawn = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).exec;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hexo 2.x 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">&#x27;new&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">path</span>)</span>&#123;</span><br><span class="line">  spawn(<span class="string">&#x27;start  &quot;markdown编辑器绝对路径.exe&quot; &#x27;</span> + path);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hexo 3 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">&#x27;new&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  spawn(<span class="string">&#x27;start  &quot;markdown编辑器绝对路径.exe&quot; &#x27;</span> + data.path);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>如果你是Mac平台Hexo用户，则将下列内容写入你的脚本：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exec = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).exec;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hexo 2.x 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">&#x27;new&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">path</span>)</span>&#123;</span><br><span class="line">    exec(<span class="string">&#x27;open -a &quot;markdown编辑器绝对路径.app&quot; &#x27;</span> + path);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Hexo 3 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">&#x27;new&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    exec(<span class="string">&#x27;open -a &quot;markdown编辑器绝对路径.app&quot; &#x27;</span> + data.path);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>保存并退出脚本之后，在命令行中键入：   </p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;auto open editor test&quot;</span><br></pre></td></tr></table></figure><p>就可以打开编辑器了。</p><h2 id="主动推送Hexo博客新链接至搜索平台"><a href="#主动推送Hexo博客新链接至搜索平台" class="headerlink" title="主动推送Hexo博客新链接至搜索平台"></a>主动推送Hexo博客新链接至搜索平台</h2><p>使用插件 hexo-submit-urls-to-search-engine ，查看 <a href="https://cjh0613.com/20200603HexoSubmitUrlsToSearchEngine.html">中文文档</a>。</p><h1 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h1><h2 id="安装置顶插件"><a href="#安装置顶插件" class="headerlink" title="安装置顶插件"></a>安装置顶插件</h2><p>替换给文章排序索引的原有插件 hexo-generator-index为hexo-generator-indexed</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uni hexo-generator-index --save &amp;&amp; npm i hexo-generator-indexed --save</span><br></pre></td></tr></table></figure><p>报错：</p><p><img src="C:/Users/fdxr1/AppData/Roaming/Typora/typora-user-images/image-20200817162704023.png" alt="image-20200817162704023"></p><p>解决方案：</p><p>1.fsevents不在package.json里，但是仍然安装了。我的系统是Windows系统，fsevents是darwin的可选依赖。博客主人在里面安装了fsevents相关依赖库，所以到这边也就安装到我的windows上了。“检查你的package.json 文件中是不是有fsevents相关依赖，删除即好。”但我的package.json文件中并没有，所以采取了第二种方案。</p><p>2.在package.json中加入下面代码，将fsevents依赖变为可选的。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;optionalDependencies&quot;: &#123;</span><br><span class="line">&quot;fsevents&quot;: &quot;*&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这一步中据说有一个坑，“需要删除package_lock.json,否则标记会失效，所有依赖都将被安装。”</p><p>“I’m seeing this today with npm 5.3.0. npm install –no-optional works IIF a package-lock.json does not exist. If the package-lock.json file exists, then the flag is ignored and all dependencies get installed.”</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;很早就有建一个自己的博客网站的想法了，可能也是想可以倒逼自己多写点东西吧。从安装hexo开始、更换主题、添加功能和第三方服务、部署到github pages上，一步步完善自己的博客。期间踩到了数不清的坑，历时一个月，终于把博客的雏形给做出来了。</summary>
+    
+    
+    
+    <category term="博客" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+    <category term="半原创" scheme="http://yoursite.com/tags/%E5%8D%8A%E5%8E%9F%E5%88%9B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>教学管理系统web应用搭建记录</title>
-    <link href="http://yoursite.com/2020/08/16/2020/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"/>
-    <id>http://yoursite.com/2020/08/16/2020/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</id>
+    <link href="http://yoursite.com/2020/08/16/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"/>
+    <id>http://yoursite.com/2020/08/16/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</id>
     <published>2020-08-16T07:23:11.000Z</published>
-    <updated>2020-08-17T08:23:44.671Z</updated>
+    <updated>2020-08-19T02:22:16.055Z</updated>
     
     <content type="html"><![CDATA[<a id="more"></a>]]></content>
     
