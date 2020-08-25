@@ -23,20 +23,19 @@
     var CONFIG = {"hostname":"www.fvolcano.red","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="学习生活片段记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="火山口百年城">
-<meta property="og:url" content="https://www.fvolcano.red/tags/%E5%8D%8A%E5%8E%9F%E5%88%9B/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="教学管理系统web应用搭建记录">
+<meta property="og:url" content="https://www.fvolcano.red/posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="火山口百年城">
-<meta property="og:description" content="学习生活片段记录">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-16T07:23:11.000Z">
+<meta property="article:modified_time" content="2020-08-16T07:23:11.000Z">
 <meta property="article:author" content="啊喻">
-<meta property="article:tag" content="博客">
-<meta property="article:tag" content="记录">
-<meta property="article:tag" content="代码">
+<meta property="article:tag" content="项目">
+<meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.fvolcano.red/tags/%E5%8D%8A%E5%8E%9F%E5%88%9B/">
+<link rel="canonical" href="https://www.fvolcano.red/posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/">
 
 
 <script id="page-configurations">
@@ -44,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: 半原创 | 火山口百年城</title>
+  <title>教学管理系统web应用搭建记录 | 火山口百年城</title>
   
 
 
@@ -206,57 +205,150 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.fvolcano.red/posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/me.jpg">
+      <meta itemprop="name" content="啊喻">
+      <meta itemprop="description" content="学习生活片段记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="火山口百年城">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          教学管理系统web应用搭建记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-16 15:23:11" itemprop="dateCreated datePublished" datetime="2020-08-16T15:23:11+08:00">2020-08-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a>
+                </span>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">半原创
-          <small>标签</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <a id="more"></a>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+      
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-15T20:57:26+08:00"
-              content="2020-08-15">
-          08-15
-        </time>
+        <div class="reward-container">
+  <div>🍬 奖励一颗糖果吗！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    支持
+  </button>
+  <div id="qr" style="display: none;">
+      <div style="display: inline-block;">
+        <img src="/images/pay.png" alt="啊喻 ">
+        <p></p>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" itemprop="url">
-            <span itemprop="name">Hexo + GitHub Pages 博客搭建记录</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-    </div>
   </div>
-  
-  
-  
+</div>
 
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>啊喻
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.fvolcano.red/posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" title="教学管理系统web应用搭建记录">https://www.fvolcano.red/posts/教学管理系统web应用搭建记录/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处。
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag"><i class="fa fa-tag"></i> 项目</a>
+              <a href="/tags/%E5%8E%9F%E5%88%9B/" rel="tag"><i class="fa fa-tag"></i> 原创</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" rel="prev" title="Hexo + GitHub Pages 博客搭建记录">
+      <i class="fa fa-chevron-left"></i> Hexo + GitHub Pages 博客搭建记录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
