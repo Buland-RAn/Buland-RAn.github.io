@@ -69,7 +69,7 @@
 <p><strong>Markdown</strong> 语法</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">basic footnote[^1]</span><br><span class="line">here is an inline footnote[<span class="string">^2</span>](<span class="link">inline footnote</span>)</span><br><span class="line">and another one[^3]</span><br><span class="line">and another one[^4]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">^1</span>]: <span class="link">basic footnote content</span></span><br><span class="line">[<span class="symbol">^3</span>]: <span class="link">paragraph</span></span><br><span class="line">footnote</span><br><span class="line">content</span><br><span class="line">[<span class="string">^4</span>]: footnote content with some [<span class="string">markdown</span>](<span class="link">https://en.wikipedia.org/wiki/Markdown</span>)</span><br></pre></td></tr></table></figure>
 
-<h2 id="添加评论系统"><a href="#添加评论系统" class="headerlink" title="添加评论系统"></a>添加评论系统</h2><h2 id="站点访问统计显示"><a href="#站点访问统计显示" class="headerlink" title="站点访问统计显示"></a>站点访问统计显示</h2><br>
+<h2 id="添加评论系统"><a href="#添加评论系统" class="headerlink" title="添加评论系统"></a>添加评论系统</h2><h2 id="站点访问统计显示"><a href="#站点访问统计显示" class="headerlink" title="站点访问统计显示"></a>站点访问统计显示</h2><h2 id="开启文章评分"><a href="#开启文章评分" class="headerlink" title="开启文章评分"></a>开启文章评分</h2><h2 id><a href="#" class="headerlink" title></a></h2><br>
 
 <h1 id="主题美化"><a href="#主题美化" class="headerlink" title="主题美化"></a>主题美化</h1><h2 id="鼠标点击特效"><a href="#鼠标点击特效" class="headerlink" title="鼠标点击特效"></a>鼠标点击特效</h2><p>扒自 <a href="http://yearito.cn/posts/hexo-theme-beautify.html">Hexo 搭建个人博客系列：主题美化篇</a> 。</p>
 <p>以下为四个比较常用的鼠标点击特效：</p>
@@ -160,5 +160,114 @@
         <tag>项目</tag>
         <tag>原创</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>404</title>
+    <url>/404/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>archives</title>
+    <url>/archives/index.html</url>
+    <content><![CDATA[<h1 id="archive"><a href="#archive" class="headerlink" title="archive"></a>archive</h1>]]></content>
+  </entry>
+  <entry>
+    <title>一些分类</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[<h1 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h1>]]></content>
+  </entry>
+  <entry>
+    <title>life</title>
+    <url>/life/index.html</url>
+    <content><![CDATA[<h1 id="life"><a href="#life" class="headerlink" title="life"></a>life</h1>]]></content>
+  </entry>
+  <entry>
+    <title>关于我</title>
+    <url>/about/index.html</url>
+    <content><![CDATA[<p>其实吧，现在还没什么好写。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>书籍电影</title>
+    <url>/share/index.html</url>
+    <content><![CDATA[<div class="tabs" id="share"><ul class="nav-tabs"><li class="tab active"><a href="#share-1"><i class="fas fa-book"></i>书单</a></li><li class="tab"><a href="#share-2"><i class="fas fa-video"></i>纪录片</a></li></ul><div class="tab-content"><div class="tab-pane active" id="share-1"><ul>
+<li><p><a href="https://book.douban.com/subject/25864000/"><strong>台湾这些年所知道的祖国</strong></a>. 廖信忠<br>作者的系列作品了，不过说实话没有最初的《我们台湾这些年》好看。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/4113090/"><strong>我们台湾这些年</strong></a>. 廖信忠<br>一个个小人物的故事构成了台湾社会发展的方方面面，一本书或许不能帮助我们认识了解这个宝岛的过往，但是可以带给一个我们更真切的台湾。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/2004652/"><strong>目击中国100年</strong></a>. 成勇<br>十分用心编写的一本书，或者更准确说是画册。用照片的方式展现有照片记录以来中国20世纪的诸多历史瞬间，让我们得以了解更生动立体的近现代中国。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/20424526/"><strong>邓小平时代</strong></a>. 傅高义<br>资料翔实，叙述详尽，向我们展现了改革开放前后那个瞬息万变的历史时期。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/26847432/"><strong>為了活下去：脫北女孩朴研美</strong></a>. 朴研美<br>台湾旅游时候买回来的书，对于描述作者个人的经历确实比较同情，但是后面对于中国做法的看法以及对于基督教的理解还是不太认同的。特别是韩国传教士的问题，或许对作者这样的人来说是帮助，但是在中国的疯狂传教其实是很大隐患。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/26899255/"><strong>进击的局座</strong></a>. 张召忠<br>局座的书，看中名气买的电子书，语言很朴实很真诚，不过不是我喜欢的话题和风格。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/26285840/"><strong>漫画世界系列3：漫画德国</strong></a>. 李元馥<br>高中时候班主任推荐的丛书，从漫画的角度了解各国的社会人文历史，也是很有趣味的，还希望能够把这套书都读一遍。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/1526244/"><strong>科学探索者 · 天文学</strong></a>. 帕迪利亚<br>小时候的天文学科普启蒙书之一，里面的好多小实验很有趣味，讲解的一些知识点现在都有印象。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/1137118/"><strong>放飞神舟</strong></a>. 石磊<br>我对中国载人航天的最初了解就是这本书带给我的，放飞神舟放飞的不只是载人飞船，而是这个民族几千年来的飞天梦想。如今，月球上的玉兔月球车正在延续我们的下一个梦想。</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/4238941/"><strong>新卖桔者言</strong></a>. 张五常</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/5252677/"><strong>幸福了吗？</strong></a>. 白岩松</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/1016003/"><strong>鲁滨逊漂流记</strong></a>. 笛福</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/3815131/"><strong>一九八四</strong></a>. 乔治 · 奥威尔</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/26371139/"><strong>动物庄园</strong></a>. 乔治 · 奥威尔</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/1050339/"><strong>文化苦旅</strong></a>. 余秋雨</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/20427187/"><strong>看见</strong></a>. 柴静</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/1008145/"><strong>围城</strong></a>. 钱钟书</p>
+</li>
+<li><p><a href="https://book.douban.com/subject/1258378/"><strong>他改变了中国</strong></a>. 罗伯特 · 劳伦斯 · 库恩</p>
+</li>
+</ul></div><div class="tab-pane" id="share-2"><p>一些自己看过的优秀纪录片，以 CCTV 与 BBC 拍摄的纪录片为主，大多是人文历史或者社会纪实类型。自然地理方面的纪录片很少，主要是因为个人对这个题材的纪录片不太感兴趣。</p>
+<h3 id="国产纪录片"><a href="#国产纪录片" class="headerlink" title="国产纪录片"></a>国产纪录片</h3><ul>
+<li><p><strong>超级工程</strong> <font color="#bbb">CCTV 科技</font><br>第三季模仿了 PBS 的 America Revealed，之前看时候就在想中国什么时候也这样拍一部就完美了，然后央视就满足了我的愿望；此外饱受争议的纪录片《辉煌中国》与电影《厉害了我的国》很多素材其实来自超级工程相关纪录片，所以剪辑拼凑痕迹明显，制作比较粗糙，看辉煌中国还不如看超级工程。</p>
+</li>
+<li><p><strong>舌尖上的中国</strong> <font color="#bbb">CCTV 社会文化</font><br>陈晓卿的美食纪录片，讲述美食遍布中华大地，不过《舌尖上的中国》只推荐第一、二季，第三季水平下滑严重，不值得推荐。</p>
+</li>
+<li><p><strong>风味人间</strong> <font color="#bbb">腾讯视频 社会文化</font><br>陈晓卿的美食纪录片，不同于之前的美食纪录片，本片不只是局限在中国，一大亮点就是中外对于同一种食材或者不同风格食材处理方式的对比。</p>
+</li>
+<li><p><strong>过台湾</strong> <font color="#bbb">CCTV 历史</font><br>讲述台湾1945年光复之前400年的历史变迁，史料翔实覆盖广泛，配乐也超级有魔性；如果需要了解台湾光复前后的历史还可以看《台湾·1945》。</p>
+</li>
+<li><p><strong>我在故宫修文物</strong> <font color="#bbb">CCTV 文化</font><br>网红纪录片不解释</p>
+</li>
+<li><p><strong>再说长江</strong> <font color="#bbb">CCTV 社会纪实</font><br>长江流域人文风土纪录片，呼应八十年代爆火纪录片《话说长江》。话说长江算是和同年代央视纪录片《河殇》走了不同的路线，该片在讲述人文风土同时也某种程度上提升了当时民众的民族自豪感与自信心</p>
+</li>
+<li><p><strong>大国崛起</strong> <font color="#bbb">CCTV 历史</font><br>讲述西方历史上各强国崛起历史，本质是为了探究中国复兴之路，这个目的从纪录片最后一集就可以看出来了。此外，该纪录片的旁白稿子很棒，单独拿出来都是一份很好的学习材料。</p>
+</li>
+<li><p><strong>东方卫视医警系列</strong> <font color="#bbb">东方卫视 社会纪实</font><br>有《巡逻现场实录》、《急诊室故事》、《生命时速·紧急救护120》等多部，跟踪拍摄上海市的警察巡逻、院前急救、急诊室抢救等故事，既是记录社会生活的点点滴滴，也展现了管理上海市这样一个超大型城市所需要的精细度。</p>
+</li>
+<li><p><strong>我的铁路，我的故事</strong> <font color="#bbb">CCTV 社会纪实</font><br>中国援建蒙巴萨-内罗毕铁路的故事，该片有英文版 My Railway, My Story；该片中有很多有趣的援非工程故事，以小见大讲述了中国援非工程的实施过程。</p>
+</li>
+</ul>
+<h3 id="日本纪录片"><a href="#日本纪录片" class="headerlink" title="日本纪录片"></a>日本纪录片</h3><ul>
+<li><p><strong>纪实72小时 ドキュメント72時間</strong> <font color="#bbb">NHK 社会纪实</font><br>用72小时不间断地拍摄记录日本的寻常生活，有欢笑有悲伤，每集看完总有一种依依不舍之情。目前，东方卫视也引进了版权，拍摄了中国版的《纪实72小时》。</p>
+</li>
+<li><p><strong>可以跟着去你家吗？ 家、ついて行ってイイですか?</strong> <font color="#bbb">东京电视台 社会纪实</font><br>节目专门访问赶不上末班电车的陌生人，以支付计程车费来换取跟随到他们家访问的机会，进而领略纪录人生百态。</p>
+</li>
+</ul>
+<h3 id="欧美纪录片"><a href="#欧美纪录片" class="headerlink" title="欧美纪录片"></a>欧美纪录片</h3><ul>
+<li><p><strong>透视美国 America Revealed</strong> <font color="#bbb">PBS 社会纪实</font><br>用俯视的视角，从食品、交通、能源、制造四个方面全景展示了美国各个产业概况和不为人知的细节。最开始看的时候对美国的产业状况叹为观止，后来看了央视《超级工程》第三季发现我们用同样的视角也可以展现一个有活力、有创造力的中国。</p>
+</li>
+<li><p><strong>企鹅群里有特务 Penguins: Spy in the Huddle</strong> <font color="#bbb">BBC 自然地理</font><br>自然地理纪录片里难得一部很喜欢的片子，光看着各种企鹅卖萌的样子就很疗愈了，颜值果然很重要。</p>
+</li>
+<li><p><strong>空中浩劫 Mayday</strong> <font color="#bbb">Cineflix 科技与社会</font><br>各种惊心动魄，各种细致入微，细致的调查背后是对生命的尊重。</p>
+</li>
+<li><p><strong>我们的孩子足够坚强吗？中式学校 Are Our Kids Tough Enough? Chinese School</strong> <font color="#bbb">BBC 教育</font><br>让5名中国老师在英国南部汉普郡的一所中学实施 4 周中国式教学试验的故事。说实话，这样短期的社会实验没什么大的研究意义吧，一些评论把所谓的对比看得太严重了反而感觉不会，纯当作真人秀综艺节目看倒是很有趣的。</p>
+</li>
+</ul></div></div></div>]]></content>
+  </entry>
+  <entry>
+    <title>标签们</title>
+    <url>/tags/index.html</url>
+    <content><![CDATA[<h1 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h1>]]></content>
   </entry>
 </search>

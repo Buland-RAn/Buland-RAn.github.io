@@ -1280,7 +1280,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #daff1f;
+  background: #c112f4;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2831,6 +2831,14 @@ header {
 .main {
   padding-bottom: 200px;
 }
+.local-search-popup #local-search-result {
+  padding: 25px 40px;
+  height: calc(100% - 95px);
+}
+/***********************************************************/
+/************************* Header **************************/
+/***********************************************************/
+/* header-隐藏顶部线条 */
 .headband {
   display: none;
 }
@@ -9093,7 +9101,7 @@ li.category-list-item a:hover {
 }
 .posts-expand .post-tags a:hover,
 .tag-cloud a:hover {
-  color: #fff;
+  color: #a39d9d !important;
   text-decoration: none;
 }
 @media (prefers-color-scheme: dark) {
