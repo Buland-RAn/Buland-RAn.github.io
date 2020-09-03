@@ -23,12 +23,21 @@
     <published>2020-08-16T07:23:11.000Z</published>
     <updated>2020-08-16T07:23:11.000Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<a id="more"></a><ul><li><input disabled type="checkbox"> controller</li><li><input disabled type="checkbox"> POJO自动封装对象</li><li><input disabled type="checkbox"> 乱码解决</li><li><input disabled type="checkbox"> </li></ul><h1 id="SSM改造项目"><a href="#SSM改造项目" class="headerlink" title="SSM改造项目"></a>SSM改造项目</h1><h2 id="spring-ioc容器管理各个类"><a href="#spring-ioc容器管理各个类" class="headerlink" title="spring ioc容器管理各个类"></a>spring ioc容器管理各个类</h2><ol><li>依赖注入方式</li><li>@controller注解与tomcat冲突</li><li></li></ol>]]></content>
     
     
       
       
-    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</summary>
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+
+
+
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled type=&quot;checkbox&quot;&gt; controller&lt;/li&gt;
+&lt;li&gt;&lt;input disabled type=&quot;checkbox&quot;&gt; POJO自动封装对象&lt;/li&gt;
+&lt;li&gt;&lt;i</summary>
       
     
     

@@ -152,7 +152,24 @@
   <entry>
     <title>教学管理系统web应用搭建记录</title>
     <url>//posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<a id="more"></a>]]></content>
+    <content><![CDATA[<a id="more"></a>
+
+
+
+
+
+<ul>
+<li><input disabled type="checkbox"> controller</li>
+<li><input disabled type="checkbox"> POJO自动封装对象</li>
+<li><input disabled type="checkbox"> 乱码解决</li>
+<li><input disabled type="checkbox"> </li>
+</ul>
+<h1 id="SSM改造项目"><a href="#SSM改造项目" class="headerlink" title="SSM改造项目"></a>SSM改造项目</h1><h2 id="spring-ioc容器管理各个类"><a href="#spring-ioc容器管理各个类" class="headerlink" title="spring ioc容器管理各个类"></a>spring ioc容器管理各个类</h2><ol>
+<li>依赖注入方式</li>
+<li>@controller注解与tomcat冲突</li>
+<li></li>
+</ol>
+]]></content>
       <categories>
         <category>JavaWeb</category>
       </categories>
@@ -172,6 +189,12 @@
     <content><![CDATA[<h1 id="archive"><a href="#archive" class="headerlink" title="archive"></a>archive</h1>]]></content>
   </entry>
   <entry>
+    <title>关于我</title>
+    <url>/about/index.html</url>
+    <content><![CDATA[<p>其实吧，现在还没什么好写。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>一些分类</title>
     <url>/categories/index.html</url>
     <content><![CDATA[<h1 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h1>]]></content>
@@ -180,12 +203,6 @@
     <title>life</title>
     <url>/life/index.html</url>
     <content><![CDATA[<h1 id="life"><a href="#life" class="headerlink" title="life"></a>life</h1>]]></content>
-  </entry>
-  <entry>
-    <title>关于我</title>
-    <url>/about/index.html</url>
-    <content><![CDATA[<p>其实吧，现在还没什么好写。</p>
-]]></content>
   </entry>
   <entry>
     <title>书籍电影</title>
