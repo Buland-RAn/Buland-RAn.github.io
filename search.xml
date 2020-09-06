@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hexo + GitHub Pages 博客搭建记录</title>
-    <url>//posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</url>
+    <url>//2020/hexo-githubPages-setUp-record.html</url>
     <content><![CDATA[<p>很早就有建一个自己的博客网站的想法了，可能也是想可以倒逼自己多写点东西吧。从安装hexo开始、更换主题、添加功能和第三方服务、部署到github pages上，一步步完善自己的博客。期间踩到了数不清的坑，历时一个月，终于把博客的雏形给做出来了。    <a id="more"></a></p>
 <br>
 
@@ -39,7 +39,28 @@
 <li><p>在主题配置文件中修改</p>
 </li>
 </ol>
-<p><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/Snipaste_2020-08-24_20-22-36.png" alt="修改favicon配置"></p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-24_20-22-36.png" alt="修改favicon配置"></p>
+<h2 id="更改文章url为英文"><a href="#更改文章url为英文" class="headerlink" title="更改文章url为英文"></a>更改文章url为英文</h2><p>在站点的<code>_config.yml</code>中，生成的文章链接默认为：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>将<code>/:title/</code>替换为<code>/:urlname/</code></p>
+</li>
+<li><p>更改<code>permalink_defaults</code></p>
+</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line">  <span class="attr">urlname:</span> <span class="string">index</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>之后写文章时在font-matter处加上<code>urlname: XXX</code>就可以了</li>
+</ol>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-09-06_10-31-34.png" alt="urlname"></p>
+<br>
+
+<p>还可以在<code>scaffolds/post.md</code>里配上这个字段</p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-09-06_10-33-53.png" alt="添加创建模板字段"></p>
+<p>这样，以后<code>hexo n post &quot;&quot;</code>的时候就自动出现在font-matter里面了。</p>
+<p>！注意：以前的文章也需要加上urlname字段，内容与文章标题保持一致，否则就找不到了噢。（或者你也可以选择全部重建）</p>
 <br>
 
 
@@ -65,7 +86,7 @@
 <p>1）站点配置文件，位于站点文件夹根目录内<code>~/blog/_config.yml</code></p>
 <p>2）主题配置文件，位于主题文件夹根目录内<code>~/blog/themes/next/_config.yml</code></p>
 <h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><p>有两个插件我比较喜欢，一个可以<a href="https://github.com/kchen0x/hexo-reference">悬浮显示</a>，一个比较<a href="https://github.com/LouisBarranqueiro/hexo-footnotes">简洁</a> 。</p>
-<p><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/Snipaste_2020-08-20_16-18-02.png" alt="hexo两个脚注插件"><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/Snipaste_2020-08-20_16-18-11.png" alt="悬浮显示" style="zoom:50%;"></p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-20_16-18-02.png" alt="hexo两个脚注插件"><img data-src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-20_16-18-11.png" alt="悬浮显示" style="zoom:50%;"></p>
 <p><strong>Markdown</strong> 语法</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">basic footnote[^1]</span><br><span class="line">here is an inline footnote[<span class="string">^2</span>](<span class="link">inline footnote</span>)</span><br><span class="line">and another one[^3]</span><br><span class="line">and another one[^4]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">^1</span>]: <span class="link">basic footnote content</span></span><br><span class="line">[<span class="symbol">^3</span>]: <span class="link">paragraph</span></span><br><span class="line">footnote</span><br><span class="line">content</span><br><span class="line">[<span class="string">^4</span>]: footnote content with some [<span class="string">markdown</span>](<span class="link">https://en.wikipedia.org/wiki/Markdown</span>)</span><br></pre></td></tr></table></figure>
 
@@ -106,7 +127,7 @@
 <figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">npm uni hexo-generator-<span class="built_in">index</span> --<span class="keyword">save</span> &amp;&amp; npm i hexo-generator-indexed --<span class="keyword">save</span></span><br></pre></td></tr></table></figure>
 
 <p>报错：</p>
-<p><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/image-20200817162704023.png" alt="报错信息"></p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/image-20200817162704023.png" alt="报错信息"></p>
 <p>解决方案：</p>
 <p>1.fsevents不在package.json里，但是仍然安装了。我的系统是Windows系统，fsevents是darwin的可选依赖。博客主人在里面安装了fsevents相关依赖库，所以到这边也就安装到我的windows上了。“检查你的package.json 文件中是不是有fsevents相关依赖，删除即好。”但我的package.json文件中并没有，所以采取了第二种方案。</p>
 <p>2.在package.json中加入下面代码，将fsevents依赖变为可选的。</p>
@@ -122,11 +143,11 @@
 <h2 id="本地与部署不一致问题"><a href="#本地与部署不一致问题" class="headerlink" title="本地与部署不一致问题"></a>本地与部署不一致问题</h2><p>参考 <a href="https://blog.csdn.net/GAI159/article/details/105128186/">解决hexo本地与部署不一致问题</a>。</p>
 <p>可能原因：</p>
 <p>1.URL配置错误(写上自己的博客地址)</p>
-<p><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/2020-08-19_11-33-46.png" alt="站点配置信息"></p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/2020-08-19_11-33-46.png" alt="站点配置信息"></p>
 <p>2.部署到远程服务器没来得及更新，过一段时间再看</p>
 <p>3.浏览器保存了之前的数据，清除浏览器缓存后再强制刷新Shift+F5 （√）</p>
 <p>4.如果上面几种都还没有解决问题，也可能是branch错误 </p>
-<p><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/20200326212416815.jpg" alt="推到另一个分支"></p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/20200326212416815.jpg" alt="推到另一个分支"></p>
 <p>之后在hexo站点配置文件_config.yml中找到branch，将master改为刚刚新建的分支名。</p>
 <h2 id="博客图片显示不出"><a href="#博客图片显示不出" class="headerlink" title="博客图片显示不出"></a>博客图片显示不出</h2><p>我一般是采用截图后直接将图片粘贴到博客中的做法，这样当然找不到了，图片文件都没有到github里面去。</p>
 <p>解决办法：</p>
@@ -134,7 +155,7 @@
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
 
 <p>在站点配置文件*/_config.yml* 中配置指令 <code>post_asset_folder: true</code> 这样在每次新建文章的时候就会建立同名文件夹, 直接将相应的文章图片放在文件夹内。</p>
-<p><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/Snipaste_2020-08-19_11-54-33.png" alt="文件结构"></p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-19_11-54-33.png" alt="文件结构"></p>
 <p>之后引用的时候可以使用markdown语法</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">文件结构</span>](<span class="link">hexo-github-pages-博客搭建记录/Snipaste_2020-08-19_11-54-33.png</span>)</span><br></pre></td></tr></table></figure>
 
@@ -143,7 +164,7 @@
 
 <h2 id="显示不出archives页面"><a href="#显示不出archives页面" class="headerlink" title="显示不出archives页面"></a>显示不出archives页面</h2><p>archives归档页面显示不出，但只要名字不是这个就没有问题。</p>
 <h2 id="文章路径undefined"><a href="#文章路径undefined" class="headerlink" title="文章路径undefined"></a>文章路径undefined</h2><p>将<code>站点配置文件</code> permalink 修改后就好了。</p>
-<p><img data-src="/posts/hexo-github-pages-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/Snipaste_2020-08-24_22-06-11.png" alt="配置信息"></p>
+<p><img data-src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-24_22-06-11.png" alt="配置信息"></p>
 ]]></content>
       <categories>
         <category>博客搭建</category>
@@ -154,8 +175,10 @@
   </entry>
   <entry>
     <title>教学管理系统web应用搭建记录</title>
-    <url>//posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</url>
+    <url>//2020/InfoManageSystem-webApplication-setUp-record.html</url>
     <content><![CDATA[<p>暂时实现了角色分工、信息增删改查、初步css整合，目前正在使用SSM改造。<a id="more"></a></p>
+<br>
+
 <ul>
 <li><input checked disabled type="checkbox"> controller</li>
 <li><input disabled type="checkbox"> POJO自动封装对象</li>
@@ -181,7 +204,7 @@
 <h1 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h1><h2 id="项目路径问题"><a href="#项目路径问题" class="headerlink" title="项目路径问题"></a>项目路径问题</h2><p>在Idea中修改Context（项目上下文路径）比较简单，只需要在Tomcat中配置一下就好了；但转到eclipse后，需要在server.xml中修改。</p>
 <p>将path修改成你想要访问的项目根路径。</p>
 <p>按下图修改后，访问路径变为 <a href="http://localhost:8080/">http://localhost:8080/</a></p>
-<p><img data-src="/posts/%E6%95%99%E5%AD%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Fweb%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/%E9%A1%B9%E7%9B%AE%E8%B7%AF%E5%BE%84%E4%BF%AE%E6%94%B9.png" alt="项目路径修改"></p>
+<p><img data-src="/2020/InfoManageSystem-webApplication-setUp-record.htm/%E9%A1%B9%E7%9B%AE%E8%B7%AF%E5%BE%84%E4%BF%AE%E6%94%B9.png" alt="项目路径修改"></p>
 <h2 id="bean对象无法自动注入"><a href="#bean对象无法自动注入" class="headerlink" title="bean对象无法自动注入"></a>bean对象无法自动注入</h2><p>我在某一个JavaBean中使用了@Autowired注解，却没有将该类加入ioc容器，自然就报空指针异常了。</p>
 <h2 id="使用监听器创建容器错误"><a href="#使用监听器创建容器错误" class="headerlink" title="使用监听器创建容器错误"></a>使用监听器创建容器错误</h2>]]></content>
       <categories>
@@ -198,25 +221,25 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
+    <title>archives</title>
+    <url>/archives/index.html</url>
+    <content><![CDATA[<h1 id="archive"><a href="#archive" class="headerlink" title="archive"></a>archive</h1>]]></content>
+  </entry>
+  <entry>
     <title>关于我</title>
     <url>/about/index.html</url>
     <content><![CDATA[<p>其实吧，现在还没什么好写。</p>
 ]]></content>
   </entry>
   <entry>
-    <title>archives</title>
-    <url>/archives/index.html</url>
-    <content><![CDATA[<h1 id="archive"><a href="#archive" class="headerlink" title="archive"></a>archive</h1>]]></content>
+    <title>life</title>
+    <url>/life/index.html</url>
+    <content><![CDATA[<h1 id="life"><a href="#life" class="headerlink" title="life"></a>life</h1>]]></content>
   </entry>
   <entry>
     <title>一些分类</title>
     <url>/categories/index.html</url>
     <content><![CDATA[<h1 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h1>]]></content>
-  </entry>
-  <entry>
-    <title>life</title>
-    <url>/life/index.html</url>
-    <content><![CDATA[<h1 id="life"><a href="#life" class="headerlink" title="life"></a>life</h1>]]></content>
   </entry>
   <entry>
     <title>书籍电影</title>
