@@ -889,16 +889,6 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>algorithms</title>
-    <url>/algorithms/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>archives</title>
-    <url>/archives/index.html</url>
-    <content><![CDATA[<h1 id="archive"><a href="#archive" class="headerlink" title="archive"></a>archive</h1>]]></content>
-  </entry>
-  <entry>
     <title>关于我</title>
     <url>/about/index.html</url>
     <content><![CDATA[<p>其实吧，现在还没什么好写。</p>
@@ -910,9 +900,14 @@
     <content><![CDATA[<h1 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h1>]]></content>
   </entry>
   <entry>
-    <title>标签们</title>
-    <url>/tags/index.html</url>
-    <content><![CDATA[<h1 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h1>]]></content>
+    <title>algorithms</title>
+    <url>/algorithms/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>archives</title>
+    <url>/archives/index.html</url>
+    <content><![CDATA[<h1 id="archive"><a href="#archive" class="headerlink" title="archive"></a>archive</h1>]]></content>
   </entry>
   <entry>
     <title>life</title>
@@ -996,5 +991,10 @@
 <li><p><strong>我们的孩子足够坚强吗？中式学校 Are Our Kids Tough Enough? Chinese School</strong> <font color="#bbb">BBC 教育</font><br>让5名中国老师在英国南部汉普郡的一所中学实施 4 周中国式教学试验的故事。说实话，这样短期的社会实验没什么大的研究意义吧，一些评论把所谓的对比看得太严重了反而感觉不会，纯当作真人秀综艺节目看倒是很有趣的。</p>
 </li>
 </ul></div></div></div>]]></content>
+  </entry>
+  <entry>
+    <title>标签们</title>
+    <url>/tags/index.html</url>
+    <content><![CDATA[<h1 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h1>]]></content>
   </entry>
 </search>
