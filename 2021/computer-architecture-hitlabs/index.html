@@ -204,8 +204,8 @@ var _hmt = _hmt || [];
 <ol start="2">
 <li>解释现象。</li>
 </ol>
-<p><img src="/2021/computer-architecture-hitlabs.htm/1.png"></p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/2.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/1.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/2.png"></p>
 <p>原因：</p>
 <p>第一组数据：输入和输出不一致是因为单精度浮点数在IEEE规定下的表示造成的。第一组数据在二进制数表示下为无循环的小数，由于float数据类型只能存储23位小数，为数后面的数都会被截断而且会向偶数进行舍入，因此有的数据进行舍入时会改变运行结果，所以第一组数据存在一些数据发生结果改变.</p>
 <p>第二组数据：由第一组数据中的分析可知，第二组数据在进行偶数舍入的情况下并没有发生结果的改变，因此运行结果和数据输入的内容相同相同。</p>
@@ -255,10 +255,10 @@ var _hmt = _hmt || [];
 <p>x ：全局  .data</p>
 <p>y ：局部  stack</p>
 <p>z ：局部char*  .text</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/6.png"></p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/8.png" alt="各段地址区域"></p>
+<p><img src="/2021/computer-architecture-hitlabs/6.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/8.png" alt="各段地址区域"></p>
 <p>x 与 z 都是通过与当前指令指针偏移量来定位其在内存中的位置，而存在stack中的y是通过 基址寄存器 rbp 来定位。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/7.png" alt="汇编代码看数据访问方式"></p>
+<p><img src="/2021/computer-architecture-hitlabs/7.png" alt="汇编代码看数据访问方式"></p>
 <h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><ol>
 <li>源程序的编码：和OS、编辑器、编译器相关，Linux / windows/Mac 下的编码与回车处理不同，所以不同编码在不正确的使用环境下可能有编译以及错误输出。<br>分析验证：VS/CB/GCC下不同源程序编码是怎么处理的？</li>
 </ol>
@@ -302,26 +302,26 @@ var _hmt = _hmt || [];
 
 <p>utf8len：计算utf8编码的字符串的个数。</p>
 <p>！错误：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210416204335280.png" alt="image-20210416204335280"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210416204335280.png" alt="image-20210416204335280"></p>
 <ul>
 <li><p>比较时应该为二进制，而写成了0x十六进制，C没有二进制的直接表示，将之转化为十六进制写入。</p>
 </li>
 <li><p>byte &amp; 1000 0000 == 0 却不进入分支?<br>优先级问题。</p>
 </li>
 </ul>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210416210130066.png" alt="image-20210416210130066"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210416210130066.png" alt="image-20210416210130066"></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">utf8len</span><span class="params">(<span class="keyword">char</span>* str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//      unsigned char c1 = 1 &lt;&lt; 7;</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> c2 = <span class="number">1</span> &lt;&lt; <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> c3 = <span class="number">7</span> &lt;&lt; <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> c4 = <span class="number">15</span> &lt;&lt; <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str); i++) &#123;</span><br><span class="line">                <span class="keyword">unsigned</span> <span class="keyword">char</span> byte = *(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(str + i);</span><br><span class="line">                <span class="keyword">if</span>(byte &lt;= <span class="number">0x7F</span>) &#123;</span><br><span class="line">                        <span class="comment">// 0xxx xxxx</span></span><br><span class="line">                        num++;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((byte &amp; c2) == <span class="number">0x40</span>) &#123;</span><br><span class="line">                        <span class="comment">// 110x xxxx  xxxx xxxx</span></span><br><span class="line">                        num++;</span><br><span class="line">                        i++;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((byte &amp; c3) == <span class="number">0x60</span>) &#123;</span><br><span class="line">                        <span class="comment">// 1110 xxxx  xxxx xxxx  xxxx xxxx</span></span><br><span class="line">                        num++;</span><br><span class="line">                        i += <span class="number">2</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((byte &amp; c4) == <span class="number">0x70</span>) &#123;</span><br><span class="line">                        <span class="comment">// 1111 0xxx  xxxx xxxx  xxxx xxxx  xxxx xxxx</span></span><br><span class="line">                        num++;</span><br><span class="line">                        i += <span class="number">3</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">char</span> *str = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>)*<span class="number">100</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, str);</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str); i++) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%.2x &quot;</span>, *(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(str + i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> len = utf8len(str);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;The number of characters is %d\n&quot;</span>, len);</span><br><span class="line">        <span class="built_in">free</span>(str);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210416210258729.png" alt="image-20210416210258729"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210416210258729.png" alt="image-20210416210258729"></p>
 <ol start="4">
 <li>字符串比较函数 strcmp() 对中文的处理</li>
 </ol>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210417075647150.png" alt="image-20210417075647150"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210417075647150.png" alt="image-20210417075647150"></p>
 <p>strcmp() 源码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">strcmp</span> <span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * src, <span class="keyword">const</span> <span class="keyword">char</span> * dst)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span> ;</span><br><span class="line">    <span class="keyword">while</span>( ! (ret = *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)src - *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)dst) &amp;&amp; *dst)</span><br><span class="line">                ++src, ++dst;  </span><br><span class="line">    <span class="keyword">if</span> ( ret &lt; <span class="number">0</span> )</span><br><span class="line">           ret = <span class="number">-1</span> ;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( ret &gt; <span class="number">0</span> )</span><br><span class="line">           ret = <span class="number">1</span> ;</span><br><span class="line">    <span class="keyword">return</span>( ret );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>中文比较实际上也是比较字符在计算机中存储的01，而字符的01是由字符集与字符编码共同决定的，编码字符集Unicode，有UTF-8、UTF-16、UTF-32等多种字符编码；编码字符集ASCII，本身就是编码字符集，又是字符编码；编码字符集CB2312，只有EUC-CN一种字符编码，以下以utf-8为例。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210417080821157.png" alt="unicode中文范围"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210417080821157.png" alt="unicode中文范围"></p>
 <p>在linux中，默认使用的编码方式是不带BOM的UTF-8，则汉字的存储顺序是基本按照汉字字符在Unicode中的码点值(code point)来决定的。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/huahuahu/p/Unicode-zi-fu-chuan-pai-xu-gui-ze-yi-ru-he-que-din.html">Unicode 字符串排序规则（一）：如何确定单个字符的顺序</a></li>
@@ -332,7 +332,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>Unicode Collation Algorithm (UCA) 是 Unicode 制定的如何比较两个 Unicode 字符串的规范。UCA指定了默认情况下 Unicode 字符的顺序。但是这仅仅是默认情况，也就是照顾了大多数情况（也就是排序对英语国家比较友好）。对于其他地区的人们来说，就需要输入和默认情况不同的数据，以获得和当地习惯相符合的结果。比如同样的汉字，在中国大陆是按照汉语拼音排序的，在香港就是按照笔画数目排序的，笔画排序的依据主要是康熙字典第七版。</p>
 <p>Common Locale Data Repository (CLDR)，从名字上可以看出，这个实际上是一堆数据的仓库。对于指定的地区 (locale)，可以从中找到指定的数据。再结合 UCA，就可以得到符合当期习惯的排序结果。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210417101024600.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210417101024600.png"></p>
 <p>中国大陆使用unicode实际上是首先按照拼音排序，表现为不同行之间的顺序。对于同音字，也就是每一行之间的顺序，先按照笔画数排序，再按照<code>kRSUnicode</code>排序。</p>
 <h2 id="数据变换与输入输出"><a href="#数据变换与输入输出" class="headerlink" title="数据变换与输入输出"></a>数据变换与输入输出</h2><ol>
 <li>printf 与 scanf 的实现</li>
@@ -376,7 +376,7 @@ var _hmt = _hmt || [];
 
 
 <p>错误：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/10.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/10.png"></p>
 <p>1）abs() 函数传入浮点数时：abs会把该浮点数解释为int，因此数字可能会变得很大。</p>
 <p>2）fabs() 结果错误：没有包含头文件 stdlib.h，运行没有报错，返回0。</p>
 <p>单精度数7位有效数字。 （float）<br>双精度数16位有效数字。（double）</p>
@@ -404,52 +404,52 @@ var _hmt = _hmt || [];
 </ol>
 <h1 id="实验三-Bomb"><a href="#实验三-Bomb" class="headerlink" title="实验三 Bomb"></a>实验三 Bomb</h1><h2 id="各种代码的汇编分析"><a href="#各种代码的汇编分析" class="headerlink" title="各种代码的汇编分析"></a>各种代码的汇编分析</h2><h2 id="phase-1"><a href="#phase-1" class="headerlink" title="phase 1"></a>phase 1</h2><p>b 74</p>
 <p>进入phase_1:</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210421174611067.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210421174611067.png"></p>
 <p>推测拆弹密码字符串的存储地址为<code>$0x403150</code>，因为调用<code>strings_not_equal</code>前有把该地址放入esi寄存器的语句。</p>
 <p>以字符串形式查看该地址内容，得到：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210421175019595.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210421175019595.png"></p>
 <h2 id="phase-2"><a href="#phase-2" class="headerlink" title="phase 2"></a>phase 2</h2><p>b 82</p>
 <p>I am just a renegade hockey mom.</p>
 <p>进入phase_2:</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210421175354138.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210421175354138.png"></p>
 <p>进入read_six_number:</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422143204775.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422143204775.png"></p>
 <p>可知read_six_number用来处理输入，输入格式为”%d %d %d %d %d %d”。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422134321868.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422134321868.png"></p>
 <p>根据汇编代码可推断出输入数字的规律。</p>
 <h2 id="phase-3"><a href="#phase-3" class="headerlink" title="phase 3"></a>phase 3</h2><p>1 2 4 7 11 16</p>
 <p>b 89</p>
 <p>进入phase_3:</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422144049874.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422144049874.png"></p>
 <p>可知输入形式为”%d %c %d”。</p>
 <p>测试输入<code>1 c 0</code></p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422145054755.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422145054755.png"></p>
 <p>可知 <code>0xc(%rsp)</code> 处存的是第一个输入数字。<code>cmp $0x7, %eax</code> 表明该数字不能大于7。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422145421416.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422145421416.png"></p>
 <p>接下来看位于<code>0x8(%rsp)</code>的第二个数字是否等于0x368 = 872。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422150618945.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422150618945.png"></p>
 <p>由第三步比较可得需要输入的字符为’t’。</p>
 <h2 id="phase-4"><a href="#phase-4" class="headerlink" title="phase 4"></a>phase 4</h2><p>1 t 872</p>
 <p>b 95</p>
 <p>进入phase_4:</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422150922762.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422150922762.png"></p>
 <p>同理得，需要输入的是两个数字。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422151719517.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422151719517.png"></p>
 <p>继续往下，可知第二q个数字需要在[2, 4]中。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422202835800.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422202835800.png"></p>
 <p>看 func4 函数返回时的汇编代码得输入的第一个数字需要与eax相等。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422204740646.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422204740646.png"></p>
 <p>从func4退出时，rax的值为0xa2。(在第二个输入数字为3的情况下)</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422152712885.png"></p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422153036291.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422152712885.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422153036291.png"></p>
 <p>esi 中存放输入的第二个数字，edi的初始值为8。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422153344590.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422153344590.png"></p>
 <p>将edi与1比较，若相等则跳到<code>mov %esi, %eax</code>。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422153609671.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422153609671.png"></p>
 <p>func4函数内部会将参数减一，调用自己。进入第二个func4函数栈时，edi == 7。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422153909104.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422153909104.png"></p>
 <p>一直到参数为1。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422154208393.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422154208393.png"></p>
 <p>由此可以写出func4的框架：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func4</span><span class="params">(<span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> 输入的第二个数字</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> res1 = func(n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">int</span> res2 = func(n<span class="number">-2</span>);</span><br><span class="line">        <span class="keyword">return</span> res1 + res2 + 输入的第二个数字</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -482,61 +482,61 @@ var _hmt = _hmt || [];
 <h2 id="phase-5"><a href="#phase-5" class="headerlink" title="phase 5"></a>phase 5</h2><p>162 3</p>
 <p>b 101</p>
 <p>同理查看scanf参数得到需要的为两个数字(“%d %d”)。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422214403157.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422214403157.png"></p>
 <p>当eax二进制后4位为1111时，跳入phase_5+91。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422214132046.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422214132046.png"></p>
 <p>edx 的最后4位需要为0xf，输入的第二个数字需要与ecx相等。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422215036187.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422215036187.png"></p>
 <p>输入的第一个数字后四位不为1111时，执行phase_4之后代码，可得rax是访问数组的下标。</p>
 <p><code>mov %eax, 0xc(%rsp)</code>: 用array[①] 的值覆盖①的位置。</p>
 <p><code>add %eax, %ecx</code>: 将该数组值加入ecx。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422220110768.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422220110768.png"></p>
 <p>由此可得，最终的结果是从下标为①开始执行上述主要操作15次后，rax的值为15，经过的累加和(ecx)则为②。</p>
 <p>根据array的值，可得5 115。</p>
 <h2 id="phase-6"><a href="#phase-6" class="headerlink" title="phase 6"></a>phase 6</h2><p>5 115</p>
 <p>b 108</p>
 <p>进入phase_6，由read_six_number函数可知需要输入的是六个数字。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423074937411.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423074937411.png"></p>
 <p>查看rsp处内容可知：函数将输入的六个数字(1 2 3 4 5 6)放在了rsp+0x30处。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423075339517.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423075339517.png"></p>
 <p>对应汇编代码中的位置表明rax用来选定某一个数字。</p>
 <p>分析phase_6的汇编代码，可得：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423081019406.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423081019406.png"></p>
 <p>由此可以推断出函数的第一部分为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(input[i] - <span class="number">1</span> &gt; <span class="number">5</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; <span class="number">6</span>; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(input[i] == input[j]) <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最终结果其中一个要求输入为两两不相等的六个小于7的数字（即123456的一个排列）。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423085247725.png"></p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423090018665.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423085247725.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423090018665.png"></p>
 <p>分析可得，函数遍历输入的每一个数字，每次eax都从1到6递增，当遍历到的第i个数等于eax，则把对应的ebp的值（nodei地址）存入栈rsp+8(i-1)中，ebp随eax变化而变化，变为下一个节点（next）地址。</p>
 <p>例如，假设输入为3 1 2 5 6 4，则栈顶node地址排列也是3 1 2 5 6 4。</p>
 <p>接下来，将node序列按照这个顺序重新连接（改变每一个node的next域为序列中的下一个）。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423141118889.png"></p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423141414546.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423141118889.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423141414546.png"></p>
 <p>最终接受的结果为：所有相邻的节点，前一个节点（rbx）的value比当前节点的value（eax）值小（即排序）。</p>
 <p>各节点value分别为：738、323、138、191、148、584。</p>
 <p>则从小到大排序index为3-&gt;5-&gt;4-&gt;2-&gt;6-&gt;1。</p>
 <p>因此输入的数字应该为 3 5 4 2 6 1。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423143414354.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423143414354.png"></p>
 <h2 id="隐藏关卡"><a href="#隐藏关卡" class="headerlink" title="隐藏关卡"></a>隐藏关卡</h2><p>在 phase_defused 函数中：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422211257809.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422211257809.png"></p>
 <p>当在第四关输入后附加特定字符串时，进入隐藏关卡。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423145041470.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423145041470.png"></p>
 <p>由此可知特定字符串是DrEvil。</p>
 <p>但需要当0x40576c处的值(num_input_string)等于6时才会进入(即解开前面全部六关后)。</p>
 <p>secret_phase汇编代码：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210422211430054.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210422211430054.png"></p>
 <p>由atoi函数可知需要输入的是一个整数。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423151243541.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423151243541.png"></p>
 <p>这个整数减去一后需要不比0x3e8(1000)大。</p>
 <p>接着会进入一个fun7函数，得到的返回值应该为6。</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423151600870.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423151600870.png"></p>
 <p>进入fun7：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423163239565.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423163239565.png"></p>
 <p>当输入的数字比rdi指向的数字大时，rdi加上0x10递归，返回时将得到的值乘以2加一；小时，rdi加上0x8递归，返回时将得到的值乘以；若相等则返回0。</p>
 <p>需要最终返回值为6则可以经过0-&gt;1-&gt;3-&gt;6。其中大小变化为 小于-&gt;大于-&gt;大于-&gt;相等。一步步输入值测试得到最终的”相等”为0x23(35)。</p>
 <p>全部完成：</p>
-<p><img src="/2021/computer-architecture-hitlabs.htm/image-20210423162943384.png"></p>
+<p><img src="/2021/computer-architecture-hitlabs/image-20210423162943384.png"></p>
 	  
 	</div>
 
@@ -551,7 +551,7 @@ var _hmt = _hmt || [];
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2021/linux0.11-hitlabs.html" type="button" class="btn btn-default ">下一页<i
+    <a href="/2021/linux0.11-hitlabs/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 

@@ -172,7 +172,7 @@ var _hmt = _hmt || [];
 <li><p>在主题配置文件中修改</p>
 </li>
 </ol>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-24_20-22-36.png" alt="修改favicon配置"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/Snipaste_2020-08-24_20-22-36.png" alt="修改favicon配置"></p>
 <h2 id="更改文章url为英文"><a href="#更改文章url为英文" class="headerlink" title="更改文章url为英文"></a>更改文章url为英文</h2><p>在站点的<code>_config.yml</code>中，生成的文章链接默认为：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br></pre></td></tr></table></figure>
 
@@ -187,11 +187,11 @@ var _hmt = _hmt || [];
 <ol start="3">
 <li>之后写文章时在font-matter处加上<code>urlname: XXX</code>就可以了</li>
 </ol>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-09-06_10-31-34.png" alt="urlname"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/Snipaste_2020-09-06_10-31-34.png" alt="urlname"></p>
 <br>
 
 <p>还可以在<code>scaffolds/post.md</code>里配上这个字段</p>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-09-06_10-33-53.png" alt="添加创建模板字段"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/Snipaste_2020-09-06_10-33-53.png" alt="添加创建模板字段"></p>
 <p>这样，以后<code>hexo n post &quot;&quot;</code>的时候就自动出现在font-matter里面了。</p>
 <p>！注意：以前的文章也需要加上urlname字段，内容与文章标题保持一致，否则就找不到了噢。（或者你也可以选择全部重建）</p>
 <h1 id="添加小功能"><a href="#添加小功能" class="headerlink" title="添加小功能"></a>添加小功能</h1><h2 id="添加文章时自动打开编辑器"><a href="#添加文章时自动打开编辑器" class="headerlink" title="添加文章时自动打开编辑器"></a>添加文章时自动打开编辑器</h2><p>参考 <a href="%5Bhttps://notes.doublemine.me/2015-06-29-Hexo%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8.html%5D(https://notes.doublemine.me/2015-06-29-Hexo%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8.html)">Hexo 添加文章时自动打开编辑器 - Doublemine</a> 。以下为博客内容：</p>
@@ -216,7 +216,7 @@ var _hmt = _hmt || [];
 <p>1）站点配置文件，位于站点文件夹根目录内<code>~/blog/_config.yml</code></p>
 <p>2）主题配置文件，位于主题文件夹根目录内<code>~/blog/themes/next/_config.yml</code></p>
 <h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><p>有两个插件我比较喜欢，一个可以<a target="_blank" rel="noopener" href="https://github.com/kchen0x/hexo-reference">悬浮显示</a>，一个比较<a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-footnotes">简洁</a> 。</p>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-20_16-18-02.png" alt="hexo两个脚注插件"><img src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-20_16-18-11.png" alt="悬浮显示" style="zoom:50%;"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/Snipaste_2020-08-20_16-18-02.png" alt="hexo两个脚注插件"><img src="/2020/hexo-githubPages-setUp-record/Snipaste_2020-08-20_16-18-11.png" alt="悬浮显示" style="zoom:50%;"></p>
 <p><strong>Markdown</strong> 语法</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">basic footnote[^1]</span><br><span class="line">here is an inline footnote[<span class="string">^2</span>](<span class="link">inline footnote</span>)</span><br><span class="line">and another one[^3]</span><br><span class="line">and another one[^4]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">^1</span>]: <span class="link">basic footnote content</span></span><br><span class="line">[<span class="symbol">^3</span>]: <span class="link">paragraph</span></span><br><span class="line">footnote</span><br><span class="line">content</span><br><span class="line">[<span class="string">^4</span>]: footnote content with some [<span class="string">markdown</span>](<span class="link">https://en.wikipedia.org/wiki/Markdown</span>)</span><br></pre></td></tr></table></figure>
 
@@ -252,7 +252,7 @@ var _hmt = _hmt || [];
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uni hexo-generator-<span class="built_in">index</span> --<span class="keyword">save</span> &amp;&amp; npm i hexo-generator-indexed --<span class="keyword">save</span></span><br></pre></td></tr></table></figure>
 
 <p>报错：</p>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/image-20200817162704023.png" alt="报错信息"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/image-20200817162704023.png" alt="报错信息"></p>
 <p>解决方案：</p>
 <p>1.fsevents不在package.json里，但是仍然安装了。我的系统是Windows系统，fsevents是darwin的可选依赖。博客主人在里面安装了fsevents相关依赖库，所以到这边也就安装到我的windows上了。“检查你的package.json 文件中是不是有fsevents相关依赖，删除即好。”但我的package.json文件中并没有，所以采取了第二种方案。</p>
 <p>2.在package.json中加入下面代码，将fsevents依赖变为可选的。</p>
@@ -268,11 +268,11 @@ var _hmt = _hmt || [];
 <h2 id="本地与部署不一致问题"><a href="#本地与部署不一致问题" class="headerlink" title="本地与部署不一致问题"></a>本地与部署不一致问题</h2><p>参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/GAI159/article/details/105128186/">解决hexo本地与部署不一致问题</a>。</p>
 <p>可能原因：</p>
 <p>1.URL配置错误(写上自己的博客地址)</p>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/2020-08-19_11-33-46.png" alt="站点配置信息"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/2020-08-19_11-33-46.png" alt="站点配置信息"></p>
 <p>2.部署到远程服务器没来得及更新，过一段时间再看</p>
 <p>3.浏览器保存了之前的数据，清除浏览器缓存后再强制刷新Shift+F5 （√）</p>
 <p>4.如果上面几种都还没有解决问题，也可能是branch错误 </p>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/20200326212416815.jpg" alt="推到另一个分支"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/20200326212416815.jpg" alt="推到另一个分支"></p>
 <p>之后在hexo站点配置文件_config.yml中找到branch，将master改为刚刚新建的分支名。</p>
 <h2 id="博客图片显示不出"><a href="#博客图片显示不出" class="headerlink" title="博客图片显示不出"></a>博客图片显示不出</h2><p>我一般是采用截图后直接将图片粘贴到博客中的做法，这样当然找不到了，图片文件都没有到github里面去。</p>
 <p>解决办法：</p>
@@ -280,7 +280,7 @@ var _hmt = _hmt || [];
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
 
 <p>在站点配置文件*/_config.yml* 中配置指令 <code>post_asset_folder: true</code> 这样在每次新建文章的时候就会建立同名文件夹, 直接将相应的文章图片放在文件夹内。</p>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-19_11-54-33.png" alt="文件结构"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/Snipaste_2020-08-19_11-54-33.png" alt="文件结构"></p>
 <p>之后引用的时候可以使用markdown语法</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">文件结构</span>](<span class="link">hexo-github-pages-博客搭建记录/Snipaste_2020-08-19_11-54-33.png</span>)</span><br></pre></td></tr></table></figure>
 
@@ -289,7 +289,7 @@ var _hmt = _hmt || [];
 
 <h2 id="显示不出archives页面"><a href="#显示不出archives页面" class="headerlink" title="显示不出archives页面"></a>显示不出archives页面</h2><p>archives归档页面显示不出，但只要名字不是这个就没有问题。</p>
 <h2 id="文章路径undefined"><a href="#文章路径undefined" class="headerlink" title="文章路径undefined"></a>文章路径undefined</h2><p>将<code>站点配置文件</code> permalink 修改后就好了。</p>
-<p><img src="/2020/hexo-githubPages-setUp-record.htm/Snipaste_2020-08-24_22-06-11.png" alt="配置信息"></p>
+<p><img src="/2020/hexo-githubPages-setUp-record/Snipaste_2020-08-24_22-06-11.png" alt="配置信息"></p>
 	  
 	</div>
 
@@ -299,7 +299,7 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2020/InfoManageSystem-webApplication-setUp-record.html" type="button" class="btn btn-default"><i
+    <a href="/2020/InfoManageSystem-webApplication-setUp-record/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> 上一页</a>
     
 

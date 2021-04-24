@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>大二快结束时我做了一个决定 | 火山口百年城</title>
+  <title>java IO与文件操作 | 火山口百年城</title>
   <meta name="author" content="啊喻">
   
   <meta name="description" content="学习生活片段记录">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="大二快结束时我做了一个决定"/>
+  <meta property="og:title" content="java IO与文件操作"/>
   <meta property="og:site_name" content="火山口百年城"/>
 
   
@@ -119,7 +119,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> 大二快结束时我做了一个决定</h1>
+			<h1> java IO与文件操作</h1>
 		</div>
 	
 
@@ -136,27 +136,12 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  		
 
-	  <p>2021.3.14 我二十了。同时也正开始我的大二第二学期。</p>
-<a id="more"></a>
+	  <a id="more"></a>
 
-
-
-<p>2021.3.15 我在刷各种信息的时候，无意中又看到了开发人员的招聘信息。仔细看看招聘要求，越看心里越没底，虽说那些技术学起来应该不会太难，但想着我离这些要求的距离确实很大，而我又马上要成为一个大三的学生了，心中就不免焦虑起来。</p>
-<p>可能是因为大一下学期疫情在家学习，对学校的记忆缺失了那么一段，真正到了大二时我仍感觉自己像刚刚进入大学一般，上学期也没什么紧迫感，整天就只是完成课业，额外的学习也没有定什么硬性的计划。但二十岁将近，和朋友又时常聊起”大学生话转眼就要过半，我们马上也要成为大三学生”，我心里的焦虑也在不知道的角落里慢慢滋长，就在我二十岁的那后一天，看到那些招聘要求的时候冒头了。</p>
-<p>那天下午我看了整整一个下午的各种招聘与内推信息，心里的一个念头慢慢成型：我要去实习。但光是这么想想肯定是不能实现的，我开始找相关的暑期实习信息，看看要求是怎样，这个愿望在这个学期的努力下能不能完成。还真被我找到了，字节跳动的内推实习，标明接受大一大二且工作时限可以是一个月，再看要求：计算机基础和语言基础，投递截止时间也是到六七月。除了这个看起来很”完美”的实习，我还找到了其他一些非大厂的实习信息，并把它们一一保存了起来。</p>
-<p>我开始做计划，计算机基础的核心课程肯定是要自学的，我没有什么大型项目和竞赛的经历，要是面试肯定就是会问计算机基础与语言基础。还有，算法刷题也要提上日程，每天刷个两道题，三四个月后也能有两百左右的题量，足够了。</p>
-<p>如今我学了的核心课程还只有数据结构与算法，正在学的有计算机系统和形式语言自动机，我还需要自学操作系统、计算机网络、编译原理、数据库原理，之后可能还需要软件工程。除此之外，我还需要复习Java和JavaWeb的各种知识，重点掌握框架的使用，了解linux编程，还有余力需要自己做一两个小项目……</p>
-<p>前一天大致想好计划后，第二天我开始做准备：制定好一个学期的每周学习计划，选好各个课程的视频、教材、实验、习题资源（我特意没有略过了自己学校的慕课，为了给大三的自己上课时留新鲜感），看了许多人关于找实习的经验博客和视频，自觉动力与信心满满。</p>
-<p>现在执行计划五天，自觉良好，任务量不会太多，内容也能够理解，继续坚持，我可以！</p>
-<p>最后来个总结，我为什么会做出这样一个决定：</p>
-<ol>
-<li>我之前已经学习过Java、Web开发和Mysql数据库，自觉深入学习难度不会太大。</li>
-<li>寒假时已经自学过计算机系统，保证这学期的绩点在时间分配较少的情况下也能不往下掉应该不难。</li>
-<li>大二上和寒假都过得没有目标，自学也没有个量化的标准，我急需一个能够得找又能带来巨大动力的目标。</li>
-<li>对大学生活我已经差不多习惯了，平时关注了许多职场中的开发人员，看了他们的思考与工作愈加向往工作生活与新环境。</li>
-<li>已经决定了毕业后找工作，早点能开始实习自然是加分的。</li>
-<li>往坏了想，要是没有拿到实习至少我也有了面试的经历；要是简历都没有通过至少我大二下学期把核心课都学了一遍，怎样都是赚了啊，为什么不呢。</li>
-</ol>
+<h1 id="输入输出类"><a href="#输入输出类" class="headerlink" title="输入输出类"></a>输入输出类</h1><h2 id="FileInputStream"><a href="#FileInputStream" class="headerlink" title="FileInputStream"></a>FileInputStream</h2><h3 id="read-与-read-byte-b"><a href="#read-与-read-byte-b" class="headerlink" title="read() 与 read(byte[] b)"></a>read() 与 read(byte[] b)</h3><p>这个方法是对这个流一个一个字节的读，返回的int就是这个字节的int表示方式。</p>
+<p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/wymrdjm/article/details/78758986">FileInputStream之read方法</a></p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="readLine-与read"><a href="#readLine-与read" class="headerlink" title="readLine()与read()"></a>readLine()与read()</h2><p>功能：读取一个文本行。<br>一定要注意：<br>1、读入的数据要注意有/r或/n或/r/n, readLine返回的字符串中不包含结尾的”\r”,”\n”。<br>2、没有数据时会阻塞，在数据流异常或断开时才会返回null<br>3、使用socket之类的数据流时，要避免使用readLine()，以免为了等待一个换行/回车符而一直阻塞<br>4、readLine()是一个阻塞函数，当没有数据读取时，就一直会阻塞在那，而不是返回null<br>5、readLine()只有在数据流发生异常或者另一端被close()掉时，才会返回null值。<br>6、如果不指定buffer大小，则readLine()使用的buffer有8192个字符。在达到buffer大小之前，只有遇到”/r”、”/n”、”/r/n”才会返回。<br>7、该方法读取一行文本，当遇到换行符”\n”,回车符”\r”或者回车符后面紧跟着换行符时，该行结束并返回。没有数据时，将会一直处于等待状态。因此在进行网络连接时，应该避免使用该方法。</p>
+<p>read()<br>功能：读取单个字符的个数，如果已经读完的话会返回-1 (其范围从 0 到 65535 )</p>
 	  
 	</div>
 
@@ -166,13 +151,13 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2021/My-favourite-things.html" type="button" class="btn btn-default"><i
+    <a href="/2020/null/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> 上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2021/why-I-choose-work.html" type="button" class="btn btn-default ">下一页<i
+    <a href="/2020/null/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -201,33 +186,14 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2021-03-27 
+	2020-10-24 
 	</div>
 	
 
 	<!-- categories -->
     
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/杂谈/">杂谈<span>3</span></a></li>
-  </li>
-
-    </ul>
-	</div>
-	
 
 	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/观点/">观点<span>3</span></a></li>
-    </ul>
-	</div>
 		
 
 	<!-- toc -->
@@ -236,7 +202,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%B1%BB"><span class="toc-article-text">输入输出类</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#FileInputStream"><span class="toc-article-text">FileInputStream</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#read-%E4%B8%8E-read-byte-b"><span class="toc-article-text">read() 与 read(byte[] b)</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-article-text">方法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#readLine-%E4%B8%8Eread"><span class="toc-article-text">readLine()与read()</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
