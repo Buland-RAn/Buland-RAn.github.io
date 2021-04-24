@@ -1640,6 +1640,21 @@
     <content><![CDATA[<h1 id="archive"><a href="#archive" class="headerlink" title="archive"></a>archive</h1>]]></content>
   </entry>
   <entry>
+    <title>algorithms</title>
+    <url>/algorithms/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>一些分类</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[<h1 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h1>]]></content>
+  </entry>
+  <entry>
+    <title>life</title>
+    <url>/life/index.html</url>
+    <content><![CDATA[<h1 id="life"><a href="#life" class="headerlink" title="life"></a>life</h1>]]></content>
+  </entry>
+  <entry>
     <title>书籍电影</title>
     <url>/share/index.html</url>
     <content><![CDATA[<div class="tabs" id="share"><ul class="nav-tabs"><li class="tab active"><a href="#share-1"><i class="fas fa-book"></i>书单</a></li><li class="tab"><a href="#share-2"><i class="fas fa-video"></i>纪录片</a></li></ul><div class="tab-content"><div class="tab-pane active" id="share-1"><ul>
@@ -1718,23 +1733,8 @@
 </ul></div></div></div>]]></content>
   </entry>
   <entry>
-    <title>life</title>
-    <url>/life/index.html</url>
-    <content><![CDATA[<h1 id="life"><a href="#life" class="headerlink" title="life"></a>life</h1>]]></content>
-  </entry>
-  <entry>
     <title>标签们</title>
     <url>/tags/index.html</url>
     <content><![CDATA[<h1 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h1>]]></content>
-  </entry>
-  <entry>
-    <title>一些分类</title>
-    <url>/categories/index.html</url>
-    <content><![CDATA[<h1 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h1>]]></content>
-  </entry>
-  <entry>
-    <title>algorithms</title>
-    <url>/algorithms/index.html</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
