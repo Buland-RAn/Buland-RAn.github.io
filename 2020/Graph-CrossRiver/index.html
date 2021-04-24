@@ -6,8 +6,8 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>图论-过河问题及其变形 | 火山口百年城</title>
-  <meta name="author" content="啊喻">
+  <title>图论-过河问题及其变形 | AYu ☀</title>
+  <meta name="author" content="AYu">
   
   <meta name="description" content="学习生活片段记录">
   
@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="图论-过河问题及其变形"/>
-  <meta property="og:site_name" content="火山口百年城"/>
+  <meta property="og:site_name" content="AYu ☀"/>
 
   
     <meta property="og:image" content=""/>
@@ -60,7 +60,7 @@ var _hmt = _hmt || [];
 </script>
 
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="火山口百年城" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu ☀" type="application/atom+xml">
 </head>
 
  <body>  
@@ -72,13 +72,13 @@ var _hmt = _hmt || [];
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class="navbar-brand" href="/">火山口百年城</a>
+	  <a class="navbar-brand" href="/">AYu ☀</a>
       <div class="collapse navbar-collapse nav-menu">
 		<ul class="nav navbar-nav">
 		  
 		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
 			</a>
 		  </li>
 		  
@@ -136,21 +136,20 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  		
 
-	  <a id="more"></a>
-
+	  <p>一个农夫带着一头狼、一头羊、一颗白菜过河。他面前只有一条船，只能容纳他和一件物品，只有农夫会划船。如果农夫不在场，狼会吃羊、羊会吃白菜，农夫在场则不会。求将所有物品运到对岸的方案。<a id="more"></a></p>
 <h1 id="图论-安全过河的最短路径问题"><a href="#图论-安全过河的最短路径问题" class="headerlink" title="图论-安全过河的最短路径问题"></a>图论-安全过河的最短路径问题</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lfri/p/9866992.html">原博客</a></p>
 <h2 id="农夫过河问题"><a href="#农夫过河问题" class="headerlink" title="农夫过河问题"></a>农夫过河问题</h2><p><strong>问题描述</strong></p>
 <p>一个农夫带着一头狼、一头羊、一颗白菜过河。他面前只有一条船，只能容纳他和一件物品，只有农夫会划船。如果农夫不在场，狼会吃羊、羊会吃白菜，农夫在场则不会。求将所有物品运到对岸的方案。</p>
 <p><strong>解题思路</strong></p>
 <p>根据物品的位置定义状态，若在左岸记为1，右岸记为0，于是最终方案就是(1,1,1,1)–&gt;(0,0,0,0)所经过的路径。</p>
 <p>1、定义状态</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191311144-1211710443.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191311144-1211710443.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191311144-1211710443.png"><img src="/2020/Graph-CrossRiver/1365470-20181028191311144-1211710443.png"></a></p>
 <p>2、列举所有状态（人、狼、羊、菜）</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191459048-317298943.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191459048-317298943.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191459048-317298943.png"><img src="/2020/Graph-CrossRiver/1365470-20181028191459048-317298943.png"></a></p>
 <p>3、删除不合理的状态（狼和羊、羊和菜）</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191647740-1828632698.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191647740-1828632698.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028191647740-1828632698.png"><img src="/2020/Graph-CrossRiver/1365470-20181028191647740-1828632698.png"></a></p>
 <p>4、连边（模拟一次渡河）</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028192013516-1740822628.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028192013516-1740822628.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028192013516-1740822628.png"><img src="/2020/Graph-CrossRiver/1365470-20181028192013516-1740822628-1619247456141.png"></a></p>
 <p>5、寻找路径</p>
 <p>寻找(1111)–&gt;(0000)的边，可以用寻路算法如bfs、dfs,如果要求最短路可以用最短路算法如bfs、Dijsktra等，当然这里图很简单，可直接观察出来。</p>
 <figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="params">(<span class="number">1111</span>)</span>--&gt;</span><span class="function"><span class="params">(<span class="number">0101</span>)</span>--&gt;</span><span class="function"><span class="params">(<span class="number">1101</span>)</span>--&gt;</span><span class="function"><span class="params">(<span class="number">0001</span>)</span>--&gt;</span><span class="function"><span class="params">(<span class="number">1011</span>)</span>--&gt;</span><span class="function"><span class="params">(<span class="number">0010</span>)</span>--&gt;</span><span class="function"><span class="params">(<span class="number">1010</span>)</span>--&gt;</span>(<span class="number">0000</span>)（两条最短路之一）</span><br><span class="line">       左岸                                 右岸</span><br><span class="line"><span class="number">1</span>、人  狼  羊 花                           空</span><br><span class="line"><span class="number">2</span>、狼  花                                 人 羊</span><br><span class="line"><span class="number">3</span>、人  狼 花                               羊</span><br><span class="line"><span class="number">4</span>、花                                     人 狼  羊</span><br><span class="line"><span class="number">5</span>、人  羊  花                              狼</span><br><span class="line"><span class="number">6</span>、羊                                     人 花  狼</span><br><span class="line"><span class="number">7</span>、人 羊                                  狼 花</span><br><span class="line"><span class="number">8</span>、空                                     狼 花 人 羊   </span><br></pre></td></tr></table></figure>
@@ -161,13 +160,13 @@ var _hmt = _hmt || [];
 <p>有三个传教士和三个吃人恶魔要渡过一条河，河中有一条船，只能装下两个人。在任何地方（无论是岸边还是船上），如果吃人恶魔数量多于传教士数量，吃人恶魔就会吃掉传教士。问：怎么才能让这些都安全过河？</p>
 <p><strong>解题思路</strong></p>
 <p>1、定义状态</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194640506-192088956.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194640506-192088956.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194640506-192088956.png"><img src="/2020/Graph-CrossRiver/1365470-20181028194640506-192088956.png"></a></p>
 <p>2、列举所有状态</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194800042-757542463.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194800042-757542463.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194800042-757542463.png"><img src="/2020/Graph-CrossRiver/1365470-20181028194800042-757542463.png"></a></p>
 <p>3、删除不合理状态</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194856707-156878733.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194856707-156878733.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028194856707-156878733.png"><img src="/2020/Graph-CrossRiver/1365470-20181028194856707-156878733.png"></a></p>
 <p>4、连边（模拟依次渡河变化）</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028195050222-475204241.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028195050222-475204241.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028195050222-475204241.png"><img src="/2020/Graph-CrossRiver/1365470-20181028195050222-475204241.png"></a></p>
 <p>5、寻找路径</p>
 <p>寻找(33 L 00)–&gt;(00 R 33)的路径</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">其中一条路径</span><br><span class="line">(<span class="number">33</span> L <span class="number">00</span>)--&gt;(<span class="number">31</span> R <span class="number">01</span>)--&gt;(<span class="number">32</span> L <span class="number">01</span>)--&gt;(<span class="number">30</span> R <span class="number">03</span>)--&gt;(<span class="number">31</span> L <span class="number">02</span>)--&gt;(<span class="number">11</span> R <span class="number">22</span>)--&gt;(<span class="number">22</span> L <span class="number">01</span>)--&gt;(<span class="number">02</span> R <span class="number">31</span>)--&gt;(<span class="number">03</span> L <span class="number">30</span>)--&gt;(<span class="number">01</span> R <span class="number">32</span>)--&gt;(<span class="number">02</span> L <span class="number">31</span>)--&gt;(<span class="number">00</span> R <span class="number">33</span>)</span><br><span class="line"><span class="number">1</span>、两个吃人恶魔过河</span><br><span class="line"><span class="number">2</span>、一个吃人恶魔回来</span><br><span class="line"><span class="number">3</span>、两个吃人恶魔过河</span><br><span class="line"><span class="number">4</span>、一个吃人恶魔回来</span><br><span class="line"><span class="number">5</span>、两个传教士过河</span><br><span class="line"><span class="number">6</span>、一个传教士和一个吃人恶魔回来</span><br><span class="line"><span class="number">7</span>、两个传教士回来</span><br><span class="line"><span class="number">8</span>、一个吃人恶魔回去</span><br><span class="line"><span class="number">9</span>、两个吃人恶魔过河</span><br><span class="line"><span class="number">10</span>、一个吃人恶魔回去</span><br><span class="line"><span class="number">11</span>、两个吃人恶魔过河</span><br></pre></td></tr></table></figure>
@@ -180,11 +179,11 @@ var _hmt = _hmt || [];
 <p>与前面两个相比，这次不仅要求方案，同时要求时间最短。 </p>
 <p>同样需要定义状态，四个人+手电筒的位置</p>
 <p>1、定义状态</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028230252029-80793767.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028230252029-80793767.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028230252029-80793767.png"><img src="/2020/Graph-CrossRiver/1365470-20181028230252029-80793767.png"></a></p>
 <p>2、建图</p>
 <p>分为每次通过一个人和每次两个人，都是带权无向边。</p>
 <p>(下面只连接了与(01111)的边)</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028230534537-2018916150.png"><img src="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028230534537-2018916150.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1365470/201810/1365470-20181028230534537-2018916150.png"><img src="/2020/Graph-CrossRiver/1365470-20181028230534537-2018916150.png"></a></p>
 <p>3、寻找最短路</p>
 <p>寻找(L 1111)–&gt;(R 0000)的最短路，即最短路算法中(01111)–&gt;(10000)的最短路，以下是利用Dijstra算法的解决方法。</p>
 <p>最终答案为(2 + 1 + 10 + 2 + 2) = 17.</p>
@@ -242,6 +241,17 @@ var _hmt = _hmt || [];
 
 	<!-- categories -->
     
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/算法/">算法<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
 
 	<!-- tags -->
 		
@@ -272,7 +282,7 @@ var _hmt = _hmt || [];
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2021 啊喻
+  &copy; 2021 AYu
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
      <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
