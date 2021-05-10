@@ -126,7 +126,7 @@ var _hmt = _hmt || [];
 
 	  <p>针对 if-else 的各种不同优化方案。<a id="more"></a></p>
 <h1 id="消灭if-else嵌套"><a href="#消灭if-else嵌套" class="headerlink" title="消灭if-else嵌套"></a>消灭if-else嵌套</h1><p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844904080104488967">参考出处1</a>：使用设计模式中的<strong>策略模式</strong>来优化针对不同条件进行不同操作的需求。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fzy629442466/article/details/85762748">参考出处2</a>: 优化大量的if else 的不同方法</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fzy629442466/article/details/85762748">参考出处2</a>：优化大量的if else 的不同方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                        ...</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>if-else</code>一般不建议嵌套超过三层，如果一段代码存在过多的<code>if-else</code>嵌套，代码的可读性就会急速下降，后期维护难度也大大提高。</p>
@@ -225,6 +225,10 @@ var _hmt = _hmt || [];
 	2020-11-05 
 	</div>
 	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
 
 	<!-- categories -->
     
@@ -261,8 +265,13 @@ var _hmt = _hmt || [];
   &copy; 2021 AYu
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
-     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
 </p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  </footer>
 </div> <!-- container-narrow -->
   
@@ -278,6 +287,8 @@ var _hmt = _hmt || [];
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script> 
+
+
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">

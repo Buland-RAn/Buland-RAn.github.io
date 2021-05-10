@@ -184,7 +184,7 @@ var _hmt = _hmt || [];
 <td align="center">相比前面的实验而言，本实验较难。将全面加深进程、虚存、磁盘、中断的认识，对OS的系统性获得直接经验。</td>
 </tr>
 </tbody></table>
-<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><p>课程提供线上环境 <a target="_blank" rel="noopener" href="https://www.lanqiao.cn/courses/115">蓝桥-操作系统原理与实践</a>。因为操作过程中出现了一些问题，我改用云服务器。</p>
+<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><p>课程提供线上环境 <a target="_blank" rel="noopener" href="https://www.lanqiao.cn/courses/115">蓝桥-操作系统原理与实践</a>。因为操作过程中出现了一些问题，我改用虚拟机。</p>
 <ul>
 <li>Ubuntu 18.04</li>
 <li>Bochs</li>
@@ -257,7 +257,7 @@ var _hmt = _hmt || [];
 <p>注：实验中用标记为</p>
 <blockquote>
 </blockquote>
-<p>为过程中可能出现的问题。</p>
+<p>为过程中出现的问题。</p>
 <h1 id="熟悉实验环境"><a href="#熟悉实验环境" class="headerlink" title="熟悉实验环境"></a>熟悉实验环境</h1><h2 id="1-编译内核"><a href="#1-编译内核" class="headerlink" title="1. 编译内核"></a>1. 编译内核</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ./oslab/linux-0.11/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make all</span></span><br></pre></td></tr></table></figure>
 
 <p>只要最后没有出现error就说明编译成功。</p>
@@ -343,7 +343,7 @@ var _hmt = _hmt || [];
 <p>引导程序由 BIOS 加载并运行。它活动时，操作系统还不存在，整台计算机的所有资源都由它掌控，而能利用的功能只有 BIOS 中断调用。</p>
 <p>实验中主要使用 BIOS 0x10 和 0x13 中断。</p>
 <h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><p>有时，继承传统意味着别手蹩脚。x86 计算机为了向下兼容，导致启动过程比较复杂。请找出 x86 计算机启动过程中，被硬件强制，软件必须遵守的两个“多此一举”的步骤（多找几个也无妨），说说它们为什么多此一举，并设计更简洁的替代方案。</p>
-<p><a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh/X86">wiki: x86</a></p>
+<p>参考材料：<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh/X86">wiki: x86</a></p>
 <p>x86最先由实模式慢慢发展到保护模式，这中间有过很多为了向下兼容而不得不妥协的作法，比如说为了能访问更多的内存而开启了A20，为了在保护模式下可以运行实模式的程序而设计了v86(虚拟实模式) <a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh/%E8%99%9A%E6%8B%9F8086%E6%A8%A1%E5%BC%8F">wiki: 虚拟8086模式</a>等。</p>
 <p>1） 计算机上电，BIOS初始化中断向量表后，会将启动设备的第一个扇区（即引导扇区）读入内存地址0x7c00（31KB)处，并跳转到此处开始执行。而为了方便加载主模块，引导程序首先会将自己移动到内存相对靠后的位置，如linux0.11的bootsect程序先将自己移动到0x90000(576KB)处。这样先移动是多此一举的。</p>
 <ul>
@@ -396,7 +396,8 @@ var _hmt = _hmt || [];
 <p>run时出错：No bootable device</p>
 <p><img src="C:/Users/fdxr1/AppData/Roaming/Typora/typora-user-images/image-20210419083654490.png"></p>
 </blockquote>
-<h1 id="实验二、"><a href="#实验二、" class="headerlink" title="实验二、"></a>实验二、</h1>	  
+<h1 id="实验二、"><a href="#实验二、" class="headerlink" title="实验二、"></a>实验二、</h1><p>未完待续。</p>
+	  
 	</div>
 
 	<div>
@@ -411,7 +412,7 @@ var _hmt = _hmt || [];
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2021/why-I-choose-work/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2020/Graph-CrossRiver/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -443,6 +444,10 @@ var _hmt = _hmt || [];
 	2021-04-06 
 	</div>
 	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
 
 	<!-- categories -->
     
@@ -465,6 +470,7 @@ var _hmt = _hmt || [];
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
   <li><a href="/tags/实验/">实验<span>2</span></a></li>
+  
     </ul>
 	</div>
 		
@@ -498,8 +504,13 @@ var _hmt = _hmt || [];
   &copy; 2021 AYu
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
-     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
 </p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  </footer>
 </div> <!-- container-narrow -->
   
@@ -515,6 +526,8 @@ var _hmt = _hmt || [];
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script> 
+
+
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
