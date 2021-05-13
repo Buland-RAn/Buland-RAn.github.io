@@ -6,7 +6,7 @@
   <link href="https://www.fvolcano.red/atom.xml" rel="self"/>
   
   <link href="https://www.fvolcano.red/"/>
-  <updated>2021-04-06T14:12:07.000Z</updated>
+  <updated>2021-05-11T11:20:35.000Z</updated>
   <id>https://www.fvolcano.red/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Junit使用手册</title>
+    <link href="https://www.fvolcano.red/2021/null/"/>
+    <id>https://www.fvolcano.red/2021/null/</id>
+    <published>2021-05-11T11:20:35.000Z</published>
+    <updated>2021-05-11T11:20:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+
+</summary>
+      
+    
+    
+    
+    <category term="SoftwareConstruction" scheme="https://www.fvolcano.red/categories/SoftwareConstruction/"/>
+    
+    <category term="Java" scheme="https://www.fvolcano.red/categories/SoftwareConstruction/Java/"/>
+    
+    
+    <category term="整理" scheme="https://www.fvolcano.red/tags/%E6%95%B4%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>计算机系统实验记录</title>
@@ -223,7 +251,7 @@
     
     <category term="项目" scheme="https://www.fvolcano.red/tags/%E9%A1%B9%E7%9B%AE/"/>
     
-    <category term="原创" scheme="https://www.fvolcano.red/tags/%E5%8E%9F%E5%88%9B/"/>
+    <category term="记录" scheme="https://www.fvolcano.red/tags/%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
@@ -241,10 +269,10 @@
     
     
     
-    <category term="博客搭建" scheme="https://www.fvolcano.red/categories/blog/"/>
     
+    <category term="记录" scheme="https://www.fvolcano.red/tags/%E8%AE%B0%E5%BD%95/"/>
     
-    <category term="半原创" scheme="https://www.fvolcano.red/tags/%E5%8D%8A%E5%8E%9F%E5%88%9B/"/>
+    <category term="博客搭建" scheme="https://www.fvolcano.red/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   
