@@ -482,7 +482,7 @@ figure {
   color: #fff;
   line-height: 3em;
   text-align: right;
-  padding-top: 25px;
+  padding-top: 25px !important;
 }
 pre,
 code {
