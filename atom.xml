@@ -93,9 +93,9 @@
     
     
     
-    <category term="Java" scheme="https://www.fvolcano.red/categories/Java/"/>
+    <category term="SoftwareConstruction" scheme="https://www.fvolcano.red/categories/SoftwareConstruction/"/>
     
-    <category term="SoftwareConstruction" scheme="https://www.fvolcano.red/categories/Java/SoftwareConstruction/"/>
+    <category term="Java" scheme="https://www.fvolcano.red/categories/SoftwareConstruction/Java/"/>
     
     
     <category term="整理" scheme="https://www.fvolcano.red/tags/%E6%95%B4%E7%90%86/"/>
