@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>defensive copying 的为什么和怎么做 | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="defensive copying 的为什么和怎么做"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> defensive copying 的为什么和怎么做</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>defensive copying(保护性拷贝)是在软件实现中常会用到的概念，这篇博客主要介绍为什么需要 defensive copy 和如何实现 defensive copying。</p>
+<a id="more"></a>
+
+
+
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.baeldung.com/autovalue-defensive-copies">Defensive Copies for Collections Using AutoValue</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.javapractices.com/topic/TopicAction.do?Id=15">Defensive copying</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Object_copying">Object copying-wiki</a></li>
+</ol>
+<h1 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h1><p>A class may have a mutable object as a field. There are two possible cases for how the state of a mutable object field can change:</p>
+<ul>
+<li>its state can be changed only by the native class - the native class <em>creates</em> the mutable object field, and is the only class which is directly aware of its existence</li>
+<li>its state can be changed both by the native class and by its callers - the native class simply <em>points</em> to a mutable object which was created elsewhere</li>
+</ul>
+<p>Both cases are valid design choices, but you must be aware of which one is appropriate for each case.</p>
+<p>If the mutable object field’s state should be changed only by the native class, then a <em>defensive copy</em> of the mutable object <em>must</em> be made any time it’s passed into (constructors and <code>set</code> methods) or out of (<code>get</code> methods) the class. If this is <em>not</em> done, then it’s simple for the caller to break encapsulation, by changing the state of an object which is simultaneously visible to <em>both</em> the class and its caller.</p>
+<h2 id="参数引用"><a href="#参数引用" class="headerlink" title="参数引用"></a>参数引用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;String&gt; favoriteMovies;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// accessors, constructor, toString, equals, hashcode omitted</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> favoriteMovies = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">favoriteMovies.add(<span class="string">&quot;Clerks&quot;</span>); <span class="comment">// fine</span></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">&quot;Katy&quot;</span>, favoriteMovies);</span><br><span class="line">favoriteMovies.add(<span class="string">&quot;Dogma&quot;</span>); <span class="comment">// oh, no!</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="返回值引用"><a href="#返回值引用" class="headerlink" title="返回值引用"></a>返回值引用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EmailMessage msg = ...</span><br><span class="line">Date d = msg.getDate();</span><br><span class="line">d.setTime(d.getTime()+<span class="number">12345</span>); <span class="comment">// Changes the date inside msg</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>defensive copying 有时候也被叫做 “object copying”，从这个名字可以看出它的做法——拷贝一个对象。</p>
+<h2 id="参数保护"><a href="#参数保护" class="headerlink" title="参数保护"></a>参数保护</h2><p>Because Java’s standard collection types may be mutable, the immutable <em>Person</em> type must protect itself from callers who would modify the <em>favoriteMovies</em> list after creating a new <em>Person</em>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, List&lt;String&gt; favoriteMovies)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.favoriteMovies = List.copyOf(favoriteMovies);</span><br><span class="line">    <span class="comment">// or </span></span><br><span class="line">    <span class="comment">// this.favoriteMovies = Collections.unmodifiableList(new ArrayList&lt;&gt;(favoriteMovies));</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The <em>Person</em> class must make a defensive copy of the <em>favoriteMovies</em> collection. By doing so, the <em>Person</em> class captures the state of the <em>favoriteMovies</em> list as it existed when the <em>Person</em> was created.</p>
+<h2 id="返回值保护"><a href="#返回值保护" class="headerlink" title="返回值保护"></a>返回值保护</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Date <span class="title">getDate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date(date.getTime());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="完整示例类"><a href="#完整示例类" class="headerlink" title="完整示例类"></a>完整示例类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Planet is an immutable class, since there is no way to change</span></span><br><span class="line"><span class="comment">* its state after construction.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Planet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Planet</span> <span class="params">(<span class="keyword">double</span> mass, String name, Date dateOfDiscovery)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.mass = mass;</span><br><span class="line">     <span class="keyword">this</span>.name = name;</span><br><span class="line">     <span class="comment">//make a private copy of aDateOfDiscovery</span></span><br><span class="line">     <span class="comment">//this is the only way to keep the fDateOfDiscovery</span></span><br><span class="line">     <span class="comment">//field private, and shields this class from any changes that </span></span><br><span class="line">     <span class="comment">//the caller may make to the original aDateOfDiscovery object</span></span><br><span class="line">     <span class="keyword">this</span>.dateOfDiscovery = <span class="keyword">new</span> Date(dateOfDiscovery.getTime());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Returns a primitive value.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * The caller can do whatever they want with the return value, without </span></span><br><span class="line"><span class="comment">  * affecting the internals of this class. Why? Because this is a primitive </span></span><br><span class="line"><span class="comment">  * value. The caller sees its &quot;own&quot; double that simply has the</span></span><br><span class="line"><span class="comment">  * same value as fMass.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getMass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mass;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Returns an immutable object.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * The caller gets a direct reference to the internal field. But this is not </span></span><br><span class="line"><span class="comment">  * dangerous, since String is immutable and cannot be changed.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  /**</span></span><br><span class="line"><span class="comment">//  * Returns a mutable object - likely bad style.</span></span><br><span class="line"><span class="comment">//  *</span></span><br><span class="line"><span class="comment">//  * The caller gets a direct reference to the internal field. This is usually dangerous, </span></span><br><span class="line"><span class="comment">//  * since the Date object state can be changed both by this class and its caller.</span></span><br><span class="line"><span class="comment">//  * That is, this class is no longer in complete control of dateOfDiscovery.</span></span><br><span class="line"><span class="comment">//  */</span></span><br><span class="line"><span class="comment">//  public Date getDateOfDiscovery() &#123;</span></span><br><span class="line"><span class="comment">//    return dateOfDiscovery;</span></span><br><span class="line"><span class="comment">//  &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Returns a mutable object - good style.</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  * Returns a defensive copy of the field.</span></span><br><span class="line"><span class="comment">  * The caller of this method can do anything they want with the</span></span><br><span class="line"><span class="comment">  * returned Date object, without affecting the internals of this</span></span><br><span class="line"><span class="comment">  * class in any way. Why? Because they do not have a reference to </span></span><br><span class="line"><span class="comment">  * fDate. Rather, they are playing with a second Date that initially has the </span></span><br><span class="line"><span class="comment">  * same data as fDate.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Date <span class="title">getDateOfDiscovery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date(dateOfDiscovery.getTime());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// PRIVATE</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Final primitive data is always immutable.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> mass;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * An immutable object field. (String objects never change state.)</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * A mutable object field. In this case, the state of this mutable field</span></span><br><span class="line"><span class="comment">  * is to be changed only by this class. (In other cases, it makes perfect</span></span><br><span class="line"><span class="comment">  * sense to allow the state of a field to be changed outside the native</span></span><br><span class="line"><span class="comment">  * class; this is the case when a field acts as a &quot;pointer&quot; to an object</span></span><br><span class="line"><span class="comment">  * created elsewhere.)</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * java.util.Date is used here only because its convenient for illustrating </span></span><br><span class="line"><span class="comment">  * a point about mutable objects. In new code, you should use </span></span><br><span class="line"><span class="comment">  * java.time classes, not java.util.Date.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Date dateOfDiscovery;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="关于深浅拷贝的解释"><a href="#关于深浅拷贝的解释" class="headerlink" title="关于深浅拷贝的解释"></a>关于深浅拷贝的解释</h1><h3 id="Shallow-copy"><a href="#Shallow-copy" class="headerlink" title="Shallow copy"></a>Shallow copy</h3><p>One method of copying an object is the <em>shallow copy</em>. In that case a new object B is <a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Object_creation">created</a>, and the fields values of A are copied over to B. This is also known as a <em>field-by-field copy</em>, <em>field-for-field copy</em>, or <em>field copy</em>. If the field value is a reference to an object (e.g., a memory address) it copies the reference, hence referring to the same object as A does, and if the field value is a primitive type it copies the value of the primitive type. In languages without primitive types (where everything is an object), all fields of the copy B are references to the same objects as the fields of original A. The referenced objects are thus <em>shared</em>, so if one of these objects is modified (from A or B), the change is visible in the other. Shallow copies are simple and typically cheap, as they can be usually implemented by simply copying the bits exactly.</p>
+<h3 id="Deep-copy"><a href="#Deep-copy" class="headerlink" title="Deep copy"></a>Deep copy</h3><p>A deep copy in progress.</p>
+<p><img src="/2021/how-to-implement-with-defensive-copying/400px-Deep_copy_in_progress.svg.png" alt="img"></p>
+<p>A deep copy having been completed.</p>
+<p><img src="/2021/how-to-implement-with-defensive-copying/400px-Deep_copy_done.svg.png" alt="img"></p>
+<p>An alternative is a deep copy, meaning that fields are dereferenced: rather than references to objects being copied, new copy objects are created for any referenced objects, and references to these placed in B. The result is different from the result a shallow copy gives in that the objects referenced by the copy B are distinct from those referenced by A, and independent. Deep copies are more expensive, due to needing to create additional objects, and can be substantially more complicated, due to references possibly forming a complicated graph.</p>
+<p>Deep copy is a process in which the copying process occurs recursively. It means first constructing a new collection object and then recursively populating it with copies of the child objects found in the original. In case of deep copy, a copy of object is copied in other object. It means that any changes made to a copy of object do not reflect in the original object. In python, this is implemented using “deep copy()” function.</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>传递引用要谨慎，若该类中的某个字段是mutable类型，但需求为不能更改，那么应该在字段前加上final修饰，且在构造器和getter、setter中传送的应该是该字段的拷贝。</p>
+<p>Defensive copying helps encapsulation as it mitigates escape of fields through the getters methods. Defensive copying creates a copy every time and thus you can end up with too many copying of something. This can strain the memory management (the garbage collector) and can have a negative effects on the whole application performance. With that said, it is quite effective and simple to implement. Prevention is better than cure, but in cases where we cannot change the types, defensive copying can step in and save the day.</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2021/how-to-use-valgrind-and-gprof/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/how-to-write-test-strategy-document/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-05-27 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/SoftwareConstruction/">SoftwareConstruction<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/整理/">整理<span>8</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-article-text">参考资料：</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88"><span class="toc-article-text">为什么</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E6%95%B0%E5%BC%95%E7%94%A8"><span class="toc-article-text">参数引用</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E5%BC%95%E7%94%A8"><span class="toc-article-text">返回值引用</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%80%8E%E4%B9%88%E5%81%9A"><span class="toc-article-text">怎么做</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E6%95%B0%E4%BF%9D%E6%8A%A4"><span class="toc-article-text">参数保护</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%BF%9D%E6%8A%A4"><span class="toc-article-text">返回值保护</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B%E7%B1%BB"><span class="toc-article-text">完整示例类</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%B3%E4%BA%8E%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-article-text">关于深浅拷贝的解释</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Shallow-copy"><span class="toc-article-text">Shallow copy</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Deep-copy"><span class="toc-article-text">Deep copy</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-article-text">总结</span></a>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
