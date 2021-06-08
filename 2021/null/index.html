@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>用readelf、objdump分析程序 | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="用readelf、objdump分析程序"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 用readelf、objdump分析程序</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>整理linux中readelf、objdump工具的用法。</p>
+<a id="more"></a>
+
+
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/readelf.html">readelf elf文件格式分析</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Roland_Sun/article/details/37581715">ELF文件查看利器之readelf用法</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/863b279c941e">使用readelf和objdump解析目标文件</a></li>
+<li><a target="_blank" rel="noopener" href="https://ivanzz1001.github.io/records/post/linux/2018/04/09/linux-objdump">Linux中objdump的使用</a></li>
+</ol>
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><h2 id="readelf"><a href="#readelf" class="headerlink" title="readelf"></a>readelf</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> readelf</span></span><br><span class="line">Usage: readelf &lt;option(s)&gt; elf-file(s)</span><br><span class="line"> Display information about the contents of ELF format files</span><br><span class="line"> Options are:</span><br><span class="line">  -a --all               Equivalent to: -h -l -S -s -r -d -V -A -I</span><br><span class="line">  -h --file-header       Display the ELF file header</span><br><span class="line">  -l --program-headers   Display the program headers</span><br><span class="line">     --segments          An alias for --program-headers</span><br><span class="line">  -S --section-headers   Display the sections&#x27; header</span><br><span class="line">     --sections          An alias for --section-headers</span><br><span class="line">  -g --section-groups    Display the section groups</span><br><span class="line">  -t --section-details   Display the section details</span><br><span class="line">  -e --headers           Equivalent to: -h -l -S</span><br><span class="line">  -s --syms              Display the symbol table</span><br><span class="line">     --symbols           An alias for --syms</span><br><span class="line">  --dyn-syms             Display the dynamic symbol table</span><br><span class="line">  -n --notes             Display the core notes (if present)</span><br><span class="line">  -r --relocs            Display the relocations (if present)</span><br><span class="line">  -u --unwind            Display the unwind info (if present)</span><br><span class="line">  -d --dynamic           Display the dynamic section (if present)</span><br><span class="line">  -V --version-info      Display the version sections (if present)</span><br><span class="line">  -A --arch-specific     Display architecture specific information (if any)</span><br><span class="line">  -c --archive-index     Display the symbol/file index in an archive</span><br><span class="line">  -D --use-dynamic       Use the dynamic section info when displaying symbols</span><br><span class="line">  -x --hex-dump=&lt;number|name&gt;</span><br><span class="line">                         Dump the contents of section &lt;number|name&gt; as bytes</span><br><span class="line">  -p --string-dump=&lt;number|name&gt;</span><br><span class="line">                         Dump the contents of section &lt;number|name&gt; as strings</span><br><span class="line">  -R --relocated-dump=&lt;number|name&gt;</span><br><span class="line">                         Dump the contents of section &lt;number|name&gt; as relocated bytes</span><br><span class="line">  -w[lLiaprmfFsoRt] or</span><br><span class="line">  --debug-dump[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,</span><br><span class="line">               =frames-interp,=str,=loc,=Ranges,=pubtypes,</span><br><span class="line">               =gdb_index,=trace_info,=trace_abbrev,=trace_aranges,</span><br><span class="line">               =addr,=cu_index]</span><br><span class="line">                         Display the contents of DWARF2 debug sections</span><br><span class="line">  --dwarf-depth=N        Do not display DIEs at depth N or greater</span><br><span class="line">  --dwarf-start=N        Display DIEs starting with N, at the same depth</span><br><span class="line">                         or deeper</span><br><span class="line">  -I --histogram         Display histogram of bucket list lengths</span><br><span class="line">  -W --wide              Allow output width to exceed 80 characters</span><br><span class="line">  @&lt;file&gt;                Read options from &lt;file&gt;</span><br><span class="line">  -H --help              Display this information</span><br><span class="line">  -v --version           Display the version number of readelf</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="objdump"><a href="#objdump" class="headerlink" title="objdump"></a>objdump</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">objdump [-a|--archive-headers]</span><br><span class="line">   [-b bfdname|--target=bfdname]</span><br><span class="line">   [-C|--demangle[=style] ]</span><br><span class="line">   [-d|--disassemble]</span><br><span class="line">   [-D|--disassemble-all]</span><br><span class="line">   [-z|--disassemble-zeroes]</span><br><span class="line">   [-EB|-EL|--endian=&#123;big | little &#125;]</span><br><span class="line">   [-f|--file-headers]</span><br><span class="line">   [-F|--file-offsets]</span><br><span class="line">   [--file-start-context]</span><br><span class="line">   [-g|--debugging]</span><br><span class="line">   [-e|--debugging-tags]</span><br><span class="line">   [-h|--section-headers|--headers]</span><br><span class="line">   [-i|--info]</span><br><span class="line">   [-j section|--section=section]</span><br><span class="line">   [-l|--line-numbers]</span><br><span class="line">   [-S|--source]</span><br><span class="line">   [-m machine|--architecture=machine]</span><br><span class="line">   [-M options|--disassembler-options=options]</span><br><span class="line">   [-p|--private-headers]</span><br><span class="line">   [-P options|--private=options]</span><br><span class="line">   [-r|--reloc]</span><br><span class="line">   [-R|--dynamic-reloc]</span><br><span class="line">   [-s|--full-contents]</span><br><span class="line">   [-W[lLiaprmfFsoRt]|</span><br><span class="line">    --dwarf[=rawline,=decodedline,=info,=abbrev,=pubnames]</span><br><span class="line">            [=aranges,=macro,=frames,=frames-interp,=str,=loc]</span><br><span class="line">            [=Ranges,=pubtypes,=trace_info,=trace_abbrev]</span><br><span class="line">            [=trace_aranges,=gdb_index]</span><br><span class="line">   [-G|--stabs]</span><br><span class="line">   [-t|--syms]</span><br><span class="line">   [-T|--dynamic-syms]</span><br><span class="line">   [-x|--all-headers]</span><br><span class="line">   [-w|--wide]</span><br><span class="line">   [--start-address=address]</span><br><span class="line">   [--stop-address=address]</span><br><span class="line">   [--prefix-addresses]</span><br><span class="line">   [--[no-]show-raw-insn]</span><br><span class="line">   [--adjust-vma=offset]</span><br><span class="line">   [--special-syms]</span><br><span class="line">   [--prefix=prefix]</span><br><span class="line">   [--prefix-strip=level]</span><br><span class="line">   [--insn-width=width]</span><br><span class="line">   [-V|--version]</span><br><span class="line">   [-H|--help]</span><br><span class="line">   objfile...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"># https://wangchujiang.com/linux-command/c/objdump.html</span><br><span class="line"></span><br><span class="line"><span class="deletion">-a --archive-headers </span></span><br><span class="line"># 显示档案库的成员信息,类似ls -l将lib*.a的信息列出。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-b bfdname --target=bfdname </span></span><br><span class="line"># 指定目标码格式。这不是必须的，objdump能自动识别许多格式，比如： </span><br><span class="line"></span><br><span class="line">objdump -b oasys -m vax -h fu.o </span><br><span class="line"># 显示fu.o的头部摘要信息，明确指出该文件是Vax系统下用Oasys编译器生成的目标文件。objdump -i将给出这里可以指定的目标码格式列表。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-C --demangle </span></span><br><span class="line"># 将底层的符号名解码成用户级名字，除了去掉所开头的下划线之外，还使得C++函数名以可理解的方式显示出来。 </span><br><span class="line"><span class="deletion">--debugging </span></span><br><span class="line"><span class="deletion">-g </span></span><br><span class="line"># 显示调试信息。企图解析保存在文件中的调试信息并以C语言的语法显示出来。仅仅支持某些类型的调试信息。有些其他的格式被readelf -w支持。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-e --debugging-tags </span></span><br><span class="line"># 类似-g选项，但是生成的信息是和ctags工具相兼容的格式。 </span><br><span class="line"><span class="deletion">--disassemble </span></span><br><span class="line"><span class="deletion">-d </span></span><br><span class="line"># 从objfile中反汇编那些特定指令机器码的section。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-D --disassemble-all </span></span><br><span class="line"># 与 -d 类似，但反汇编所有section. </span><br><span class="line"></span><br><span class="line"><span class="deletion">--prefix-addresses </span></span><br><span class="line"># 反汇编的时候，显示每一行的完整地址。这是一种比较老的反汇编格式。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-EB </span></span><br><span class="line"><span class="deletion">-EL </span></span><br><span class="line"><span class="deletion">--endian=&#123;big|little&#125; </span></span><br><span class="line"># 指定目标文件的小端。这个项将影响反汇编出来的指令。在反汇编的文件没描述小端信息的时候用。例如S-records. </span><br><span class="line"></span><br><span class="line"><span class="deletion">-f </span></span><br><span class="line"><span class="deletion">--file-headers </span></span><br><span class="line">显示objfile中每个文件的整体头部摘要信息。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-h </span></span><br><span class="line"><span class="deletion">--section-headers </span></span><br><span class="line"><span class="deletion">--headers </span></span><br><span class="line">显示目标文件各个section的头部摘要信息。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-H </span></span><br><span class="line"><span class="deletion">--help </span></span><br><span class="line">简短的帮助信息。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-i </span></span><br><span class="line"><span class="deletion">--info </span></span><br><span class="line">显示对于 -b 或者 -m 选项可用的架构和目标格式列表。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-j name</span></span><br><span class="line"><span class="deletion">--section=name </span></span><br><span class="line">仅仅显示指定名称为name的section的信息 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-l</span></span><br><span class="line"><span class="deletion">--line-numbers </span></span><br><span class="line">用文件名和行号标注相应的目标代码，仅仅和-d、-D或者-r一起使用使用-ld和使用-d的区别不是很大，在源码级调试的时候有用，要求编译时使用了-g之类的调试编译选项。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-m machine </span></span><br><span class="line"><span class="deletion">--architecture=machine </span></span><br><span class="line">指定反汇编目标文件时使用的架构，当待反汇编文件本身没描述架构信息的时候(比如S-records)，这个选项很有用。可以用-i选项列出这里能够指定的架构. </span><br><span class="line"></span><br><span class="line"><span class="deletion">--reloc </span></span><br><span class="line"><span class="deletion">-r </span></span><br><span class="line">显示文件的重定位入口。如果和-d或者-D一起使用，重定位部分以反汇编后的格式显示出来。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">--dynamic-reloc </span></span><br><span class="line"><span class="deletion">-R </span></span><br><span class="line">显示文件的动态重定位入口，仅仅对于动态目标文件意义，比如某些共享库。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-s </span></span><br><span class="line"><span class="deletion">--full-contents </span></span><br><span class="line">显示指定section的完整内容。默认所有的非空section都会被显示。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-S </span></span><br><span class="line"><span class="deletion">--source </span></span><br><span class="line">尽可能反汇编出源代码，尤其当编译的时候指定了-g这种调试参数时，效果比较明显。隐含了-d参数。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">--show-raw-insn </span></span><br><span class="line">反汇编的时候，显示每条汇编指令对应的机器码，如不指定--prefix-addresses，这将是缺省选项。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">--no-show-raw-insn </span></span><br><span class="line">反汇编时，不显示汇编指令的机器码，如不指定--prefix-addresses，这将是缺省选项。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">--start-address=address </span></span><br><span class="line">从指定地址开始显示数据，该选项影响-d、-r和-s选项的输出。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">--stop-address=address </span></span><br><span class="line">显示数据直到指定地址为止，该项影响-d、-r和-s选项的输出。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-t </span></span><br><span class="line"><span class="deletion">--syms </span></span><br><span class="line">显示文件的符号表入口。类似于nm -s提供的信息 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-T </span></span><br><span class="line"><span class="deletion">--dynamic-syms </span></span><br><span class="line">显示文件的动态符号表入口，仅仅对动态目标文件意义，比如某些共享库。它显示的信息类似于 nm -D|--dynamic 显示的信息。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-V </span></span><br><span class="line"><span class="deletion">--version </span></span><br><span class="line">版本信息 </span><br><span class="line"></span><br><span class="line"><span class="deletion">--all-headers </span></span><br><span class="line"><span class="deletion">-x </span></span><br><span class="line">显示所可用的头信息，包括符号表、重定位入口。-x 等价于-a -f -h -r -t 同时指定。 </span><br><span class="line"></span><br><span class="line"><span class="deletion">-z </span></span><br><span class="line"><span class="deletion">--disassemble-zeroes </span></span><br><span class="line">一般反汇编输出将省略大块的零，该选项使得这些零块也被反汇编。 </span><br><span class="line"></span><br><span class="line">@file 可以将选项集中到一个文件中，然后使用这个@file选项载入。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="分析程序"><a href="#分析程序" class="headerlink" title="分析程序"></a>分析程序</h1><h2 id="应用程序的可运行的架构平台"><a href="#应用程序的可运行的架构平台" class="headerlink" title="应用程序的可运行的架构平台"></a>应用程序的可运行的架构平台</h2><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -h main<span class="string">| grep Machine</span></span><br></pre></td></tr></table></figure>
+
+<p>-h选项将显示文件头的概要信息，从里面可以看到，有很多有用的信息：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">readelf</span> <span class="string">-h</span> <span class="string">main</span></span><br><span class="line"><span class="attr">ELF Header:</span></span><br><span class="line"><span class="attr">Magic:</span>   <span class="string">7f</span> <span class="number">45</span> <span class="string">4c</span> <span class="number">46</span> <span class="number">02</span> <span class="number">01</span> <span class="number">01</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span></span><br><span class="line"><span class="attr">Class:</span>                             <span class="string">ELF64</span></span><br><span class="line"><span class="attr">Data:</span>                              <span class="number">2</span> <span class="string">s</span> <span class="string">complement,</span> <span class="string">little</span> <span class="string">endian</span></span><br><span class="line"><span class="attr">Version:</span>                           <span class="number">1</span> <span class="string">(current)</span></span><br><span class="line"><span class="attr">OS/ABI:</span>                            <span class="string">UNIX</span> <span class="bullet">-</span> <span class="string">System</span> <span class="string">V</span></span><br><span class="line"><span class="attr">ABI Version:</span>                       <span class="number">0</span></span><br><span class="line"><span class="attr">Type:</span>                              <span class="string">EXEC</span> <span class="string">(Executable</span> <span class="string">file)</span></span><br><span class="line"><span class="attr">Machine:</span>                           <span class="string">Advanced</span> <span class="string">Micro</span> <span class="string">Devices</span> <span class="string">X86-64</span></span><br><span class="line"><span class="attr">Version:</span>                           <span class="number">0x1</span></span><br><span class="line"><span class="attr">Entry point address:</span>               <span class="number">0x400790</span></span><br><span class="line"><span class="attr">Start of program headers:</span>          <span class="number">64</span> <span class="string">(bytes</span> <span class="string">into</span> <span class="string">file)</span></span><br><span class="line"><span class="attr">Start of section headers:</span>          <span class="number">5224</span> <span class="string">(bytes</span> <span class="string">into</span> <span class="string">file)</span></span><br><span class="line"><span class="attr">Flags:</span>                             <span class="number">0x0</span></span><br><span class="line"><span class="attr">Size of this header:</span>               <span class="number">64</span> <span class="string">(bytes)</span></span><br><span class="line"><span class="attr">Size of program headers:</span>           <span class="number">56</span> <span class="string">(bytes)</span></span><br><span class="line"><span class="attr">Number of program headers:</span>         <span class="number">8</span></span><br><span class="line"><span class="attr">Size of section headers:</span>           <span class="number">64</span> <span class="string">(bytes)</span></span><br><span class="line"><span class="attr">Number of section headers:</span>         <span class="number">29</span></span><br><span class="line"><span class="attr">Section header string table index:</span> <span class="number">26</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编译时是否使用了-g选项（加入调试信息）"><a href="#编译时是否使用了-g选项（加入调试信息）" class="headerlink" title="编译时是否使用了-g选项（加入调试信息）"></a>编译时是否使用了-g选项（加入调试信息）</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -S main | <span class="keyword">grep</span> <span class="keyword">debug</span></span><br><span class="line">$ readelf -S main.<span class="keyword">o</span> | <span class="keyword">grep</span> <span class="keyword">debug</span></span><br></pre></td></tr></table></figure>
+
+<p>用-S选项是显示所有段信息；如果编译时使用了-g选项，则会有debug段。</p>
+<h2 id="查看本机目标结构（使用大端还是小端存储）"><a href="#查看本机目标结构（使用大端还是小端存储）" class="headerlink" title="查看本机目标结构（使用大端还是小端存储）"></a>查看本机目标结构（使用大端还是小端存储）</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>objdump -i</span><br></pre></td></tr></table></figure>
+
+<h2 id="显示符号表入口"><a href="#显示符号表入口" class="headerlink" title="显示符号表入口"></a>显示符号表入口</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>objdump  -t main.o</span><br></pre></td></tr></table></figure>	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2021/how-to-implement-binary-search/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/different-types-of-relocating/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-05-31 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/linux/">linux<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/整理/">整理<span>12</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-article-text">参考资料</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-article-text">用法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#readelf"><span class="toc-article-text">readelf</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#objdump"><span class="toc-article-text">objdump</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F"><span class="toc-article-text">分析程序</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%9A%84%E6%9E%B6%E6%9E%84%E5%B9%B3%E5%8F%B0"><span class="toc-article-text">应用程序的可运行的架构平台</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%BC%96%E8%AF%91%E6%97%B6%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E4%BA%86-g%E9%80%89%E9%A1%B9%EF%BC%88%E5%8A%A0%E5%85%A5%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF%EF%BC%89"><span class="toc-article-text">编译时是否使用了-g选项（加入调试信息）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E6%9C%BA%E7%9B%AE%E6%A0%87%E7%BB%93%E6%9E%84%EF%BC%88%E4%BD%BF%E7%94%A8%E5%A4%A7%E7%AB%AF%E8%BF%98%E6%98%AF%E5%B0%8F%E7%AB%AF%E5%AD%98%E5%82%A8%EF%BC%89"><span class="toc-article-text">查看本机目标结构（使用大端还是小端存储）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%98%BE%E7%A4%BA%E7%AC%A6%E5%8F%B7%E8%A1%A8%E5%85%A5%E5%8F%A3"><span class="toc-article-text">显示符号表入口</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
