@@ -217,9 +217,9 @@
     
     
     
-    <category term="Java" scheme="https://www.fvolcano.red/categories/Java/"/>
-    
     <category term="SoftwareConstruction" scheme="https://www.fvolcano.red/categories/SoftwareConstruction/"/>
+    
+    <category term="Java" scheme="https://www.fvolcano.red/categories/Java/"/>
     
     
     <category term="整理" scheme="https://www.fvolcano.red/tags/%E6%95%B4%E7%90%86/"/>
@@ -426,14 +426,14 @@
     
     
     
-    <category term="JavaWeb" scheme="https://www.fvolcano.red/categories/JavaWeb/"/>
-    
     <category term="SSM" scheme="https://www.fvolcano.red/categories/SSM/"/>
     
+    <category term="JavaWeb" scheme="https://www.fvolcano.red/categories/JavaWeb/"/>
     
-    <category term="记录" scheme="https://www.fvolcano.red/tags/%E8%AE%B0%E5%BD%95/"/>
     
     <category term="项目" scheme="https://www.fvolcano.red/tags/%E9%A1%B9%E7%9B%AE/"/>
+    
+    <category term="记录" scheme="https://www.fvolcano.red/tags/%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
