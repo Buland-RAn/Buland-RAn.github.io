@@ -347,6 +347,27 @@
   </entry>
   
   <entry>
+    <title>FileInputStream read()与readline()</title>
+    <link href="https://www.fvolcano.red/2020/FileInputStream-read-and-readline/"/>
+    <id>https://www.fvolcano.red/2020/FileInputStream-read-and-readline/</id>
+    <published>2020-10-24T06:16:10.000Z</published>
+    <updated>2020-10-24T06:16:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>FileInputStream中方法read()与readline()辨析。<a id="more"></a></p><h3 id="read-与-read-byte-b"><a href="#read-与-read-byte-b" class="headerlink" title="read() 与 read(byte[] b)"></a>read() 与 read(byte[] b)</h3><p>读取单个字符的个数，如果已经读完的话会返回-1 (其范围从 0 到 65535 )，这个方法是对这个流一个一个字节的读，返回的int就是这个字节的int表示方式。</p><p>参考<a href="https://blog.csdn.net/wymrdjm/article/details/78758986">FileInputStream之read方法</a></p><h2 id="readLine"><a href="#readLine" class="headerlink" title="readLine()"></a>readLine()</h2><p>读取一个文本行。</p><ol><li>读入的数据要注意有/r或/n或/r/n, readLine返回的字符串中不包含结尾的”\r”,”\n”。</li><li>没有数据时会阻塞，在数据流异常或断开时才会返回null。</li><li>使用socket之类的数据流时，要避免使用readLine()，以免为了等待一个换行/回车符而一直阻塞。</li><li>readLine()是一个阻塞函数，当没有数据读取时，就一直会阻塞在那，而不是返回null。</li><li>readLine()只有在数据流发生异常或者另一端被close()掉时，才会返回null值。</li><li>如果不指定buffer大小，则readLine()使用的buffer有8192个字符。在达到buffer大小之前，只有遇到”/r”、”/n”、”/r/n”才会返回。</li><li>该方法读取一行文本，当遇到换行符”\n”,回车符”\r”或者回车符后面紧跟着换行符时，该行结束并返回。没有数据时，将会一直处于等待状态。因此在进行网络连接时，应该避免使用该方法。</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;FileInputStream中方法read()与readline()辨析。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.fvolcano.red/categories/Java/"/>
+    
+    
+    <category term="整理" scheme="https://www.fvolcano.red/tags/%E6%95%B4%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>树的遍历非递归算法及应用</title>
     <link href="https://www.fvolcano.red/2020/tree-traverse/"/>
     <id>https://www.fvolcano.red/2020/tree-traverse/</id>

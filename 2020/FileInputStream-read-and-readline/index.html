@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>how to write Test Strategy document | AYu</title>
+  <title>FileInputStream read()与readline() | AYu</title>
   <meta name="author" content="AYu">
   
   <meta name="description" content="学习生活片段记录">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="how to write Test Strategy document"/>
+  <meta property="og:title" content="FileInputStream read()与readline()"/>
   <meta property="og:site_name" content="AYu"/>
 
   
@@ -107,7 +107,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> how to write Test Strategy document</h1>
+			<h1> FileInputStream read()与readline()</h1>
 		</div>
 	
 
@@ -125,60 +125,18 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  		
 
-	  <p>Test strategy means “How you are going to test the application”. It deals with test objectives, approach, test environment, automation strategy and tools, and risk analysis with a contingency plan.</p>
-<a id="more"></a>
-
-
-
-<p>参考资料：</p>
+	  <p>FileInputStream中方法read()与readline()辨析。<a id="more"></a></p>
+<h3 id="read-与-read-byte-b"><a href="#read-与-read-byte-b" class="headerlink" title="read() 与 read(byte[] b)"></a>read() 与 read(byte[] b)</h3><p>读取单个字符的个数，如果已经读完的话会返回-1 (其范围从 0 到 65535 )，这个方法是对这个流一个一个字节的读，返回的int就是这个字节的int表示方式。</p>
+<p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/wymrdjm/article/details/78758986">FileInputStream之read方法</a></p>
+<h2 id="readLine"><a href="#readLine" class="headerlink" title="readLine()"></a>readLine()</h2><p>读取一个文本行。</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://www.softwaretestinghelp.com/writing-test-strategy-document-template/#:~:text=%20Simple%20Tips%20To%20Write%20Test%20Strategy%20Document,project.%20Clearly%2C%20mention%20what%20types%20of...%20More">How To Write Test Strategy Document (With Sample Test Strategy Template)</a></li>
-<li><a target="_blank" rel="noopener" href="http://tryqa.com/what-is-test-strategy-types-of-strategies-with-examples/">What is Test Strategy? Types of strategies with examples</a></li>
-<li><a target="_blank" rel="noopener" href="https://testfort.com/blog/7-steps-to-develop-good-test-strategy-document">7 Steps to Develop Good Test Strategy Document</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.softwaretestinghelp.com/how-to-write-test-plan-document-software-testing-training-day3/">Test Plan Tutorial: A Guide To Write A Software Test Plan Document From Scratch</a></li>
-</ol>
-<h1 id="What"><a href="#What" class="headerlink" title="What"></a>What</h1><p>Test strategy means “How you are going to test the application?” You need to mention the exact process/strategy that you are going to follow when you will get the application for testing.</p>
-<p>test strategy defines guidelines for test approach to be followed in order to achieve the test objectives and execution of test types defined in the testing plan. It deals with test objectives, approach, test environment, automation strategy and tools, and risk analysis with a contingency plan.</p>
-<h1 id="How"><a href="#How" class="headerlink" title="How"></a>How</h1><h2 id="Sections-of-test-strategy-document"><a href="#Sections-of-test-strategy-document" class="headerlink" title="Sections of test strategy document"></a>Sections of test strategy document</h2><ol>
-<li><strong>Scope and overview</strong><br>This stage is fundamental as it shapes testing company’s vision. It includes:<ul>
-<li>dividing roles and responsibilities, deciding who should approve, review and use this document;</li>
-<li>defining phases of each project according to the timelines that are specified in the test plan.</li>
-</ul>
-</li>
-<li><strong>Test Approach</strong><br>This step should be well-thought to avoid further mess in case something goes wrong. The main points to be considered at this stage are:<ul>
-<li>testing process and life cycle;</li>
-<li>distribution of responsibilities among the team of QA engineers;</li>
-<li>defining all testing types that company can provide the client with;</li>
-<li>establishing testing approaches.</li>
-</ul>
-</li>
-<li><strong>Test environment</strong><br>This stage of Test Strategy document has to cover the next aspects regarding test data:<ul>
-<li>requirements – the clear instruction on how to create test data;</li>
-<li>environments and all required setups for each of them;</li>
-<li>backup and restore strategy to make sure you won’t lose any data due to some unexpected code issues.</li>
-</ul>
-</li>
-<li><strong>Testing tools</strong><br>At this point you need to choose all the tools that will be used for test execution. All commercial, open source, automation and management tools have to be listed here.</li>
-<li><strong>Realese</strong><br>To ensure successful test execution, make sure your release management plan is created thoughtfully. Thus, set a build management process to know where new build should be available, when it’s going to be deployed, who should deploy it, how to stop release in case of issues, etc.</li>
-<li><strong>Industry standards to follow</strong></li>
-<li><strong>Test deliverables</strong></li>
-<li><strong>Testing metrics</strong></li>
-<li><strong>Requirement Traceability Matrix</strong></li>
-<li><strong>Risk and mitigation</strong><br>Try to foresee all possible risks related to your project. Write a clear plan to avoid such risks and a contingency plan in case these risks become a reality.</li>
-<li><strong>Reporting tool</strong></li>
-<li><strong>Test summary</strong><br>The ready plan must be reviewed and approved by managers, technical team leaders, business development, and software development teams. Also Test Strategy document can be updated in case some important changes occur in the course of the testing process.</li>
-</ol>
-<h2 id="Simple-Tips-To-Write-Test-Strategy-Document"><a href="#Simple-Tips-To-Write-Test-Strategy-Document" class="headerlink" title="Simple Tips To Write Test Strategy Document"></a>Simple Tips To Write Test Strategy Document</h2><ol>
-<li>Include product background in the test strategy document. In the first paragraph of your test strategy document answer – Why stakeholders want to develop this project? This will help to understand and prioritize things quickly.</li>
-<li>List all important features you are going to test. If you think some features are not part of this release then mention those features under “Features not to be tested” label.</li>
-<li>Write down the test approach for your project. Clearly, mention what types of testing you are going to conduct?<br>i.e. Functional testing, UI testing, Integration testing, Load/Stress testing, Security testing, etc.</li>
-<li>Answer questions like how you are going to perform functional testing? Manual or automation testing? Are you going to execute all test cases from your test management tool?</li>
-<li>Which bug tracking tool you are going to use? What will be the process when you will find a new bug?</li>
-<li>What are your test entry and exit criteria?</li>
-<li>How will you track your testing progress? What metrics are you going to use for tracking test completion?</li>
-<li>Task distribution – Define the roles and responsibilities of each team member.</li>
-<li>What documents will you produce during and after the testing phase?</li>
-<li>What risks do you see in Test completion?</li>
+<li>读入的数据要注意有/r或/n或/r/n, readLine返回的字符串中不包含结尾的”\r”,”\n”。</li>
+<li>没有数据时会阻塞，在数据流异常或断开时才会返回null。</li>
+<li>使用socket之类的数据流时，要避免使用readLine()，以免为了等待一个换行/回车符而一直阻塞。</li>
+<li>readLine()是一个阻塞函数，当没有数据读取时，就一直会阻塞在那，而不是返回null。</li>
+<li>readLine()只有在数据流发生异常或者另一端被close()掉时，才会返回null值。</li>
+<li>如果不指定buffer大小，则readLine()使用的buffer有8192个字符。在达到buffer大小之前，只有遇到”/r”、”/n”、”/r/n”才会返回。</li>
+<li>该方法读取一行文本，当遇到换行符”\n”,回车符”\r”或者回车符后面紧跟着换行符时，该行结束并返回。没有数据时，将会一直处于等待状态。因此在进行网络连接时，应该避免使用该方法。</li>
 </ol>
 	  
 	</div>
@@ -189,13 +147,13 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2021/how-to-implement-with-defensive-copying/" type="button" class="btn btn-default"><i
+    <a href="/2020/ultimazation-of-ifelse/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> 上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2021/how-to-build-a-java-project/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2020/tree-traverse/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -327,7 +285,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2021-05-27 
+	2020-10-24 
 	</div>
 	
 	<span id="busuanzi_container_page_pv">
@@ -342,7 +300,7 @@ var _hmt = _hmt || [];
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/SoftwareConstruction/">SoftwareConstruction<span>4</span></a></li>
+    <li><a href="/categories/Java/">Java<span>4</span></a></li>
   </li>
 
     </ul>
@@ -367,7 +325,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#What"><span class="toc-article-text">What</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#How"><span class="toc-article-text">How</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Sections-of-test-strategy-document"><span class="toc-article-text">Sections of test strategy document</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Simple-Tips-To-Write-Test-Strategy-Document"><span class="toc-article-text">Simple Tips To Write Test Strategy Document</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#read-%E4%B8%8E-read-byte-b"><span class="toc-article-text">read() 与 read(byte[] b)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#readLine"><span class="toc-article-text">readLine()</span></a>
 		</div>
 	
 	</div>
