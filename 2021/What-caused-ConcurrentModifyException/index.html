@@ -1,0 +1,461 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>ConcurrentModifyException并发修改异常是怎么回事？ | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ConcurrentModifyException并发修改异常是怎么回事？"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> ConcurrentModifyException并发修改异常是怎么回事？</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>在遍历集合类的元素时，若试图修改该集合则会报ConcurrentModifyException异常，本文介绍了该异常产生的各种情况、原因和解决方案。<img src="/2021/What-caused-ConcurrentModifyException/image-20210707144719236-1625640442274.png" alt="image-20210707144719236"><a id="more"></a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bsjl/p/7676209.html">Java并发–ConcurrentModificationException（并发修改异常）异常原因和解决方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinbadfreedom/article/details/80467328">ConcurrentModifyException的产生原因及如何避免</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/38823394">并发进阶（四）并发修改异常</a></li>
+</ol>
+<h1 id="ConcurrentModifyException是什么"><a href="#ConcurrentModifyException是什么" class="headerlink" title="ConcurrentModifyException是什么"></a>ConcurrentModifyException是什么</h1><p>原文：参考资料2</p>
+<p>ConcurrentModificationException这个异常是从JDK1.2时就存在。当方法检测到对象的并发修改，但不允许这种修改时，抛出此异常。这个异常在单线程和多线程运行环境都可以产生。</p>
+<p>某个线程在 Collection 上进行迭代时，通常不允许另一个线性修改该Collection。通常在这些情况下，迭代的结果是不确定的。如果检测到这种行为，一些迭代器实现（包括JRE提供的所有通用collection实现）可能选择抛出此异常。</p>
+<p>执行该操作的迭代器称为快速失败迭代器，因为迭代器很快就完全失败，而不会冒着在将来某个时间任意发生不确定行为的风险。迭代器的快速失败行为无法得到保证，因为一般来说，不可能对是否出现不同步并发修改做出任何硬性保证。快速失败操作会尽最大努力抛出ConcurrentModificationException。</p>
+<p>因此，为提高此类操作的正确性而编写一个依赖于此异常的程序是错误的做法，正确做法是：ConcurrentModificationException 应该仅用于检测 bug。</p>
+<h1 id="1-使用迭代器遍历时修改"><a href="#1-使用迭代器遍历时修改" class="headerlink" title="1 使用迭代器遍历时修改"></a>1 使用迭代器遍历时修改</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line"><span class="comment">// ...(向list进行添加等相关操作)</span></span><br><span class="line"><span class="comment">// 需求：删除list中的2</span></span><br><span class="line">Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">    Integer integer = iterator.next();</span><br><span class="line">    <span class="keyword">if</span>(integer==<span class="number">2</span>)</span><br><span class="line">        list.remove(integer);  <span class="comment">// 报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>查看ArrayList的源码，发现并没有iterator()方法的实现，那么说明它继承了其父类AbstractList的该方法。查看：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Itr();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回一个Itr类型的对象，继续查看该类的实现,是一个私有的内部类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Itr</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cursor = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> lastRet = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> expectedModCount = modCount;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cursor != size();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        checkForComodification();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            E next = get(cursor);</span><br><span class="line">            lastRet = cursor++;</span><br><span class="line">            <span class="keyword">return</span> next;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            checkForComodification();</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();           <span class="comment">// ①</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lastRet == -<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException();</span><br><span class="line">        checkForComodification();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            AbstractList.<span class="keyword">this</span>.remove(lastRet);</span><br><span class="line">            <span class="keyword">if</span> (lastRet &lt; cursor)</span><br><span class="line">                cursor--;</span><br><span class="line">            lastRet = -<span class="number">1</span>;</span><br><span class="line">            expectedModCount = modCount;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();  <span class="comment">// ②</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">checkForComodification</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (modCount != expectedModCount)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();  <span class="comment">// ③</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个AbstractList的迭代器总共有三处会抛出ConcurrentModificationException。</p>
+<p>先理解它是如何实现的：通过变量名字可以知道cursor代表当前指向的集合内元素，是下一次调用next()方法时会返回的元素。lastRet代表的是上一次返回的元素，用于删除方法。</p>
+<p>剩下的expectedModCount就是产生这个异常的原因：它表示对List对象修改次数的期望值，初始值为modCount，而modCount是AbstractList类中的一个成员变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">transient</span> <span class="keyword">int</span> modCount = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个变量表示对List的修改次数，查看ArrayList的add()和remove()方法就可以发现，每次调用add()方法或者remove()方法就会对modCount进行加1操作。</p>
+<p>那么，遍历场景中抛出ConcurrentModificationException异常的原因就清晰了：由于在使用迭代器的过程中调用了ArrayList本身的remove方法，使modCount++，再调用迭代器的next()方法时通过checkForComodification()抛出了该异常，即代码③处。</p>
+<h2 id="单线程解决方法-1"><a href="#单线程解决方法-1" class="headerlink" title="单线程解决方法 1"></a>单线程解决方法 1</h2><p>原文：参开资料1</p>
+<p>若是单线程，简单明了，调用迭代器重新实现的remove就好啦，在里面迭代器更新了expectedModCount。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">    Integer integer = iterator.next();</span><br><span class="line">    <span class="keyword">if</span>(integer==<span class="number">2</span>)</span><br><span class="line">        iterator.remove();   <span class="comment">// 呐</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者直接就不用迭代器，用for+局部变量i的形式遍历集合元素，用增强for循环不行，因为底层也是使用迭代器。</p>
+<h2 id="单线程解决方法2"><a href="#单线程解决方法2" class="headerlink" title="单线程解决方法2"></a>单线程解决方法2</h2><p>原文：参考资料2</p>
+<p>将ArrayList集合改为CopyOnWriteArrayList：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CopyOnWriteArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/** 初始化集合类*/</span></span><br><span class="line">        CopyOnWriteArrayList&lt;TestObj&gt; list = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            list.add(<span class="keyword">new</span> TestObj(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 遍历时删除元素*/</span></span><br><span class="line">        <span class="keyword">for</span> (TestObj obj : list) &#123;</span><br><span class="line">            <span class="keyword">if</span> (obj.getValue() &lt; <span class="number">10</span>) &#123;</span><br><span class="line">                <span class="comment">/** 这里不会抛出ConcurrentModificationException*/</span></span><br><span class="line">                list.remove(obj);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单线程两种方案比较"><a href="#单线程两种方案比较" class="headerlink" title="单线程两种方案比较"></a>单线程两种方案比较</h2><p>每一个方案都把上述操作执行一百万次，可以得到：</p>
+<table>
+<thead>
+<tr>
+<th>使用迭代器自带的remove方法</th>
+<th>1919</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用CopyOnWriteArrayList替代</td>
+<td>7013</td>
+</tr>
+</tbody></table>
+<p>因此，单线程环境中推荐使用迭代器自带的remove方法来删除元素。</p>
+<h2 id="多线程解决方案"><a href="#多线程解决方案" class="headerlink" title="多线程解决方案"></a>多线程解决方案</h2><p>若是多线程，这样写就不行了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">        list.add(<span class="number">1</span>);</span><br><span class="line">        list.add(<span class="number">2</span>);</span><br><span class="line">        list.add(<span class="number">3</span>);</span><br><span class="line">        list.add(<span class="number">4</span>);</span><br><span class="line">        list.add(<span class="number">5</span>);</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line">                <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">                    Integer integer = iterator.next();</span><br><span class="line">                    System.out.println(integer);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;;</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line">                <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">                    Integer integer = iterator.next();</span><br><span class="line">                    <span class="keyword">if</span>(integer==<span class="number">2</span>)</span><br><span class="line">                        iterator.remove();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;;</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样写还是会报ConcurrentModificationException异常，</p>
+<p>有可能有朋友说ArrayList是非线程安全的容器，换成Vector就没问题了，实际上换成Vector还是会出现这种错误。</p>
+<p>原因在于，虽然Vector的方法采用了synchronized进行了同步，但是由于Vector是继承的AbstarctList，因此通过Iterator来访问容器的话，事实上是不需要获取锁就可以访问。那么显然，由于使用iterator对容器进行访问不需要获取锁，在多线程中就会造成当一个线程删除了元素，由于modCount是AbstarctList的成员变量，因此可能会导致在其他线程中modCount和expectedModCount值不等。</p>
+<p>就比如上面的代码中，很显然iterator是线程私有的，</p>
+<p>初始时，线程1和线程2中的modCount、expectedModCount都为0，</p>
+<p>当线程2通过iterator.remove()删除元素时，会修改modCount值为1，并且会修改线程2中的expectedModCount的值为1，</p>
+<p>而此时线程1中的expectedModCount值为0，虽然modCount不是volatile变量，不保证线程1一定看得到线程2修改后的modCount的值，但是也有可能看得到线程2对modCount的修改，这样就有可能导致线程1中比较expectedModCount和modCount不等，而抛出异常。</p>
+<p>因此一般有2种解决办法：</p>
+<p>1）在使用iterator迭代的时候使用synchronized或者Lock进行同步；</p>
+<p>2）与单线程一样，可以使用并发容器<strong>CopyOnWriteArrayList</strong>代替ArrayList和Vector；使用<strong>ConcurrentHashMap</strong>替换HashMap。</p>
+<h1 id="2-集合类的toString-方法"><a href="#2-集合类的toString-方法" class="headerlink" title="2 集合类的toString()方法"></a>2 集合类的toString()方法</h1><p>原文：参考资料3</p>
+<p>Vector的toString()方法中隐式地使用了迭代器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AbstractCollection.toString()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Iterator&lt;E&gt; it = iterator();</span><br><span class="line">    <span class="keyword">if</span> (! it.hasNext())</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;[]&quot;</span>;</span><br><span class="line"></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    sb.append(<span class="string">&#x27;[&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        E e = it.next();</span><br><span class="line">        sb.append(e == <span class="keyword">this</span> ? <span class="string">&quot;(this Collection)&quot;</span> : e);</span><br><span class="line">        <span class="keyword">if</span> (! it.hasNext())</span><br><span class="line">            <span class="keyword">return</span> sb.append(<span class="string">&#x27;]&#x27;</span>).toString();</span><br><span class="line">        sb.append(<span class="string">&#x27;,&#x27;</span>).append(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的代码中可以看出Vector调用了AbstractCollection.toString()方法，而AbstractCollection.toString()方法使用了迭代器遍历整个容器。</p>
+<p>使用调用Vector.toString()方法时不会出现并发访问异常，因为Vector.toString()方法加锁了，当调用toString()方法时其它线程不能修改容器，因此不会抛出并发访问异常。但是ArrayList、LinkedList这些非线程安全的容器类就不能保证调用toString()方法的时候没有其它线程修改容器了，因此调用这些类的toString()方法有可能导致并发访问异常。</p>
+<h2 id="避免异常的方法"><a href="#避免异常的方法" class="headerlink" title="避免异常的方法"></a><strong>避免异常的方法</strong></h2><p><strong>加锁</strong></p>
+<p>避免异常的方法也不难，最简单的方式就是和Vector.toString()一样，我们每次调用迭代器的时候都对Vector的对象加锁即可。比如下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(vct) &#123;</span><br><span class="line">true<span class="keyword">for</span>(String str : vct) &#123;</span><br><span class="line">truetrueSystem.out.println(str);</span><br><span class="line">true&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以避免在遍历的时候其它线程对容器修改，但是如果容器特别大的时候会导致遍历容器需要等很久，而其它线程必须等待，这样就降低了系统的性能，因此这种解决方案并不是完美的。</p>
+<p><strong>分段遍历</strong></p>
+<p>另一种方式就是分段遍历容器，比如容器中一共有十万个元素，我们通过subList()方法先获得前一千个元素，遍历这个子集，然后再获得从一千到两千的元素……以此类推。但是这种方案也是有缺陷的，因为每次拿到的子集都相当于一个快照，在遍历子集的时候别的线程可能已经修改了这个容器，因此这种方法要求客户端代码对数据一致的敏感性不高，对敏感性高就只能使用加锁的方法。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/HIT-Information-Security-Review/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-07-07 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/softwareConstruction/">softwareConstruction<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/并发/">并发<span>1</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-article-text">参考资料</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#ConcurrentModifyException%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-article-text">ConcurrentModifyException是什么</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%81%8D%E5%8E%86%E6%97%B6%E4%BF%AE%E6%94%B9"><span class="toc-article-text">1 使用迭代器遍历时修改</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%BA%E6%99%AF"><span class="toc-article-text">场景</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-article-text">原因</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-1"><span class="toc-article-text">单线程解决方法 1</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%952"><span class="toc-article-text">单线程解决方法2</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%A1%88%E6%AF%94%E8%BE%83"><span class="toc-article-text">单线程两种方案比较</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-article-text">多线程解决方案</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-%E9%9B%86%E5%90%88%E7%B1%BB%E7%9A%84toString-%E6%96%B9%E6%B3%95"><span class="toc-article-text">2 集合类的toString()方法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%81%BF%E5%85%8D%E5%BC%82%E5%B8%B8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-article-text">避免异常的方法</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
