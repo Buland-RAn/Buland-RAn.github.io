@@ -6,7 +6,7 @@
   <link href="https://www.fvolcano.red/atom.xml" rel="self"/>
   
   <link href="https://www.fvolcano.red/"/>
-  <updated>2021-07-07T12:23:08.000Z</updated>
+  <updated>2021-07-08T11:34:48.000Z</updated>
   <id>https://www.fvolcano.red/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>软件构造spec：RI、AF与safety from rep exposure</title>
+    <link href="https://www.fvolcano.red/2021/how-to-write-specification/"/>
+    <id>https://www.fvolcano.red/2021/how-to-write-specification/</id>
+    <published>2021-07-08T11:34:48.000Z</published>
+    <updated>2021-07-08T11:34:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文介绍了spec、AF、RI和safety from rep exposure的含义和写法。<a id="more"></a></p><p>参考资料：</p><ol><li><a href="https://www.pianshen.com/article/78341578333/">Spec、AF、RI以及Safety from rep exposure的一些体会 - 程序员大本营 (pianshen.com)</a></li><li><a href="https://blog.csdn.net/weixin_44513527/article/details/105102644">Safety from Rep Exposure</a></li><li><a href="https://blog.csdn.net/djd566/article/details/79749757">Java如何做到全面的Safety from rep exposure</a></li><li><a href="https://blog.csdn.net/qq_44013163/article/details/106600240">对于AF、RI、Safety from rep exposure的理解</a></li></ol><h1 id="Spec"><a href="#Spec" class="headerlink" title="Spec"></a>Spec</h1><p>Spec，既方法的设计规约（Specification）。</p><p>(1)为什么要设计规约？<br>1.没有规约，在团队合作时无法分配任务，无法写程序，即使写出来，也不知道对错<br>2.可以使程序与客户端之间达成一致，明确双方的责任，并且对正确实现进行定义。<br>3.规约给供需双方都确定了责任，在调用时，双方都要遵守</p><p>(2)规约的作用：<br>1.精确的规约，有助于区分责任<br>2.客户端无需阅读调用函数的代码，只需理解spec即可<br>3.规约可以隔离“变化”，无需通知客户端<br>4.规约也可以提高代码效率<br>规约相当于在调用者与实现者之间建立一道防火墙，调用者无需知道方法内部实现，了解规约进行调用即可。<br>也就是说，只要满足规约，实现者便可以对代码进行修改，如果两个方法内在实现不同，但是可以满足相同的规约，那么就可以称这两个方法具有行为等价性。</p><p>(3)行为等价性：<br>是站在客户端视角看行为等价性的。<br>可以根据规约判定是否行为等价，而与其具体实现无关。</p><p>(4)规约的结构：前置条件和后置条件<br>1.前置条件：对客户端的约束，在使用方法时必须满足的条件<br>2.后置条件：对开发者的约束，方法结束时必须满足的条件<br>3.契约：如果前置条件满足了，后置条件必须满足<br>注意：如果前置条件不满足，则方法可做任何事情。</p><p>(5)Java中的规约：<br>静态类型声明是一种规约，限制前置条件和后置条件，可据此进行静态类型检查static checking。<br>方法前的注释也是一种规约，但需人工判定其是否满足。<br>前置条件：@param<br>后置条件：@return 和@throws</p><h1 id="AF与RI"><a href="#AF与RI" class="headerlink" title="AF与RI"></a>AF与RI</h1><p>在我们了解AF与RI之前，我们需要了解一些基础知识。<br>在实现ADT时，我们会使用如下两个空间：<br>R：表示空间（rep values），即实现者看到和使用的空间<br>A：抽象空间（abstract values），即客户端看到和使用的空间<br>R到A：一定满射，不一定单射</p><h2 id="AF"><a href="#AF" class="headerlink" title="AF"></a>AF</h2><p>AF，既抽象函数（Abstraction function），R-&gt;A<br>AF描述内存到实际的映射，所以AF一定是满射，但不一定是单射，也就不一定是双射。</p><h2 id="RI"><a href="#RI" class="headerlink" title="RI"></a>RI</h2><p>RI，即表示不变量（Representation invariant），R → boolean<br>RI告诉我们空间R中的r是否被AF映射到了空间A中的某个值，如果把R中满足RI的元素形成一个子集，那么这个子集中所有元素均被AF映射到了空间A中<br>在上图中，RI可解释为“字符串中没有重复的字母”</p><p>AF和RI与内部表示的设计息息相关，不同的内部标识，需要设计不同的AF和RI；同一种表示可能有不同的RI，进而有不同的AF；即使同一种R，同样的RI，也可能有不同的AF，即“解释不同”</p><h1 id="Safety-from-rep-exposure"><a href="#Safety-from-rep-exposure" class="headerlink" title="Safety from rep exposure"></a>Safety from rep exposure</h1><p>首先我们要知道一个名词,表示泄露（representation exposure）：指类外的某个代码可以直接修改表示形式<br>而Safety from rep exposure，即表示泄漏的安全声明，就是对表示泄露安全相关的参数，特别是输入参数和返回值，给出保证不泄露内部表示的策略</p><p>1.All fields are private( final)——即将类中所有的属性（变量）定义为private类型，目的是不让用户得到你的内部属性</p><p>2.尽量使用immutable数据类型，比如能使用String就不使用StringBuilder，能使用Instance或LocalDateTime就不使用Data</p><p>3.如果我们使用了mutable类型的数据，为了防止对外泄露其内部表示，需要使用defensive copy，即防御式拷贝。如果是Set、Map等数据类型，还可以使用Collections.unmodifiableSet，Collections.unmodifiableMap等方法。</p><p>4.随时检查RI是否满足，自写checkRep（）方法（通常在其中使用assert来进行判断），在创造和改变表示的方法中（creators，producers，mutators），进行调用，来确保不变性。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;本文介绍了spec、AF、RI和safety from rep exposure的含义和写法。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="SoftwareConstruction" scheme="https://www.fvolcano.red/categories/SoftwareConstruction/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>通过snapshot图理解值与引用</title>

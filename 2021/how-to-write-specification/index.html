@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>how to write Test Strategy document | AYu</title>
+  <title>软件构造spec：RI、AF与safety from rep exposure | AYu</title>
   <meta name="author" content="AYu">
   
   <meta name="description" content="学习生活片段记录">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="how to write Test Strategy document"/>
+  <meta property="og:title" content="软件构造spec：RI、AF与safety from rep exposure"/>
   <meta property="og:site_name" content="AYu"/>
 
   
@@ -107,7 +107,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> how to write Test Strategy document</h1>
+			<h1> 软件构造spec：RI、AF与safety from rep exposure</h1>
 		</div>
 	
 
@@ -125,61 +125,29 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  		
 
-	  <p>Test strategy means “How you are going to test the application”. It deals with test objectives, approach, test environment, automation strategy and tools, and risk analysis with a contingency plan.</p>
-<a id="more"></a>
-
-
-
+	  <p>本文介绍了spec、AF、RI和safety from rep exposure的含义和写法。<a id="more"></a></p>
 <p>参考资料：</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://www.softwaretestinghelp.com/writing-test-strategy-document-template/#:~:text=%20Simple%20Tips%20To%20Write%20Test%20Strategy%20Document,project.%20Clearly%2C%20mention%20what%20types%20of...%20More">How To Write Test Strategy Document (With Sample Test Strategy Template)</a></li>
-<li><a target="_blank" rel="noopener" href="http://tryqa.com/what-is-test-strategy-types-of-strategies-with-examples/">What is Test Strategy? Types of strategies with examples</a></li>
-<li><a target="_blank" rel="noopener" href="https://testfort.com/blog/7-steps-to-develop-good-test-strategy-document">7 Steps to Develop Good Test Strategy Document</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.softwaretestinghelp.com/how-to-write-test-plan-document-software-testing-training-day3/">Test Plan Tutorial: A Guide To Write A Software Test Plan Document From Scratch</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.pianshen.com/article/78341578333/">Spec、AF、RI以及Safety from rep exposure的一些体会 - 程序员大本营 (pianshen.com)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44513527/article/details/105102644">Safety from Rep Exposure</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/djd566/article/details/79749757">Java如何做到全面的Safety from rep exposure</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44013163/article/details/106600240">对于AF、RI、Safety from rep exposure的理解</a></li>
 </ol>
-<h1 id="What"><a href="#What" class="headerlink" title="What"></a>What</h1><p>Test strategy means “How you are going to test the application?” You need to mention the exact process/strategy that you are going to follow when you will get the application for testing.</p>
-<p>test strategy defines guidelines for test approach to be followed in order to achieve the test objectives and execution of test types defined in the testing plan. It deals with test objectives, approach, test environment, automation strategy and tools, and risk analysis with a contingency plan.</p>
-<h1 id="How"><a href="#How" class="headerlink" title="How"></a>How</h1><h2 id="Sections-of-test-strategy-document"><a href="#Sections-of-test-strategy-document" class="headerlink" title="Sections of test strategy document"></a>Sections of test strategy document</h2><ol>
-<li><strong>Scope and overview</strong><br>This stage is fundamental as it shapes testing company’s vision. It includes:<ul>
-<li>dividing roles and responsibilities, deciding who should approve, review and use this document;</li>
-<li>defining phases of each project according to the timelines that are specified in the test plan.</li>
-</ul>
-</li>
-<li><strong>Test Approach</strong><br>This step should be well-thought to avoid further mess in case something goes wrong. The main points to be considered at this stage are:<ul>
-<li>testing process and life cycle;</li>
-<li>distribution of responsibilities among the team of QA engineers;</li>
-<li>defining all testing types that company can provide the client with;</li>
-<li>establishing testing approaches.</li>
-</ul>
-</li>
-<li><strong>Test environment</strong><br>This stage of Test Strategy document has to cover the next aspects regarding test data:<ul>
-<li>requirements – the clear instruction on how to create test data;</li>
-<li>environments and all required setups for each of them;</li>
-<li>backup and restore strategy to make sure you won’t lose any data due to some unexpected code issues.</li>
-</ul>
-</li>
-<li><strong>Testing tools</strong><br>At this point you need to choose all the tools that will be used for test execution. All commercial, open source, automation and management tools have to be listed here.</li>
-<li><strong>Realese</strong><br>To ensure successful test execution, make sure your release management plan is created thoughtfully. Thus, set a build management process to know where new build should be available, when it’s going to be deployed, who should deploy it, how to stop release in case of issues, etc.</li>
-<li><strong>Industry standards to follow</strong></li>
-<li><strong>Test deliverables</strong></li>
-<li><strong>Testing metrics</strong></li>
-<li><strong>Requirement Traceability Matrix</strong></li>
-<li><strong>Risk and mitigation</strong><br>Try to foresee all possible risks related to your project. Write a clear plan to avoid such risks and a contingency plan in case these risks become a reality.</li>
-<li><strong>Reporting tool</strong></li>
-<li><strong>Test summary</strong><br>The ready plan must be reviewed and approved by managers, technical team leaders, business development, and software development teams. Also Test Strategy document can be updated in case some important changes occur in the course of the testing process.</li>
-</ol>
-<h2 id="Simple-Tips-To-Write-Test-Strategy-Document"><a href="#Simple-Tips-To-Write-Test-Strategy-Document" class="headerlink" title="Simple Tips To Write Test Strategy Document"></a>Simple Tips To Write Test Strategy Document</h2><ol>
-<li>Include product background in the test strategy document. In the first paragraph of your test strategy document answer – Why stakeholders want to develop this project? This will help to understand and prioritize things quickly.</li>
-<li>List all important features you are going to test. If you think some features are not part of this release then mention those features under “Features not to be tested” label.</li>
-<li>Write down the test approach for your project. Clearly, mention what types of testing you are going to conduct?<br>i.e. Functional testing, UI testing, Integration testing, Load/Stress testing, Security testing, etc.</li>
-<li>Answer questions like how you are going to perform functional testing? Manual or automation testing? Are you going to execute all test cases from your test management tool?</li>
-<li>Which bug tracking tool you are going to use? What will be the process when you will find a new bug?</li>
-<li>What are your test entry and exit criteria?</li>
-<li>How will you track your testing progress? What metrics are you going to use for tracking test completion?</li>
-<li>Task distribution – Define the roles and responsibilities of each team member.</li>
-<li>What documents will you produce during and after the testing phase?</li>
-<li>What risks do you see in Test completion?</li>
-</ol>
+<h1 id="Spec"><a href="#Spec" class="headerlink" title="Spec"></a>Spec</h1><p>Spec，既方法的设计规约（Specification）。</p>
+<p>(1)为什么要设计规约？<br>1.没有规约，在团队合作时无法分配任务，无法写程序，即使写出来，也不知道对错<br>2.可以使程序与客户端之间达成一致，明确双方的责任，并且对正确实现进行定义。<br>3.规约给供需双方都确定了责任，在调用时，双方都要遵守</p>
+<p>(2)规约的作用：<br>1.精确的规约，有助于区分责任<br>2.客户端无需阅读调用函数的代码，只需理解spec即可<br>3.规约可以隔离“变化”，无需通知客户端<br>4.规约也可以提高代码效率<br>规约相当于在调用者与实现者之间建立一道防火墙，调用者无需知道方法内部实现，了解规约进行调用即可。<br>也就是说，只要满足规约，实现者便可以对代码进行修改，如果两个方法内在实现不同，但是可以满足相同的规约，那么就可以称这两个方法具有行为等价性。</p>
+<p>(3)行为等价性：<br>是站在客户端视角看行为等价性的。<br>可以根据规约判定是否行为等价，而与其具体实现无关。</p>
+<p>(4)规约的结构：前置条件和后置条件<br>1.前置条件：对客户端的约束，在使用方法时必须满足的条件<br>2.后置条件：对开发者的约束，方法结束时必须满足的条件<br>3.契约：如果前置条件满足了，后置条件必须满足<br>注意：如果前置条件不满足，则方法可做任何事情。</p>
+<p>(5)Java中的规约：<br>静态类型声明是一种规约，限制前置条件和后置条件，可据此进行静态类型检查static checking。<br>方法前的注释也是一种规约，但需人工判定其是否满足。<br>前置条件：@param<br>后置条件：@return 和@throws</p>
+<h1 id="AF与RI"><a href="#AF与RI" class="headerlink" title="AF与RI"></a>AF与RI</h1><p>在我们了解AF与RI之前，我们需要了解一些基础知识。<br>在实现ADT时，我们会使用如下两个空间：<br>R：表示空间（rep values），即实现者看到和使用的空间<br>A：抽象空间（abstract values），即客户端看到和使用的空间<br>R到A：一定满射，不一定单射</p>
+<h2 id="AF"><a href="#AF" class="headerlink" title="AF"></a>AF</h2><p>AF，既抽象函数（Abstraction function），R-&gt;A<br>AF描述内存到实际的映射，所以AF一定是满射，但不一定是单射，也就不一定是双射。</p>
+<h2 id="RI"><a href="#RI" class="headerlink" title="RI"></a>RI</h2><p>RI，即表示不变量（Representation invariant），R → boolean<br>RI告诉我们空间R中的r是否被AF映射到了空间A中的某个值，如果把R中满足RI的元素形成一个子集，那么这个子集中所有元素均被AF映射到了空间A中<br>在上图中，RI可解释为“字符串中没有重复的字母”</p>
+<p>AF和RI与内部表示的设计息息相关，不同的内部标识，需要设计不同的AF和RI；同一种表示可能有不同的RI，进而有不同的AF；即使同一种R，同样的RI，也可能有不同的AF，即“解释不同”</p>
+<h1 id="Safety-from-rep-exposure"><a href="#Safety-from-rep-exposure" class="headerlink" title="Safety from rep exposure"></a>Safety from rep exposure</h1><p>首先我们要知道一个名词,表示泄露（representation exposure）：指类外的某个代码可以直接修改表示形式<br>而Safety from rep exposure，即表示泄漏的安全声明，就是对表示泄露安全相关的参数，特别是输入参数和返回值，给出保证不泄露内部表示的策略</p>
+<p>1.All fields are private( final)——即将类中所有的属性（变量）定义为private类型，目的是不让用户得到你的内部属性</p>
+<p>2.尽量使用immutable数据类型，比如能使用String就不使用StringBuilder，能使用Instance或LocalDateTime就不使用Data</p>
+<p>3.如果我们使用了mutable类型的数据，为了防止对外泄露其内部表示，需要使用defensive copy，即防御式拷贝。如果是Set、Map等数据类型，还可以使用Collections.unmodifiableSet，Collections.unmodifiableMap等方法。</p>
+<p>4.随时检查RI是否满足，自写checkRep（）方法（通常在其中使用assert来进行判断），在创造和改变表示的方法中（creators，producers，mutators），进行调用，来确保不变性。</p>
 	  
 	</div>
 
@@ -189,13 +157,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2021/how-to-implement-with-defensive-copying/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2021/how-to-build-a-java-project/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2021/how-to-use-snapshot/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -327,7 +294,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2021-05-27 
+	2021-07-08 
 	</div>
 	
 	<span id="busuanzi_container_page_pv">
@@ -350,15 +317,6 @@ var _hmt = _hmt || [];
 	
 
 	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/整理/">整理<span>14</span></a></li>
-  
-    </ul>
-	</div>
 		
 
 	<!-- toc -->
@@ -367,7 +325,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#What"><span class="toc-article-text">What</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#How"><span class="toc-article-text">How</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Sections-of-test-strategy-document"><span class="toc-article-text">Sections of test strategy document</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Simple-Tips-To-Write-Test-Strategy-Document"><span class="toc-article-text">Simple Tips To Write Test Strategy Document</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Spec"><span class="toc-article-text">Spec</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#AF%E4%B8%8ERI"><span class="toc-article-text">AF与RI</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AF"><span class="toc-article-text">AF</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#RI"><span class="toc-article-text">RI</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Safety-from-rep-exposure"><span class="toc-article-text">Safety from rep exposure</span></a></li></ol>
 		</div>
 	
 	</div>
