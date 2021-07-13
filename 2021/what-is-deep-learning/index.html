@@ -1,0 +1,421 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>什么是深度学习 | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="什么是深度学习"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 什么是深度学习</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>介绍了深度学习的概念和其与机器学习的区别。<a id="more"></a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>深度学习-百度百科/维基百科</li>
+<li><a target="_blank" rel="noopener" href="https://easyaitech.medium.com/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%99%BD%E8%AF%9D%E8%A7%A3%E9%87%8A-8%E4%B8%AA%E4%BC%98%E7%BC%BA%E7%82%B9-4%E4%B8%AA%E5%85%B8%E5%9E%8B%E7%AE%97%E6%B3%95-2d34c5cb7175">一文看懂深度学习（白话解释+8个优缺点+4个典型算法）</a></li>
+<li><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/discovery/deep-learning.html">什么是深度学习</a></li>
+<li><a target="_blank" rel="noopener" href="https://gsy00517.github.io/deep-learning20200122164503/">deep learning笔记：端到端学习</a></li>
+</ol>
+<p><img src="/2021/what-is-deep-learning/1625204551825.svg" alt="图 1：神经网络由多个层构成，每个层包含一系列互连节点。网络可能包含数十或数百个隐藏层。"></p>
+<h1 id="各种解释"><a href="#各种解释" class="headerlink" title="各种解释"></a>各种解释</h1><h2 id="维基百科"><a href="#维基百科" class="headerlink" title="维基百科"></a>维基百科</h2><p><strong>深度学习</strong>（英语：deep learning）是<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>的分支，是一种以<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">人工神经网路</a>为架构，对资料进行表征学习的<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E7%AE%97%E6%B3%95">算法</a>。</p>
+<p>深度学习是<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>中一种基于对数据进行<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0">表征学习</a>的算法。观测值（例如一幅图像）可以使用多种方式来表示，如每个像素强度值的<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E5%90%91%E9%87%8F">向量</a>，或者更抽象地表示成一系列边、特定形状的区域<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E5%B0%BA%E5%BA%A6%E4%B8%8D%E8%AE%8A%E7%89%B9%E5%BE%B5%E8%BD%89%E6%8F%9B">等</a>。而使用某些特定的表示方法更容易从实例中学习任务（例如，人脸识别或面部表情识别）。深度学习的好处是用<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E9%9D%9E%E7%9B%A3%E7%9D%A3%E5%BC%8F%E5%AD%B8%E7%BF%92">非监督式</a>或半监督式（英语：<a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Semi-supervised_learning">Semi-supervised learning</a>）的<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E7%89%B9%E5%BE%81%E5%AD%A6%E4%B9%A0">特征学习</a>和分层<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96">特征提取</a>高效算法来替代手工获取<a target="_blank" rel="noopener" href="https://www.wikiwand.com/zh-hans/%E7%89%B9%E5%BE%81_(%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0)">特征</a>。</p>
+<h2 id="百度百科"><a href="#百度百科" class="headerlink" title="百度百科"></a>百度百科</h2><p>深度学习的概念源于人工神经网络的研究，含多个隐藏层的多层感知器就是一种深度学习结构。深度学习通过组合低层特征形成更加抽象的高层表示属性类别或特征，以发现数据的分布式特征表示。</p>
+<p>深度学习是一类<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%A8%A1%E5%BC%8F%E5%88%86%E6%9E%90/12598452">模式分析</a>方法的统称。通过多层处理，逐渐将初始的“低层”特征表示转化为“高层”特征表示后，用“简单模型”即可完成复杂的分类等学习任务。由此可将深度学习理解为进行“特征学习”（feature learning）或“表示学习”（representation learning）。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><img src="https://miro.medium.com/max/875/0*jHGzSx46XNqse7k3.png"></p>
+<h1 id="与机器学习的关系"><a href="#与机器学习的关系" class="headerlink" title="与机器学习的关系"></a>与机器学习的关系</h1><p>以往在机器学习用于现实任务时，描述样本的特征通常需由人类专家来设计，这成为“特征工程”（feature engineering）。众所周知，特征的好坏对泛化性能有至关重要的影响，人类专家设计出好特征也并非易事；特征学习（<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0/2140515">表征学习</a>）则通过机器学习技术自身来产生好特征，这使机器学习向“全自动数据分析”又前进了一步。与传统的学习方法相比，深度学习方法预设了更多的模型参数，因此模型训练难度更大，根据统计学习的一般规律知道，模型参数越多，需要参与训练的数据量也越大。</p>
+<p>深度学习中的“深度”一词通常是指神经网络中的隐藏层数。传统神经网络只包含 2 到 3 个隐藏层，而深度网络可能包含多达 150 个隐藏层。</p>
+<p>区别于传统的浅层学习，深度学习的不同在于：</p>
+<ol>
+<li><p>强调了模型结构的深度，通常有5层、6层，甚至10多层的隐层节点； </p>
+</li>
+<li><p>明确了特征学习的重要性。也就是说，通过逐层特征变换，将样本在原空间的特征表示变换到一个新特征空间，从而使分类或预测更容易。与人工规则构造特征的方法相比，利用大数据来学习特征，更能够刻画数据丰富的内在信息。</p>
+</li>
+</ol>
+<p><img src="https://miro.medium.com/max/875/0*0m26vYcHghsHL-Bw.jpg"></p>
+<p>深度学习模型可以达到最先进的精确度，有时甚至超出人类的表现。该模型通过使用大量的标签化数据以及包含许多层的神经网络架构得到训练。</p>
+<p>机器学习工作流程起始于从图像手动提取的相关特征。然后使用这些特征创建对图像中的对象进行分类的模型。在深度学习工作流程中，自动从图像提取相关特征。此外，深度学习还执行“<strong>端到端学习</strong>”，即为网络提供原始数据和分配要执行的任务（如分类），而神经网络学习如何自动执行此操作。</p>
+<blockquote>
+<p>端到端学习（end-to-end learning）</p>
+<p>传统机器学习的流程往往由多个独立的模块组成，比如在一个典型的自然语言处理（Natural Language Processing）问题中，包括分词、词性标注、句法分析、语义分析等多个独立步骤，每个步骤是一个独立的任务，其结果的好坏会影响到下一步骤，从而影响整个训练的结果，这就是非端到端的。<br>而深度学习模型在训练过程中，从输入端（输入数据）到输出端得到一个预测结果，该结果与真实结果相比较会得到一个误差，这个误差将用于模型每一层的调整（比如反向传播），这种训练直到模型收敛或达到预期的效果才结束，这就是端到端（end-to-end）的。<br><img src="/2021/what-is-deep-learning/example.png"><br>相比传统方法每一个模块都有较为明确的输出，端到端的深度学习更像是一个神秘的整体。通俗的说，端到端的深度学习能够让“数据说话”。不过这种方法是很吃数据的，因此还不至于在每个领域都胜过甚至代替传统的机器学习方法。</p>
+<p>相比之下，端到端学习省去了每一步中间的数据处理和每一步模型的设计（这往往会涉及相当多的专业知识），但是端到端学习也有两个重要的缺点：</p>
+<ol>
+<li>需要大量的数据</li>
+<li>可能排除有用的人工设计</li>
+</ol>
+</blockquote>
+<p>另一个主要区别是深度学习算法会随数据发散，而浅层学习则会收敛。浅层学习是指当您向网络添加更多示例和训练数据时，在一定性能水平上趋于稳定的机器学习方法。</p>
+<p>深度学习网络的一个主要优势在于，随着数据量增加，它们经常会持续改进。</p>
+<p><img src="/2021/what-is-deep-learning/1625204551894.svg" alt="图 3．将对车辆进行分类的机器学习方法（左）与深度学习（右）进行比较。"></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2021/null/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/To-understand-SRP/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-07-13 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/深度学习/">深度学习<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/整理/">整理<span>16</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-article-text">参考资料</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%90%84%E7%A7%8D%E8%A7%A3%E9%87%8A"><span class="toc-article-text">各种解释</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91"><span class="toc-article-text">维基百科</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91"><span class="toc-article-text">百度百科</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-article-text">其他</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-article-text">与机器学习的关系</span></a>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
