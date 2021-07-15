@@ -1,0 +1,718 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>什么是use case | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="什么是use case"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 什么是use case</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>Use Case 是UML中的重要概念，本文介绍了它的含义及写法。<a id="more"></a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7ff70e28bb72">谈谈需求的描述-用例（Use Case）</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.woshipm.com/pmd/932236.html">我们如何正确使用Use Case</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Use_case">wiki-Use case</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.usability.gov/how-to-and-tools/methods/use-cases.html">Usability.gov-Use Cases</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/">What is Use Case Diagram?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.inflectra.com/ideas/topic/use-cases.aspx">Use Cases and Scenarios</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012829152/article/details/42005705">用例级别–用户用例，高层用例和子功能用例</a></li>
+</ol>
+<h1 id="Use-Case是什么"><a href="#Use-Case是什么" class="headerlink" title="Use Case是什么"></a>Use Case是什么</h1><p>Use Case（用例）是一个UML中非常重要的概念，在使用UML的整个软件开发过程中，Use Case处于一个中心地位，是UML规范中的一种标准化的需求表达方式，其中比较有名的RUP（Rational Unified Process）就是以用例来驱动的。在UML的文档中，Use Case的定义是：<strong>在不展现一个系统或子系统内部结构的情况下，对系统或子系统的某个连贯的功能单元的定义和描述</strong>。</p>
+<p>怎么理解呢？Use Case就是对系统功能的描述，一个Use Case描述的是整个系统功能的一部分，这一部分一定要是在<strong>逻辑上相对完整的功能流程</strong>。</p>
+<p>在使用UML的开发过程中，需求是用Use Case来表达的，界面是在Use Case的辅助下设计的，很多类是根据Use Case来发现的，测试实例是根据Use Case来生成的，包括整个开发的管理和任务分配，也是依据Use Case来组织的。</p>
+<p>用例是一种描述需求的方法，用例描述了在不同的条件下，系统对参与者的请求做出的响应。用例通常通过一个参与者（Actor）（<em>谁？</em>）向系统做出请求，系统根据参与者的请求（<em>要做什么？</em>），在不同的条件下，执行某一行为序列（<em>系统怎么满足？</em>）。每一个行为序列可以称之为一个场景（Scenario），一个用例包含多个场景。场景也可以称之为用例的一个实例（Instance）。</p>
+<blockquote>
+<p>A <em>use case</em> is a list of actions or event steps typically defining the interactions between a role (known in the <a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Unified_Modeling_Language">Unified Modeling Language</a> (UML) as an <em><a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Actor_(UML)">actor</a></em>) and a system to achieve a goal. The actor can be a human or other external system. In systems engineering, use cases are used at a higher level than within <a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Software_engineering">software engineering</a>, often representing missions or <a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Project_stakeholder">stakeholder</a> goals.</p>
+</blockquote>
+<p>由于不少测试工程师将<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B">测试用例</a>简称为用例，为便于区分两者，将原来的[Use case](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Use">https://baike.baidu.com/item/Use</a> case)用例称为需求用例。</p>
+<h1 id="Use-Case的组成"><a href="#Use-Case的组成" class="headerlink" title="Use Case的组成"></a>Use Case的组成</h1><p>原文：参考资料1</p>
+<p>正式的用例应该包括：用例名、概述、范围、级别、主参与者、项目相关人员和利益、前置条件、最小保证、成功保证、触发事件、主成功场景、扩展场景和相关信息等等。</p>
+<p>各个组成部分的意义如下：</p>
+<ul>
+<li>用例名（Title）：&lt;*用例目标*&gt;</li>
+<li>概述（Goal in Context）：&lt;*要描述用例流程和目标*&gt;</li>
+<li>范围（Scope）：&lt;*设计范围*&gt;</li>
+<li>级别（Level）：&lt;*概要、用户目标、子功能*&gt;</li>
+<li>主执行者（Primary Actort）：&lt;*主执行者或角色*&gt;</li>
+<li>项目相关人员和利益（Stakeholders and Interests）：&lt;*项目相关人和主要利益列表*&gt;</li>
+<li>前置条件 （Precondition）：&lt;*已经达到的条件*&gt;</li>
+<li>最小保证（Minimal Guarantees）：&lt;*用例必须执行的信息*&gt;</li>
+<li>成功保证（Success Guarantees）：&lt;*目标完成时执行的信息*&gt;</li>
+<li>触发事件（Trigger）：&lt;*触发了用例的事件*&gt;</li>
+<li>主成功场景（Main Success Scenario）：&lt;*目标完成的主要步骤*&gt;</li>
+<li>扩展（Extensions）：&lt;*可能出现的其他步骤，包括异常情况*&gt;</li>
+</ul>
+<h2 id="用例名（Title）"><a href="#用例名（Title）" class="headerlink" title="用例名（Title）"></a>用例名（Title）</h2><p>用例名用于标识一个用例，便于汇总和阅读。</p>
+<p><strong>规则：使用主动语态的动宾短语来描述。</strong></p>
+<p>一般情况下，建议使用主动语态的动宾短语来描述用例的目标。如：<em>“查找商品”</em>、<em>“加入购物车”</em>。在某些情况下，如需要更准确的表示出一个用例，可以加入定语进行修饰，如：<em>“用户清除购物车”</em>、<em>“管理员清除购物车”</em>。</p>
+<p><strong>规则：以主参与者为对象进行描述。</strong></p>
+<p>用例的描述需要以主参与者为对象进行描述，如可以使用<em>“支付订单”</em>（以主参与者为对象），而不是<em>“收取订单费用”</em>(以系统为对象)。</p>
+<h2 id="范围（Scope）"><a href="#范围（Scope）" class="headerlink" title="范围（Scope）"></a>范围（Scope）</h2><p>用例的范围能让我们对系统的边界和讨论的需求有一个基础的语境，不同的设计范围可能会导致我们需要讨论的参与者、场景都会不一样。简单来讲，就是为我们讨论的系统划定一个范围确定我们讨论的界线。</p>
+<p>例如我们要讨论一个用户的下单行为。如果以整个企业为范围，其项目的相关人员为用户、第三方服务者（如快递等）。但如果以系统为范围，其项目相关人员还应该包括企业内部的系统管理员、客服等。</p>
+<p>所以，在编写用例时需要搞清楚，我们的用例的范围是什么，这样可以对用例讨论的问题达成一个共识。</p>
+<h3 id="功能范围"><a href="#功能范围" class="headerlink" title="功能范围"></a>功能范围</h3><p>在讨论用例的设计范围时，需要先确定系统的功能范围。Cockburn在《编写有效用例》里面推荐了一个确定功能范围的方式<em>“内/外列表”</em>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">主题</th>
+<th align="center">内</th>
+<th align="center">外</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">查询商品</td>
+<td align="center">内</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">打印订单</td>
+<td align="center"></td>
+<td align="center">外</td>
+</tr>
+<tr>
+<td align="center">加入购物车</td>
+<td align="center">内</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">订单管理</td>
+<td align="center">内</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">跟踪物流路径</td>
+<td align="center"></td>
+<td align="center">外</td>
+</tr>
+</tbody></table>
+<p>确定功能范围的好处是显而易见。如，系统外部已经有了一个打印订单的系统，如果不明确区分系统的功能范围，部分开发人员有可能会对打印订单功能进行设计和实现。而事实上，这些功能是不需要设计的。</p>
+<p>明确了功能范围后，还可以确认系统的执行人员。如上面的例子，打印订单系统将作为<em>“打印订单”</em>用例的辅助执行者。</p>
+<h3 id="设计范围"><a href="#设计范围" class="headerlink" title="设计范围"></a>设计范围</h3><p>设计范围是在功能范围确定了之后做的。设计范围指的是我们在编写用例时讨论问题的边界和对象。我们在用例里面说的范围（Scope）如果没有特殊说明指的就是设计范围（而不是功能范围）。</p>
+<p>下面来看一个例子，ECom公司打算做一个ESys的系统，系统里面包括了ESubSys等多个子系统。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/422470-eebad04ef1658151.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860/format/webp" alt="设计范围的大小"></p>
+<p>如果以ECom为设计范围来讨论用例，我们关心的是用户对公司的需求是什么，公司以什么样的形式满足用户的请求。如果有外部公司，则还要考虑外部公司与公司之间往来的业务是什么。</p>
+<p>如果以ESys为设计范围来讨论用例，我们更关心用户向系统发起的请求和系统对请求的响应。同时，如果以ESys做范围的时候，企业内部的员工也成了用例的执行者，我们还应该考虑员工对系统的请求。</p>
+<p>确定用例范围，能很好的对其我们要讨论的问题是什么，界定我们讨论问题的范围，给用例一个语言环境。</p>
+<p><strong>规则：设计范围是一个简单的专有名称。</strong></p>
+<p>用例的范围应该是一个简单的专用名词，如“电商系统”，简单说明一下用例讨论的范围界线。如，上面的例子中范围可以直接用<em>“ECom”</em>、<em>“ESys”</em>、<em>“ESubSys”</em>来表示。</p>
+<h2 id="主执行者（Primary-Actor）"><a href="#主执行者（Primary-Actor）" class="headerlink" title="主执行者（Primary Actor）"></a>主执行者（Primary Actor）</h2><p>主执行者是系统相关人员中，请求系统做出响应的人或物。主执行者是对系统请求的发起者，可是<strong>主执行者可以不是直接操作系统的相关人员</strong>。</p>
+<p>其中一种情况下是主执行者通过另一个系统操作相关人员对系统进行操作。如，客户致电客服查询异常订单的场景。客户并没有直接通过系统进行查询。</p>
+<p>另一种情况是定时触发任务。如客户希望系统定时执行一个任务，那么最终执行系统的相关人员是系统本身。</p>
+<p>虽然识别出主执行者很重要，可是在有些时候<strong>主执行者也没那么重要</strong>。</p>
+<p>在编写用例时，识别出主执行者，可以从执行者角度出发，充分梳理系统需求。我们还可以主执行者的特点来设计系统的交互。如下表，主执行者概括表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="left">概况：技能和背景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">客户</td>
+<td align="left">了解电脑软件的操作，对基本的系统软件有操作经验。</td>
+</tr>
+<tr>
+<td align="center">管理员</td>
+<td align="left">熟悉通用的软件，能解决做日常的系统维护。但是不懂编程。</td>
+</tr>
+<tr>
+<td align="center">经理</td>
+<td align="left">能进行简单的电脑操作，对界面呈现要求高，缺乏多步骤操作耐心。</td>
+</tr>
+<tr>
+<td align="center">……</td>
+<td align="left">……</td>
+</tr>
+</tbody></table>
+<p>在多数情况下，我们开始编写用例开始后，主执行者就变得没那么重要了。例如，当我们在设计查询订单用例时，无论是管理员、经理、客服甚至是其他的公司职位，在查询订单这个用例上并没有特别的差异。这个时候，主执行者具体是谁已经不重要了。</p>
+<p><strong>规则：用例的主执行者可以是执行者或者执行者角色。</strong></p>
+<p>在上述情况下，我们会将部分主执行者一般化的方式，创建一个<em>“角色-执行者对应表”</em>。在上述用例里，我们将管理员、经理等一般化为一个操作角色——订单管理者。我们在描写用例时，以角色作为主执行者即可。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 范围：电商系统<br> ……</p>
+</blockquote>
+<h3 id="概述（Goal-in-Context）"><a href="#概述（Goal-in-Context）" class="headerlink" title="概述（Goal in Context）"></a>概述（Goal in Context）</h3><p>概述主要用于描述用例的目标，也就是用户需要完成的目标。</p>
+<p><strong>规则：使用自然语言描述。</strong></p>
+<p>尽量使用自然的语言阐述用户要完成目标时，用户会做什么事情。</p>
+<p><strong>规则：描述用例实现什么，而不描述系统步骤。</strong></p>
+<p>只需要讲清楚用例需要完成的事情即可，这里不需要描述系统步骤或者用户的具体操作流程。</p>
+<p>如：<em>“用户选择一件需要购买的商品后，可以将商品加入购物车，然后在购物车里面提交订单。用户也可以不需要加入购物车，直接购买选中的商品。”</em>概述并不需要描述具体的系统操作，在这里并没有描述<em>“点击加入购物车按钮”</em>等系统的操作细节。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> ……</p>
+</blockquote>
+<h2 id="相关人员和利益（Stakeholders-and-Interests）"><a href="#相关人员和利益（Stakeholders-and-Interests）" class="headerlink" title="相关人员和利益（Stakeholders and Interests）"></a>相关人员和利益（Stakeholders and Interests）</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>项目的相关人员是指对系统有特定利益的参与者。相关人员不一定是人，也可以是一个外部系统、一个组织等。</p>
+<p>所以能成为项目相关人员的有可能是：</p>
+<ul>
+<li>使用或关注系统的外部人或物。</li>
+<li>用例的主执行者。</li>
+<li>用例的辅助执行者。</li>
+<li>系统内部执行者。</li>
+<li>被设计的系统本身。</li>
+</ul>
+<p><strong>主执行者</strong></p>
+<p>主执行者是发起执行用例的相关人员。</p>
+<p><strong>辅助执行者</strong></p>
+<p>辅助执行者是为被设计的系统执行服务的的外部执行人员。辅助执行者可以是另外一个系统、也可以是一个人或组织。如，一台打印机，为系统打印各种票据。再如，快递公司，为系统提供快递服务，并提供物流信息。</p>
+<p><strong>内部执行者</strong></p>
+<p>内部执行者是在系统内部关注系统利益的相关人员。</p>
+<p><strong>被设计的系统</strong></p>
+<p>被设计的系统本身有时候对自己也是有特定利益的。</p>
+<p>对于相关人员，有几点需要说明：</p>
+<ol>
+<li>系统相关人员有可能不直接和系统交互。<br> 例如，公司管理者，可能不会亲自操作系统，可是对系统运行的状况和其他运营数据却是十分关注的。这些相关人员在系统操作步骤中可能不会出现，但是用例还是需要描述对这部分相关人员的利益。</li>
+<li>关注“沉默的”相关人员。<br> 系统相关人员有时候并不是那么明显。比如上文提到的，有些相关人员并不是直接操作系统的人员。往往是这些<em>“沉默”</em>的相关人员考虑不足，正是系统后期需求频繁改动的原因之一。</li>
+</ol>
+<p><strong>规则：相关人员和利益用以对应列表的方式书写。</strong></p>
+<p>使用”<em>&lt;相关人员&gt;：&lt;利益&gt;</em>“的方式，描写相关人员和其关注的利益。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> ……<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> ……</p>
+</blockquote>
+<h2 id="级别（Level）"><a href="#级别（Level）" class="headerlink" title="级别（Level）"></a>级别（Level）</h2><p>在编写用例过程中，我们有时会具体描述一个用户的需求（如用户购买商品），有时候会描述一个系统的具体功能（如用户登陆），有时候会描述一个流程（如购买商品并获得商品的流程）。在编写用例的时候，知道用例所处的位置，对我们编写和理解用例有很大的帮助。</p>
+<p>我们将用例级别从总到分划分成了三个层次：概要、用户目标、子功能。</p>
+<h3 id="用户目标"><a href="#用户目标" class="headerlink" title="用户目标"></a>用户目标</h3><p>用户目标是指主执行者使用系统期望获得的目标。用户目标是我们编写用例的重点。用户目标描述了主执行者通过系统<em>“做一件什么事”</em>，以及做完这件事后<em>“用户能获取什么利益”</em>。</p>
+<p>用户目标应该是主执行者一次执行系统获取利益的过程。所以，不是一次执行所能完成的目标，或者用户不能获得利益的需求不能称为用户目标。</p>
+<p>如，购买一个商品的流程，这个从下订单到快递需要几天的过程，所以不能称为一个用户目标。再如，用户登陆，用户登陆并不能获取什么利益，所以也不能称为一个用户目标。用户下单这个操作，可以作为一个用户目标。</p>
+<h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>概要层次可以包含多个用户目标，概要目标执行周期比用户目标更长，可以是一个几天、几个月甚至更长的过程。概要目标有三个目的：</p>
+<ul>
+<li>为用户目标提供一个运行的语境。如，明确用户目标是在讨论下单流程。</li>
+<li>显示用户目标之间的前后顺序。如，明确下单用例、查询快递用例、签收订单用例之间的前后顺序。</li>
+<li>作为多个用户目标的汇总。如，下单流程汇总了多个相关的用户目标。</li>
+</ul>
+<h3 id="子功能"><a href="#子功能" class="headerlink" title="子功能"></a>子功能</h3><p>子功能层次是用户目标在执行过程中会执行到的目标。如，一次登陆，一次订单打印等。也有可能存在多个用户目标共用一个子功能，如查找商品、查找订单等。</p>
+<p>子功能用例的存在是为了用户目标用例增加可读性而存在的。在实际编写过程中，<strong>不到迫不得已，不要设计子功能层出用例</strong>。</p>
+<p><strong>规则：层次只有三个选项：概要、用户目标、子功能。</strong></p>
+<p>用例的层次只能是概要、用户目标、子功能三个之中的一个层次。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> 级别：用户目标<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> ……</p>
+</blockquote>
+<p>用例级别指的是我们对用例模型的抽象和细化程度；在《编写有效用例》一书中，将由高到低的不同用例级别形象地比喻为云朵和风筝，海平面，海平面以下的鱼虾等自然界的事务：</p>
+<p><img src="/2021/what-is-use-case-and-how-to-write/20141218150332796"></p>
+<h2 id="前置条件（Precondition）"><a href="#前置条件（Precondition）" class="headerlink" title="前置条件（Precondition）"></a>前置条件（Precondition）</h2><p>前置条件是我们在用例执行之前期望必须成功的条件。在用例编写过程中，可以不对该条件进行检查和讨论。如，<em>“下订单”</em>必须依赖于<em>“用户已经登陆”</em>这个前置条件。</p>
+<p><strong>规则：前置条件必须是用例执行前我们期望一定成功的条件。</strong></p>
+<p>要预防将那些并不是必须条件的条件写入前置条件。如，取消订单并不依赖于用户下单成功，事实上，用户可以将下单不成功（例如支付失败）的订单取消掉。而订单下单是否成功这个条件是需要在用例里面对这个条件进行检查并执行不通过动作的。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> 级别：用户目标<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> 前置条件：用户已经登陆系统。<br> ……</p>
+</blockquote>
+<h2 id="最小保证（Minimal-Guarantees）"><a href="#最小保证（Minimal-Guarantees）" class="headerlink" title="最小保证（Minimal Guarantees）"></a>最小保证（Minimal Guarantees）</h2><p>最小保证是用例执行无论是否成功都会被执行的保证。虽然，用例无论执行成功与否，最小保证总会被执行。但是，最小保证更多的是为用例执行失败情况下，为用例相关人员提供的利益保证。最小保证可以有多个。</p>
+<p>一个常见的最小保证例子是<em>“系统将用户执行记录日志”</em>，就算用例执行失败，用户的操作也将会被记录到日志里面。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> 级别：用户目标<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> 前置条件：用户已经登陆系统。<br> 最小保证：系统记录用户操作进度的日志。<br> ……</p>
+</blockquote>
+<h2 id="成功保证（Success-Guarantees）"><a href="#成功保证（Success-Guarantees）" class="headerlink" title="成功保证（Success Guarantees）"></a>成功保证（Success Guarantees）</h2><p>成功保证是指用例执行成功后，用户所能得到的利益保证。相关人员的利益能否得到保证，是用例执行成功的判定条件。成功保证可以有多个。</p>
+<p>例如，在下订单用例中，用户下单成功后，必须保证<em>“订单被创建，并提交到后台处理。”</em></p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> 级别：用户目标<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> 前置条件：用户已经登陆系统。<br> 最小保证：系统记录用户操作进度的日志。<br> 成功保证：<br> \1. 系统成功创建用户订单。<br> \2. 系统收到用户支付货款。<br> \3. 用户的订单操作和付款信息被记录成日志。<br> ……</p>
+</blockquote>
+<h2 id="触发事件（Trigger）"><a href="#触发事件（Trigger）" class="headerlink" title="触发事件（Trigger）"></a>触发事件（Trigger）</h2><p>触发事件是指用例启动的事件，用例将通过触发事件，开始一步一步执行。</p>
+<p><strong>规则：触发事件是跟系统交互的第一个操作。</strong></p>
+<p>以用户下单用例为例子，用户决定要购买商品后，在系统中查找商品并下单。那么<em>“用户决定要购买商品”</em>并不能作为用例的触发事件，事实上，用户更系统的交互是从<em>“查找商品”</em>开始的，所以<em>“用户查找商品”</em>才是用例的触发事件。</p>
+<p>我们讨论用户跟系统交互时，还应该注意我们讨论的系统的范围。特别是当主执行者不是直接操作软件系统的场景时，更应该明确系统范围。如，<em>“用户致电客户经理下单”</em>这样的场景下，我们的系统范围并不能限定在软件系统范围内，这是系统范围是公司。所以，<em>“用户致电客户经理”</em>跟我们系统交互的第一步，所以可以成为<em>“触发事件”</em>。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> 级别：用户目标<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> 前置条件：用户已经登陆系统。<br> 最小保证：系统记录用户操作进度的日志。<br> 成功保证：<br> \1. 系统成功创建用户订单。<br> \2. 系统收到用户支付货款。<br> \3. 用户的订单操作和付款信息被记录成日志。<br> 触发事件：用户选中需要购买的物品。<br> ……</p>
+</blockquote>
+<h2 id="主成功场景（Main-Success-Scenario）"><a href="#主成功场景（Main-Success-Scenario）" class="headerlink" title="主成功场景（Main Success Scenario）"></a>主成功场景（Main Success Scenario）</h2><p>主成功场景是用例从触发事件开始，一步一步执行，最终满足用例利益的步骤集合。</p>
+<p>主成功场景应该包括以下信息：</p>
+<ul>
+<li>两个执行者之间的交互。如，用户提交了订单。</li>
+<li>为保证主成功场景得以继续的确认。如，系统确认用户密码。</li>
+<li>主成功场景推进过程中的内部变化。如，系统扣除用户账户余额。</li>
+</ul>
+<p>执行步骤应该有一些简单的规则：</p>
+<p><strong>规则：使用简单语法。</strong></p>
+<p>使用简单语法结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主语……谓语动词……前置短语……宾语。</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">系统……扣除…一定数量的…用户账户余额。</span><br></pre></td></tr></table></figure>
+
+<p><strong>规则：准确描述执行者之间的切换。</strong></p>
+<p>执行步骤需要准确描述步骤执行过程中，执行者之间的切换。如，<em>“用户致电客户代表”</em>，我们可以知道步骤已经从用户切换到了客户代表。</p>
+<p>但是，有时候在执行者明确的情况下，也有可能不会出现在句子中。如，<em>“用户输入密码”</em>，我们也可以知道这个步骤的执行者已经从用户切换到了系统。我们不必使用<em>“用户向系统输入密码”</em>这种冗余的描述方式。</p>
+<p><strong>规则：从系统外去描述步骤。</strong></p>
+<p>不应该从系统内部，或者全部以系统角度去考虑而已。而应该从系统外去描述步骤。</p>
+<p>如果从系统内部去描述步骤，可能会写成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">读取用户密码，确认密码正确。</span><br></pre></td></tr></table></figure>
+
+<p>如果在系统外部去描述步骤，则表述成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户输入密码。</span><br><span class="line">系统确认用户密码正确。</span><br></pre></td></tr></table></figure>
+
+<p><strong>规则：显示过程向前推移。</strong></p>
+<p>一些小的步骤只能完成少数工作，有时候这些工作并不能很好的描述过程在向前推移。如，<em>“用户点击了确定按钮”</em>。这个步骤并不能很好的描述过程在向前推移，用户的真实目的是登陆系统，随着用户登陆系统，用例步骤可以继续往下执行。</p>
+<p><strong>规则：显示执行者的意图，而不是动作。</strong></p>
+<p>执行者通常是通过操作系统执行一个动作的，在描写用例时，容易将用户动作和执行者的意图搞混。</p>
+<p>例如：<br> \1. 系统要求用户输入身份信息<br> \2. 用户输入用户名密码<br> \3. 用户点击确定按钮<br> \4. 系统确认用户身份信息<br> ……</p>
+<p>用例过多描述了系统操作界面和用户的动作，如<em>“要求用户输入身份信息”</em>，这个并不是执行者的意图，而只是一个交互动作。</p>
+<p>我们可以缩减描述用户动作的步骤，将用例改成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.用户输入用户名密码</span><br><span class="line">2.系统确认用户身份信息。</span><br></pre></td></tr></table></figure>
+
+<p><strong>规则：包含合理的活动集。</strong></p>
+<p>描述步骤的时候，并不一定要求每个步骤之包括一个活动。根据需要可以将部分活动集合在一个步骤里面。</p>
+<p>如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户下单成功。系统发送短信给用户，告知用户订单号。</span><br></pre></td></tr></table></figure>
+
+<p>这个步骤也可以描述成两个步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户下单成功。</span><br><span class="line">系统发送短信给用户，告知用户订单号。</span><br></pre></td></tr></table></figure>
+
+<p>用例的描述方式以简单，有效为主，有时候并不拘泥于具体的方式。事实上很多开发团队都形成了自己的用例编写规范。</p>
+<p><strong>规则：步骤描述成功的场景，而不要体现可能的失败。</strong></p>
+<p>主成功场景的步骤描述的是成功的步骤。例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">系统判断用户信息是否正确。</span><br></pre></td></tr></table></figure>
+
+<p>如果这样编写步骤，我们将要继续考虑<em>“如果判断正确……”</em>，<em>“如果判断失败……”</em>。但是在主成功场景的步骤中，是不体现失败的步骤的。所以，需要将步骤改成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">系统确认用户信息。</span><br></pre></td></tr></table></figure>
+
+<p>如果如果系统验证失败怎么办？这部分信息放到扩展里面描述。下文会详细说明，这里不展开。</p>
+<p><strong>规则：当步骤不连续执行是，可以加入时间限制。</strong></p>
+<p>多数情况下，步骤是一步接一步执行的。可在某些时候，可以这样描述：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当用户选择直接提交订单时，……。</span><br></pre></td></tr></table></figure>
+
+<p><strong>规则：一个步骤可以涉及多个相关人员。</strong></p>
+<p>我们有时候需要通过一个系统向另一个系统发起一个执行动作，可以写成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户通过系统向物流系统获取物流数据。</span><br></pre></td></tr></table></figure>
+
+<p><strong>规则：可以反复执行一个或多个步骤。</strong></p>
+<p>有时用户会反复执行其中一个或多个步骤，这时候需要在步骤中增加一定的描述。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 用户查找一个商品</span><br><span class="line">2. 用户将商品加入到购物车中。用户可以重复1~2步，直至用户完成商品选购。</span><br><span class="line">3. 用户选中购物车中的商品下单</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> 级别：用户目标<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> 前置条件：用户已经登陆系统。<br> 最小保证：系统记录用户操作进度的日志。<br> 成功保证：<br> \1. 系统成功创建用户订单。<br> \2. 系统收到用户支付货款。<br> \3. 用户的订单操作和付款信息被记录成日志。<br> 触发事件：用户选中需要购买的物品。<br> 主成功场景：<br> \1. 用户输入需要购买的商品规格和数量。<br> \2. 系统确认商品规格和数量。<br> \3. 系统显示购买价格。<br> \4. 用户完成付款。<br> \5. 系统确认收款后，提示用户下单成功。<br> ……</p>
+</blockquote>
+<h2 id="扩展（Extensions）"><a href="#扩展（Extensions）" class="headerlink" title="扩展（Extensions）"></a>扩展（Extensions）</h2><p>扩展是主成功场景的分支，是指主成功场景在一些其他条件下会完成的不同动作。<strong>请注意，使用“扩展”而非“异常”或“错误”，事实上扩展包括了成功和失败两种可能的条件</strong>。其基本的逻辑是，在执行主成功场景时，如果系统……（检测到意外），那么，……（做一些事情）。</p>
+<p>常见的有可能出现扩展的场景如下：</p>
+<ul>
+<li>另一种可能出现的成功路径。（如：用户设置了自动登陆）</li>
+<li>执行者操作错误。（如：用户输入的密码错误）</li>
+<li>执行者无任何操作。（如：用户输入超时）</li>
+<li>需要系统确认的场景。（如：系统确认用户余额足够）</li>
+<li>辅助执行者或其他相关人员反馈失败。（如：打印机执行打印错误）</li>
+<li>检测到内部错误，并可能产生外部可见的结果。（如：写数据失败）</li>
+<li>关键性能指标不达标。（如：系统超过15秒没有返回成功）</li>
+</ul>
+<p>在这些场景出现后，我们应该在扩展中描述这些场景处理方式，然后回到主成功场景或者退出用例。</p>
+<p><strong>扩展是针对主成功场景的</strong>，所以我们写编写扩展的时候，需要用编号来表明扩展的对应关系：</p>
+<p>主成功场景如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ……</span><br><span class="line">2 系统确认用户密码正确。</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p>扩展如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">2a 密码输入错误：……</span><br><span class="line">2b 密码输入超时：……</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p>如果是每个步骤都可能会触发的扩展，可以用”*“号来表示，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">* 用户关闭登陆页面：</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p>或者如果是某些步骤触发的共有条件，可以加上步骤来表示，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">2-5* 用户关闭登陆页面：</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p><strong>规则：从系统检测到的角度去描述扩展条件。</strong></p>
+<p>扩展条件应该是系统能检测到的条件，而不是发生了什么。如，用户忘记密码了，系统不可能检测到用户是否密码或者是其他的什么原因。从系统检测到的角度去描述，系统只能检测到用户输入错误的密码或者用户输入超时。</p>
+<p><strong>规则：合理化合并扩展条件。</strong></p>
+<p>扩展条件事实上无需枚举出所有的可能出现的场景，和合理的范围内，我们可以将一些扩展条件合并成等价项。判断等价项，有两个标准：</p>
+<ul>
+<li>系统可以检测到的条件。</li>
+<li>系统必须完成的条件。</li>
+</ul>
+<p>例如，用户输入密码的步骤里面，用户可以忘记密码输入错误，也可以手误输入错误或者其他的可能性，这些条件都是系统不可以检测的条件。首先，将这些条件转换成系统可以测试的条件：密码输入错误。转换后，所有条件就可以合并成一个了。</p>
+<p>在来看一下系统可以完成的条件，如，密码输入错误、用户名错误、用户名不存在等，我们系统的处理都是<em>“提示用户名或密码错误或不存在”</em>。这时候可以将条件合并成<em>“系统检测到用户名或密码输入错误”</em>。</p>
+<p>还有一种情况，如果在低层级（如子功能级别）用例已经完整描述了扩展，那么在其高级别（如用户目标级别）用例，可以不用重复冗余描述。比如，在子功能级别用例<em>“保存数据”</em>里面已经完整描述了保存过程中可能出现的各种扩展条件，那么在其上级用例里就可以不用描述了。</p>
+<blockquote>
+<p>【举例】</p>
+<p><strong>用例1：购买商品</strong><br> 主执行者：用户<br> 概述：用户选中商品后，通过系统下订单购买商品并支付货款。不包括管理员处理订单。<br> 范围：电商系统<br> 级别：用户目标<br> 项目相关人员和利益：<br> 用户：希望通过系统下订单购买需要他需要的商品。<br> 系统：记录用户购买的订单，以便给订单管理员处理。<br> 前置条件：用户已经登陆系统。<br> 最小保证：系统记录用户操作进度的日志。<br> 成功保证：<br> \1. 系统成功创建用户订单。<br> \2. 系统收到用户支付货款。<br> \3. 用户的订单操作和付款信息被记录成日志。<br> 触发事件：用户选中需要购买的物品。<br> 主成功场景：<br> \1. 用户输入需要购买的商品规格和数量。<br> \2. 系统确认商品数量。<br> \3. 系统显示购买价格。<br> \4. 用户完成付款。<br> \5. 系统确认收款后，提示用户下单成功。<br> 扩展：<br> 2a: 数量不足：<br> 2a1: 提示用户数量不足，返回步骤1等待用户重新输入。<br> 4a: 用户余额不足：<br> 4a1: 提示用户余额不足，要求用户更换付款方式。<br> 4a2: 用户更换付款方式继续付款。<br> 4b: 用户支付密码错误：<br> 4b1: 提示用户余额不足，提示用户重新输入密码。<br> 4b2: 用户重新输入密码，完成支付。<br> 4b3: 用户连续输入3次错误密码，系统冻结用户付款账户12个小时。<br> 4c: ……<br> ……</p>
+</blockquote>
+<h1 id="Use-Case与需求的关系"><a href="#Use-Case与需求的关系" class="headerlink" title="Use Case与需求的关系"></a>Use Case与需求的关系</h1><p>用例用于表述需求，但是有两点要注意的：</p>
+<ul>
+<li>用例确实是需求。<br> 不需要将用例转化成其他的需求表达方式。用例可以完整的描述系统需求。</li>
+<li>用例不一定是所有需求。<br> 用例只是需求的一部分，用例并不描述外部接口、数据格式、业务规则、性能、可维护性等需求。</li>
+</ul>
+<h1 id="Use-Case-的评价标准"><a href="#Use-Case-的评价标准" class="headerlink" title="Use Case 的评价标准"></a>Use Case 的评价标准</h1><ol>
+<li><p>是否每个Use Case 都包括至少一个actor？</p>
+</li>
+<li><p>是否每个Use Case 都独立于其他Use Case？</p>
+</li>
+<li><p>是否每个Use Case 都有一个简单的行为或事件流？</p>
+</li>
+<li><p>是否每个Use Case 都有一个唯一的、直观的、可扩展的名称，使它不至于在后期被混淆。</p>
+</li>
+<li><p>用户是否容易理解Use Case 的名称和描述。</p>
+</li>
+</ol>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/what-is-deep-learning/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-07-13 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/SoftwareConstruction/">SoftwareConstruction<span>10</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/SPE/">SPE<span>1</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-article-text">参考资料</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Use-Case%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-article-text">Use Case是什么</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Use-Case%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-article-text">Use Case的组成</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%94%A8%E4%BE%8B%E5%90%8D%EF%BC%88Title%EF%BC%89"><span class="toc-article-text">用例名（Title）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%8C%83%E5%9B%B4%EF%BC%88Scope%EF%BC%89"><span class="toc-article-text">范围（Scope）</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%9F%E8%83%BD%E8%8C%83%E5%9B%B4"><span class="toc-article-text">功能范围</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%AE%BE%E8%AE%A1%E8%8C%83%E5%9B%B4"><span class="toc-article-text">设计范围</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%BB%E6%89%A7%E8%A1%8C%E8%80%85%EF%BC%88Primary-Actor%EF%BC%89"><span class="toc-article-text">主执行者（Primary Actor）</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%A6%82%E8%BF%B0%EF%BC%88Goal-in-Context%EF%BC%89"><span class="toc-article-text">概述（Goal in Context）</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E5%85%B3%E4%BA%BA%E5%91%98%E5%92%8C%E5%88%A9%E7%9B%8A%EF%BC%88Stakeholders-and-Interests%EF%BC%89"><span class="toc-article-text">相关人员和利益（Stakeholders and Interests）</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-article-text">概述</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%BA%A7%E5%88%AB%EF%BC%88Level%EF%BC%89"><span class="toc-article-text">级别（Level）</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%94%A8%E6%88%B7%E7%9B%AE%E6%A0%87"><span class="toc-article-text">用户目标</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%A6%82%E8%A6%81"><span class="toc-article-text">概要</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AD%90%E5%8A%9F%E8%83%BD"><span class="toc-article-text">子功能</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6%EF%BC%88Precondition%EF%BC%89"><span class="toc-article-text">前置条件（Precondition）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9C%80%E5%B0%8F%E4%BF%9D%E8%AF%81%EF%BC%88Minimal-Guarantees%EF%BC%89"><span class="toc-article-text">最小保证（Minimal Guarantees）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%88%90%E5%8A%9F%E4%BF%9D%E8%AF%81%EF%BC%88Success-Guarantees%EF%BC%89"><span class="toc-article-text">成功保证（Success Guarantees）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A7%A6%E5%8F%91%E4%BA%8B%E4%BB%B6%EF%BC%88Trigger%EF%BC%89"><span class="toc-article-text">触发事件（Trigger）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%BB%E6%88%90%E5%8A%9F%E5%9C%BA%E6%99%AF%EF%BC%88Main-Success-Scenario%EF%BC%89"><span class="toc-article-text">主成功场景（Main Success Scenario）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%89%A9%E5%B1%95%EF%BC%88Extensions%EF%BC%89"><span class="toc-article-text">扩展（Extensions）</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Use-Case%E4%B8%8E%E9%9C%80%E6%B1%82%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-article-text">Use Case与需求的关系</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Use-Case-%E7%9A%84%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86"><span class="toc-article-text">Use Case 的评价标准</span></a>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
