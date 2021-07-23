@@ -154,6 +154,15 @@ var _hmt = _hmt || [];
 <li><a target="_blank" rel="noopener" href="https://eliyar.biz/how_to_build_hexo_blog/">从 0 开始搭建 hexo 博客</a></li>
 <li></li>
 </ol>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h3 id="bash-git-receive-pack-command-not-found"><a href="#bash-git-receive-pack-command-not-found" class="headerlink" title="bash: git-receive-pack: command not found"></a>bash: git-receive-pack: command not found</h3><p>使用了网上的方法</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原因：远程服务器上的git安装路径是<span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t，不是默认路径，所以需要建立链接文件：</span><br><span class="line">ln -s <span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t<span class="regexp">/bin/gi</span>t-receive-pack <span class="regexp">/usr/</span>bin/git-receive-pack</span><br></pre></td></tr></table></figure>
+
+<p>但是不奏效，突然想到我记忆中我的git的bin不是这个路径，一看果然，是/usr/local/git/bin，但修改后报错：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln: failed to <span class="keyword">create</span> symbolic <span class="keyword">link</span> ‘/usr/<span class="keyword">bin</span>/git-receive-pack’: <span class="keyword">File</span> <span class="keyword">exists</span></span><br></pre></td></tr></table></figure>
+
+<p>查看<code>/usr/bin</code>内容，发现之前创建的两个快捷方式存在了，虽然<code>/usr/local/common/git/bin</code>这个目录不存在，显示为了红色：</p>
+<p><img src="/2021/null/image-20210723163814673.png" alt="image-20210723163814673"></p>
+<p>先删除再执行这两条命令，解决。</p>
 
 	
 	</div>
@@ -483,29 +492,29 @@ var _hmt = _hmt || [];
 		<h4>标签</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/json/">json<span>2</span></a></li>
-		
-			<li><a href="/tags/并发/">并发<span>1</span></a></li>
-		
-			<li><a href="/tags/图解/">图解<span>1</span></a></li>
-		
-			<li><a href="/tags/SPE/">SPE<span>1</span></a></li>
-		
-			<li><a href="/tags/博客搭建/">博客搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/笔记/">笔记<span>1</span></a></li>
-		
-			<li><a href="/tags/实验/">实验<span>2</span></a></li>
-		
-			<li><a href="/tags/读书笔记/">读书笔记<span>1</span></a></li>
-		
 			<li><a href="/tags/树/">树<span>1</span></a></li>
-		
-			<li><a href="/tags/记录/">记录<span>2</span></a></li>
 		
 			<li><a href="/tags/项目/">项目<span>1</span></a></li>
 		
+			<li><a href="/tags/博客搭建/">博客搭建<span>1</span></a></li>
+		
+			<li><a href="/tags/记录/">记录<span>2</span></a></li>
+		
 			<li><a href="/tags/源码/">源码<span>1</span></a></li>
+		
+			<li><a href="/tags/SPE/">SPE<span>1</span></a></li>
+		
+			<li><a href="/tags/并发/">并发<span>1</span></a></li>
+		
+			<li><a href="/tags/读书笔记/">读书笔记<span>1</span></a></li>
+		
+			<li><a href="/tags/实验/">实验<span>2</span></a></li>
+		
+			<li><a href="/tags/json/">json<span>2</span></a></li>
+		
+			<li><a href="/tags/笔记/">笔记<span>1</span></a></li>
+		
+			<li><a href="/tags/图解/">图解<span>1</span></a></li>
 		
 			<li><a href="/tags/整理/">整理<span>16</span></a></li>
 		
