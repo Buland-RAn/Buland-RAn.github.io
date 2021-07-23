@@ -130,7 +130,7 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2021/null/" >将hexo博客从github pages迁移到云服务器</a>
+			<a href="/2021/move-hexo-from-githubPages-to-ECS/" >将hexo博客从github pages迁移到云服务器</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -153,21 +153,21 @@ var _hmt = _hmt || [];
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_28394909/article/details/84956292">阿里云搭建Hexo博客</a></li>
 <li><a target="_blank" rel="noopener" href="https://eliyar.biz/how_to_build_hexo_blog/">从 0 开始搭建 hexo 博客</a></li>
 <li><a target="_blank" rel="noopener" href="https://hjxlog.com/posts/20191130a1.html">将Hexo部署到阿里云轻量服务器（保姆级教程）</a></li>
-<li></li>
+<li><a target="_blank" rel="noopener" href="https://razeencheng.com/post/daily-hexo-auto-refresh.html">云服务器搭建 hexo 博客，git hooks自动更新</a></li>
 </ol>
-<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h3 id="bash-git-receive-pack-command-not-found"><a href="#bash-git-receive-pack-command-not-found" class="headerlink" title="bash: git-receive-pack: command not found"></a>bash: git-receive-pack: command not found</h3><p>使用了网上的方法</p>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h3 id="1-bash-git-receive-pack-command-not-found"><a href="#1-bash-git-receive-pack-command-not-found" class="headerlink" title="1. bash: git-receive-pack: command not found"></a>1. bash: git-receive-pack: command not found</h3><p>使用了网上的方法</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原因：远程服务器上的git安装路径是<span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t，不是默认路径，所以需要建立链接文件：</span><br><span class="line">ln -s <span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t<span class="regexp">/bin/gi</span>t-receive-pack <span class="regexp">/usr/</span>bin/git-receive-pack</span><br></pre></td></tr></table></figure>
 
 <p>但是不奏效，突然想到我记忆中我的git的bin不是这个路径，一看果然，是/usr/local/git/bin，但修改后报错：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln: failed to <span class="keyword">create</span> symbolic <span class="keyword">link</span> ‘/usr/<span class="keyword">bin</span>/git-receive-pack’: <span class="keyword">File</span> <span class="keyword">exists</span></span><br></pre></td></tr></table></figure>
 
 <p>查看<code>/usr/bin</code>内容，发现之前创建的两个快捷方式存在了，虽然<code>/usr/local/common/git/bin</code>这个目录不存在，显示为了红色：</p>
-<p><img src="/2021/null/image-20210723163814673.png" alt="image-20210723163814673"></p>
+<p><img src="/2021/move-hexo-from-githubPages-to-ECS/image-20210723163814673.png" alt="image-20210723163814673"></p>
 <p>先删除再执行这两条命令，解决。</p>
-
+<h3 id="2-git钩子相关"><a href="#2-git钩子相关" class="headerlink" title="2.git钩子相关"></a>2.git钩子相关</h3>
 	
 	</div>
-  <a type="button" href="/2021/null/#more" class="btn btn-default more">阅读此文</a>
+  <a type="button" href="/2021/move-hexo-from-githubPages-to-ECS/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -460,6 +460,8 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/python/">python<span>1</span></a></li>
 		
+			<li><a href="/categories/博客/">博客<span>1</span></a></li>
+		
 			<li><a href="/categories/安全/">安全<span>1</span></a></li>
 		
 			<li><a href="/categories/工具/">工具<span>1</span></a></li>
@@ -489,31 +491,35 @@ var _hmt = _hmt || [];
 		<h4>标签</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/项目/">项目<span>1</span></a></li>
-		
-			<li><a href="/tags/实验/">实验<span>2</span></a></li>
-		
 			<li><a href="/tags/SPE/">SPE<span>1</span></a></li>
 		
-			<li><a href="/tags/笔记/">笔记<span>1</span></a></li>
+			<li><a href="/tags/记录/">记录<span>2</span></a></li>
 		
 			<li><a href="/tags/博客搭建/">博客搭建<span>1</span></a></li>
 		
-			<li><a href="/tags/json/">json<span>2</span></a></li>
+			<li><a href="/tags/笔记/">笔记<span>1</span></a></li>
 		
 			<li><a href="/tags/图解/">图解<span>1</span></a></li>
 		
-			<li><a href="/tags/源码/">源码<span>1</span></a></li>
+			<li><a href="/tags/并发/">并发<span>1</span></a></li>
 		
-			<li><a href="/tags/树/">树<span>1</span></a></li>
-		
-			<li><a href="/tags/记录/">记录<span>2</span></a></li>
+			<li><a href="/tags/hexo/">hexo<span>1</span></a></li>
 		
 			<li><a href="/tags/整理/">整理<span>18</span></a></li>
 		
 			<li><a href="/tags/读书笔记/">读书笔记<span>1</span></a></li>
 		
-			<li><a href="/tags/并发/">并发<span>1</span></a></li>
+			<li><a href="/tags/树/">树<span>1</span></a></li>
+		
+			<li><a href="/tags/ECS/">ECS<span>1</span></a></li>
+		
+			<li><a href="/tags/源码/">源码<span>1</span></a></li>
+		
+			<li><a href="/tags/实验/">实验<span>2</span></a></li>
+		
+			<li><a href="/tags/项目/">项目<span>1</span></a></li>
+		
+			<li><a href="/tags/json/">json<span>2</span></a></li>
 		
 		 
 		</ul>
@@ -527,7 +533,7 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2021/null/" ><i class="fa fa-file-o"></i>将hexo博客从github pages迁移到云服务器</a>
+        <a href="/2021/move-hexo-from-githubPages-to-ECS/" ><i class="fa fa-file-o"></i>将hexo博客从github pages迁移到云服务器</a>
       </li>
     
       <li>
