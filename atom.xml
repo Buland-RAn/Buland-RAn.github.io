@@ -23,18 +23,10 @@
     <published>2021-07-23T08:03:02.000Z</published>
     <updated>2021-07-23T08:03:02.000Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol><li><a href="https://blog.csdn.net/sinat_28394909/article/details/84956292">阿里云搭建Hexo博客</a></li><li><a href="https://eliyar.biz/how_to_build_hexo_blog/">从 0 开始搭建 hexo 博客</a></li><li><a href="https://hjxlog.com/posts/20191130a1.html">将Hexo部署到阿里云轻量服务器（保姆级教程）</a></li><li><a href="https://razeencheng.com/post/daily-hexo-auto-refresh.html">云服务器搭建 hexo 博客，git hooks自动更新</a></li></ol><h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h3 id="1-bash-git-receive-pack-command-not-found"><a href="#1-bash-git-receive-pack-command-not-found" class="headerlink" title="1. bash: git-receive-pack: command not found"></a>1. bash: git-receive-pack: command not found</h3><p>使用了网上的方法</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原因：远程服务器上的git安装路径是<span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t，不是默认路径，所以需要建立链接文件：</span><br><span class="line">ln -s <span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t<span class="regexp">/bin/gi</span>t-receive-pack <span class="regexp">/usr/</span>bin/git-receive-pack</span><br></pre></td></tr></table></figure><p>但是不奏效，突然想到我记忆中我的git的bin不是这个路径，一看果然，是/usr/local/git/bin，但修改后报错：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln: failed to <span class="keyword">create</span> symbolic <span class="keyword">link</span> ‘/usr/<span class="keyword">bin</span>/git-receive-pack’: <span class="keyword">File</span> <span class="keyword">exists</span></span><br></pre></td></tr></table></figure><p>查看<code>/usr/bin</code>内容，发现之前创建的两个快捷方式存在了，虽然<code>/usr/local/common/git/bin</code>这个目录不存在，显示为了红色：</p><p><img src="/2021/move-hexo-from-githubPages-to-ECS/image-20210723163814673.png" alt="image-20210723163814673"></p><p>先删除再执行这两条命令，解决。</p><h3 id="2-git钩子相关"><a href="#2-git钩子相关" class="headerlink" title="2.git钩子相关"></a>2.git钩子相关</h3>]]></content>
+    <content type="html"><![CDATA[<p>记录我在迁移博客过程中遇到的几个问题。<a id="more"></a></p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol><li><a href="https://blog.csdn.net/sinat_28394909/article/details/84956292">阿里云搭建Hexo博客</a></li><li><a href="https://eliyar.biz/how_to_build_hexo_blog/">从 0 开始搭建 hexo 博客</a></li><li><a href="https://hjxlog.com/posts/20191130a1.html">将Hexo部署到阿里云轻量服务器（保姆级教程）</a></li><li><a href="https://razeencheng.com/post/daily-hexo-auto-refresh.html">云服务器搭建 hexo 博客，git hooks自动更新</a></li></ol><h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h3 id="1-bash-git-receive-pack-command-not-found"><a href="#1-bash-git-receive-pack-command-not-found" class="headerlink" title="1. bash: git-receive-pack: command not found"></a>1. bash: git-receive-pack: command not found</h3><p>使用了网上的方法</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原因：远程服务器上的git安装路径是<span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t，不是默认路径，所以需要建立链接文件：</span><br><span class="line">ln -s <span class="regexp">/usr/</span>local<span class="regexp">/common/gi</span>t<span class="regexp">/bin/gi</span>t-receive-pack <span class="regexp">/usr/</span>bin/git-receive-pack</span><br></pre></td></tr></table></figure><p>但是不奏效，突然想到我记忆中我的git的bin不是这个路径，一看果然，是/usr/local/git/bin，但修改后报错：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln: failed to <span class="keyword">create</span> symbolic <span class="keyword">link</span> ‘/usr/<span class="keyword">bin</span>/git-receive-pack’: <span class="keyword">File</span> <span class="keyword">exists</span></span><br></pre></td></tr></table></figure><p>查看<code>/usr/bin</code>内容，发现之前创建的两个快捷方式存在了，虽然<code>/usr/local/common/git/bin</code>这个目录不存在，显示为了红色：</p><p><img src="/2021/move-hexo-from-githubPages-to-ECS/image-20210723163814673.png" alt="image-20210723163814673"></p><p>先删除再执行这两条命令，解决。</p><h3 id="2-git钩子相关"><a href="#2-git钩子相关" class="headerlink" title="2.git钩子相关"></a>2.git钩子相关</h3>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-
-
-
-&lt;h2 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/sina</summary>
-      
+    <summary type="html">&lt;p&gt;记录我在迁移博客过程中遇到的几个问题。&lt;/p&gt;</summary>
     
     
     
@@ -54,18 +46,10 @@
     <published>2021-07-23T07:39:00.000Z</published>
     <updated>2021-07-23T07:39:00.000Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol><li><p><a href="https://blog.csdn.net/idiot5lie/article/details/110954739">【已解决】本地与云服务器 ssh 免密登陆（详细分析，共四种情况）</a></p></li><li><p><a href="https://www.jianshu.com/p/e3d63fa3ef63">vscode &amp; windows terminal实现远程服务器免密登录</a></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>本文介绍了如何使本地和云服务器ssh登录不需要输入密码。<a id="more"></a></p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol><li><p><a href="https://blog.csdn.net/idiot5lie/article/details/110954739">【已解决】本地与云服务器 ssh 免密登陆（详细分析，共四种情况）</a></p></li><li><p><a href="https://www.jianshu.com/p/e3d63fa3ef63">vscode &amp; windows terminal实现远程服务器免密登录</a></p></li></ol>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-
-
-
-&lt;h2 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/i</summary>
-      
+    <summary type="html">&lt;p&gt;本文介绍了如何使本地和云服务器ssh登录不需要输入密码。&lt;/p&gt;</summary>
     
     
     
@@ -83,24 +67,10 @@
     <published>2021-07-21T05:27:59.000Z</published>
     <updated>2021-07-21T05:27:59.000Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><p>手写顺序：</p><p>SELECT DISTINCT</p><p>FROM</p><p>JOIN ON</p><p>WHERE</p><p>GROUP BY</p><p>HAVING</p><p>ORDER BY</p><p>LIMIT</p><p>MySQL执行顺序</p><p>FROM</p><p>ON</p><p>JOIN</p><p>WHERE</p><p>GROUP BY</p><p>HAVING</p><p>DISTINCT</p><p>ORDER BY</p><p>LIMIT</p><p><img src="https://img-blog.csdnimg.cn/img_convert/f66affaa88fd119677e767d18aaa3b5a.png" alt="f66affaa88fd119677e767d18aaa3b5a.png"></p><h3 id="where-先执行"><a href="#where-先执行" class="headerlink" title="where 先执行"></a>where 先执行</h3><p><img src="/2021/understand-the-mistakes-in-MySQL/image-20210721152001024.png" alt="image-20210721152001024"></p><p>应该选D。此处对于SUM(area)的限制应该由having来完成，因为where是在group by之前进行筛选，不知道将哪些area拿来做筛选。</p><h3 id="group-by"><a href="#group-by" class="headerlink" title="group by"></a>group by</h3><p><img src="/2021/understand-the-mistakes-in-MySQL/image-20210721171019613.png" alt="image-20210721171019613"></p><p>最后应该为<code>group by matchid, mdate</code></p>]]></content>
+    <content type="html"><![CDATA[<p>本文解释了MySQL在执行语句时的逻辑，帮助更好地理解怎样写出正确的SQL语句。<a id="more"></a></p><p>手写顺序：</p><p>SELECT DISTINCT</p><p>FROM</p><p>JOIN ON</p><p>WHERE</p><p>GROUP BY</p><p>HAVING</p><p>ORDER BY</p><p>LIMIT</p><p>MySQL执行顺序</p><p>FROM</p><p>ON</p><p>JOIN</p><p>WHERE</p><p>GROUP BY</p><p>HAVING</p><p>DISTINCT</p><p>ORDER BY</p><p>LIMIT</p><p><img src="https://img-blog.csdnimg.cn/img_convert/f66affaa88fd119677e767d18aaa3b5a.png" alt="f66affaa88fd119677e767d18aaa3b5a.png"></p><h3 id="where-先执行"><a href="#where-先执行" class="headerlink" title="where 先执行"></a>where 先执行</h3><p><img src="/2021/understand-the-mistakes-in-MySQL/image-20210721152001024.png" alt="image-20210721152001024"></p><p>应该选D。此处对于SUM(area)的限制应该由having来完成，因为where是在group by之前进行筛选，不知道将哪些area拿来做筛选。</p><h3 id="group-by"><a href="#group-by" class="headerlink" title="group by"></a>group by</h3><p><img src="/2021/understand-the-mistakes-in-MySQL/image-20210721171019613.png" alt="image-20210721171019613"></p><p>最后应该为<code>group by matchid, mdate</code></p>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-
-
-
-&lt;p&gt;手写顺序：&lt;/p&gt;
-&lt;p&gt;SELECT DISTINCT&lt;/p&gt;
-&lt;p&gt;FROM&lt;/p&gt;
-&lt;p&gt;JOIN ON&lt;/p&gt;
-&lt;p&gt;WHERE&lt;/p&gt;
-&lt;p&gt;GROUP BY&lt;/p&gt;
-&lt;p&gt;HAVING&lt;/p&gt;
-&lt;p&gt;ORDER BY&lt;/</summary>
-      
+    <summary type="html">&lt;p&gt;本文解释了MySQL在执行语句时的逻辑，帮助更好地理解怎样写出正确的SQL语句。&lt;/p&gt;</summary>
     
     
     
