@@ -6,7 +6,7 @@
   <link href="https://www.fvolcano.red/atom.xml" rel="self"/>
   
   <link href="https://www.fvolcano.red/"/>
-  <updated>2021-07-13T03:57:01.000Z</updated>
+  <updated>2021-07-22T04:24:08.348Z</updated>
   <id>https://www.fvolcano.red/</id>
   
   <author>
@@ -15,6 +15,127 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://www.fvolcano.red/2021/index/"/>
+    <id>https://www.fvolcano.red/2021/index/</id>
+    <published>2021-07-22T04:24:08.348Z</published>
+    <updated>2021-07-22T04:24:08.348Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>1.latency     2.memory access </p><p>3.</p><p><img src="/2021/index/Users\fdxr1\AppData\Roaming\Typora\typora-user-images\image-20210722081242728.png" alt="image-20210722081242728"></p><p>4.Concurrency</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;1.latency     2.memory access &lt;/p&gt;
+&lt;p&gt;3.&lt;/p&gt;
+&lt;p&gt;&lt;i</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>通过MySQL语句中各个部分的执行顺序理解其写法</title>
+    <link href="https://www.fvolcano.red/2021/null/"/>
+    <id>https://www.fvolcano.red/2021/null/</id>
+    <published>2021-07-21T05:27:59.000Z</published>
+    <updated>2021-07-21T05:27:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>手写顺序：</p><p>SELECT DISTINCT</p><p>FROM</p><p>JOIN ON</p><p>WHERE</p><p>GROUP BY</p><p>HAVING</p><p>ORDER BY</p><p>LIMIT</p><p>MySQL执行顺序</p><p>FROM</p><p>ON</p><p>JOIN</p><p>WHERE</p><p>GROUP BY</p><p>HAVING</p><p>DISTINCT</p><p>ORDER BY</p><p>LIMIT</p><p><img src="https://img-blog.csdnimg.cn/img_convert/f66affaa88fd119677e767d18aaa3b5a.png" alt="f66affaa88fd119677e767d18aaa3b5a.png"></p><h3 id="where-先执行"><a href="#where-先执行" class="headerlink" title="where 先执行"></a>where 先执行</h3><p><img src="/2021/null/image-20210721152001024.png" alt="image-20210721152001024"></p><p>应该选D。此处对于SUM(area)的限制应该由having来完成，因为where是在group by之前进行筛选，不知道将哪些area拿来做筛选。</p><h3 id="group-by"><a href="#group-by" class="headerlink" title="group by"></a>group by</h3><p><img src="/2021/null/image-20210721171019613.png" alt="image-20210721171019613"></p><p>最后应该为<code>group by matchid, mdate</code></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+
+
+
+&lt;p&gt;手写顺序：&lt;/p&gt;
+&lt;p&gt;SELECT DISTINCT&lt;/p&gt;
+&lt;p&gt;FROM&lt;/p&gt;
+&lt;p&gt;JOIN ON&lt;/p&gt;
+&lt;p&gt;WHERE&lt;/p&gt;
+&lt;p&gt;GROUP BY&lt;/p&gt;
+&lt;p&gt;HAVING&lt;/p&gt;
+&lt;p&gt;ORDER BY&lt;/</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>对于MySQL中内部select引用外部数据的理解</title>
+    <link href="https://www.fvolcano.red/2021/null/"/>
+    <id>https://www.fvolcano.red/2021/null/</id>
+    <published>2021-07-20T23:42:53.000Z</published>
+    <updated>2021-07-20T23:42:53.000Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SQLZOO典型题记录</title>
+    <link href="https://www.fvolcano.red/2021/some-representative-solutions-in-SQLZOO/"/>
+    <id>https://www.fvolcano.red/2021/some-representative-solutions-in-SQLZOO/</id>
+    <published>2021-07-20T03:15:39.000Z</published>
+    <updated>2021-07-20T03:15:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>SQLZOO是一个MySQL的在线练习平台，本文记录了其中的一些典型题目。<a id="more"></a></p><p>SQLZOO：<a href="https://sqlzoo.net/">https://sqlzoo.net/</a></p><h3 id="ROUND-to-the-nearest-1000"><a href="#ROUND-to-the-nearest-1000" class="headerlink" title="ROUND to the nearest 1000"></a>ROUND to the nearest 1000</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720112918353.png" alt="image-20210720112918353"></p><h3 id="how-to-type-umlaut"><a href="#how-to-type-umlaut" class="headerlink" title="how to type umlaut"></a>how to type umlaut</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720135006641.png" alt="image-20210720135006641"></p><p><a href="https://www.wikiwand.com/en/%C3%9C#/Keyboarding">如何打出Ü：wiki</a></p><h3 id="write-apostrophe-in-string"><a href="#write-apostrophe-in-string" class="headerlink" title="write apostrophe in string"></a>write apostrophe in string</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720135251465.png" alt="image-20210720135251465"></p><p>在字符串内用两个单引号代替一个单引号。</p><h3 id="IN-expression-can-be-used-as-a-value"><a href="#IN-expression-can-be-used-as-a-value" class="headerlink" title="IN expression can be used as a value"></a>IN expression can be used as a value</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720142016146.png" alt="image-20210720142016146"></p><p>这里输入标准答案会报错。</p><p>其他答案：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT </span><br><span class="line">  winner, subject</span><br><span class="line">FROM </span><br><span class="line">  nobel</span><br><span class="line">WHERE </span><br><span class="line">  yr &#x3D; 1984</span><br><span class="line">ORDER BY </span><br><span class="line">  CASE WHEN subject IN (&#39;Physics&#39;,&#39;Chemistry&#39;) THEN 1 ELSE 0 END, </span><br><span class="line">  subject, </span><br><span class="line">  winner</span><br></pre></td></tr></table></figure><h3 id="display-percentage"><a href="#display-percentage" class="headerlink" title="display percentage"></a>display percentage</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720162738882.png" alt="image-20210720162738882"></p><h3 id="lt-、-gt-over-a-list"><a href="#lt-、-gt-over-a-list" class="headerlink" title="&lt;、&gt; over a list"></a>&lt;、&gt; over a list</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720164328985.png" alt="image-20210720164328985"></p><p>You need the condition <strong>population&gt;0</strong> in the sub-query as some countries have <strong>null</strong> for population!</p><h3 id="First-of-each"><a href="#First-of-each" class="headerlink" title="First of each"></a>First of each</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720165950117.png" alt="image-20210720165950117"></p><p>其他答案：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT continent, MIN(name) AS name</span><br><span class="line">FROM world </span><br><span class="line">GROUP BY continent</span><br><span class="line">ORDER by continent</span><br></pre></td></tr></table></figure><p>错误👇但没明白为什么</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> continent, <span class="type">name</span></span><br><span class="line"><span class="keyword">from</span> world x</span><br><span class="line"><span class="keyword">where</span> <span class="type">name</span> = (<span class="keyword">select</span> <span class="type">name</span> <span class="keyword">from</span> world y</span><br><span class="line"><span class="keyword">where</span> x.continent = y.continent <span class="keyword">limit</span> <span class="number">1</span>)</span><br></pre></td></tr></table></figure><h3 id="select-continent-that-all-the-countries-in-it-…"><a href="#select-continent-that-all-the-countries-in-it-…" class="headerlink" title="select continent that all the countries in it …"></a>select continent that all the countries in it …</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720172628988.png" alt="image-20210720172628988"></p><p>其他答案：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT name, continent, population FROM world WHERE continent IN (SELECT continent FROM world  x WHERE 25000000 &gt;&#x3D; (SELECT MAX(population) FROM world y WHERE x.continent &#x3D; y.continent));</span><br><span class="line">or</span><br><span class="line">SELECT y.name, y.continent, y.population</span><br><span class="line">FROM world AS y</span><br><span class="line">JOIN</span><br><span class="line">(SELECT continent,max(population)</span><br><span class="line">FROM world</span><br><span class="line">GROUP BY continent</span><br><span class="line">HAVING max(population) &lt;&#x3D; 25000000) AS x</span><br><span class="line">ON y.continent &#x3D; x.continent</span><br></pre></td></tr></table></figure><h3 id="bigger-than-any-of"><a href="#bigger-than-any-of" class="headerlink" title="bigger than any of"></a>bigger than any of</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720183807201.png" alt="image-20210720183807201"></p><p>注意要加上 and x.name &lt;&gt; y.name，排除自己！</p><h3 id="compare-to-null"><a href="#compare-to-null" class="headerlink" title="compare to null"></a>compare to null</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720223438816.png" alt="image-20210720223438816"></p><p>最后一个选项错误因为null不可以和其他值比较，只能够使用is null/is not null。</p><h3 id="where-and-having"><a href="#where-and-having" class="headerlink" title="where and having"></a>where and having</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210721135952709.png" alt="image-20210721135952709"></p><p>但这个做法会将符合要求的国家数为0的continent排除不显示，若要将这一类显示为0应该：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select x.continent, COALESCE(y.count,0)</span><br><span class="line">from </span><br><span class="line">(select continent from world group by continent) as x left join (</span><br><span class="line">    select continent, COUNT(name) as count</span><br><span class="line">    from world</span><br><span class="line">    where population &gt; 10000000</span><br><span class="line">    group by continent) as y</span><br><span class="line">on x.continent &#x3D; y.continent</span><br></pre></td></tr></table></figure><p>用自己和自己join后的表，加上COALESCE()来显示为null的值。</p><h3 id="complex-join"><a href="#complex-join" class="headerlink" title="complex join"></a>complex join</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210721190947124.png" alt="image-20210721190947124"></p><p>思路：</p><ol><li>需要展示的信息是title、leading actor name -&gt; 需要连接movie、actor、casting三张表</li><li>要求是’Julie Andrews’这个actor参演过的电影 -&gt; 子查询</li></ol><h3 id="complex-self-join"><a href="#complex-self-join" class="headerlink" title="complex self join"></a>complex self join</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210721220204544.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT v1.num,v1.company, name,v2.num,v2.company</span><br><span class="line">&#x2F;&#x2F; 找出经过Craiglockhart的车辆和其途径的其它站点集合v1(num,company,stop)</span><br><span class="line">FROM </span><br><span class="line">(SELECT r1.num ,r1.company ,r2.stop</span><br><span class="line">   FROM route AS r1 JOIN route AS r2 ON (r1.num&#x3D;r2.num </span><br><span class="line">   AND r1.company&#x3D;r2.company)JOIN stops ON r1.stop&#x3D;stops.id </span><br><span class="line">  WHERE stops.name&#x3D;&#39;Craiglockhart&#39;  AND r2.stop!&#x3D; r1.stop) AS v1 </span><br><span class="line"></span><br><span class="line">JOIN</span><br><span class="line">&#x2F;&#x2F; 找出经过Lochend的车辆和其途径的其它站点集合v2(num,company,stop)</span><br><span class="line">(SELECT r1.num,r1.company,r2.stop</span><br><span class="line">   FROM route AS r1 JOIN route AS r2 ON (r1.num&#x3D;r2.num AND</span><br><span class="line">r1.company&#x3D;r2.company)JOIN stops ON r1.stop&#x3D;stops.id </span><br><span class="line">  WHERE stops.name&#x3D;&#39;Lochend&#39;  AND r2.stop!&#x3D; r1.stop) AS v2 </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; v1和v2需要经过同一个站点作为周转站点</span><br><span class="line">ON v1.stop&#x3D;v2.stop</span><br><span class="line"></span><br><span class="line">JOIN stops ON v1.stop&#x3D;stops.id</span><br></pre></td></tr></table></figure><p>✌</p><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210721220710111.png" alt="image-20210721220710111"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;SQLZOO是一个MySQL的在线练习平台，本文记录了其中的一些典型题目。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MySQL" scheme="https://www.fvolcano.red/categories/MySQL/"/>
+    
+    
+    <category term="笔记" scheme="https://www.fvolcano.red/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中关于大小的方法的使用：size、len、shape</title>
+    <link href="https://www.fvolcano.red/2021/the-len-size-shape-function-in-python/"/>
+    <id>https://www.fvolcano.red/2021/the-len-size-shape-function-in-python/</id>
+    <published>2021-07-17T06:30:19.000Z</published>
+    <updated>2021-07-17T06:30:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol><li><a href="https://blog.csdn.net/songyunli1111/article/details/78079904">python中的size,shape,len,count</a></li><li><a href="https://blog.csdn.net/u010758410/article/details/71554224">python: numpy–函数 shape用法</a></li><li><a href="https://blog.csdn.net/qq_24193303/article/details/80961646">python 中 numpy 模块的 size,shape, len的用法</a></li><li><a href="https://www.jianshu.com/p/e083512e4f4c">numpy.shape()和.shape</a></li><li><a href="https://blog.csdn.net/xiaoqinting2015/article/details/69936952">Numpy.reshape函数解释</a></li><li><a href="https://zhuanlan.zhihu.com/p/72381219">numpy中的reshape函数详解</a></li></ol><p>len、count、size和shape的区分</p><p>​    shape：返回一个元组，从左到右分别是第一维度、第二维度…</p><p>reshape函数生成的新数组和原始数组公用一个内存，也就是说，不管是改变新数组还是原始数组的元素，另一个数组也会随之改变：</p><p><img src="/2021/the-len-size-shape-function-in-python/20170925125507504"></p><p>函数还是属性：shape()和shape</p><p>shape的(2,)和(2,1)有什么区别</p><p>​    一个是有两个元素的一维数组，一个是2*1的矩阵</p><p>reshape()怎么用</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+
+
+
+&lt;h2 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/song</summary>
+      
+    
+    
+    
+    <category term="python" scheme="https://www.fvolcano.red/categories/python/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>什么是use case</title>
