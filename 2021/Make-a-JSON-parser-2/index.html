@@ -198,12 +198,12 @@ var _hmt = _hmt || [];
 
 <p>这种做法会有精度问题。实现正确的答案是很复杂的，RapidJSON 的初期版本也是 naive 的，后来 RapidJSON 就内部实现了三种算法（使用 <code>kParseFullPrecision</code> 选项开启），最后一种算法用到了大整数（高精度计算）。有兴趣的同学也可以先尝试做一个 naive 版本，不使用 <code>strtod()</code>。之后可再参考 Google 的 <a target="_blank" rel="noopener" href="https://github.com/google/double-conversion">double-conversion</a> 开源项目及相关论文。</p>
 <ol start="3">
-<li>*去掉 <code>test_parse_invalid_value()</code> 和 <code>test_parse_root_not_singular</code> 中的 <code>#if 0 ... #endif</code>，执行测试，证实测试失败。按 JSON number 的语法在 lept_parse_number() 校验，不符合标准的程况返回 <code>LEPT_PARSE_INVALID_VALUE</code> 错误码。</li>
+<li>*去掉 <code>test_parse_invalid_value()</code> 和 <code>test_parse_root_not_singular</code> 中的 <code>#if 0 ... #endif</code>，执行测试，证实测试失败。按 JSON number 的语法在 lept_parse_number() 校验，不符合标准的情况返回 <code>LEPT_PARSE_INVALID_VALUE</code> 错误码，即要排除掉那些strtod能够转换但在json中不合法的数字形式。</li>
 </ol>
-<p>（要校验 JSON 的数字语法。建议可使用以下两个宏去简化一下代码：</p>
+<p>（提示：要校验 JSON 的数字语法。建议可使用以下两个宏去简化一下代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISDIGIT(ch)         ((ch) &gt;= <span class="meta-string">&#x27;0&#x27;</span> &amp;&amp; (ch) &lt;= <span class="meta-string">&#x27;9&#x27;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISDIGIT1TO9(ch)     ((ch) &gt;= <span class="meta-string">&#x27;1&#x27;</span> &amp;&amp; (ch) &lt;= <span class="meta-string">&#x27;9&#x27;</span>)</span></span><br></pre></td></tr></table></figure>
 
-<p>另一提示，在校验成功以后，我们不再使用 <code>end</code> 指针去检测 <code>strtod()</code> 的正确性，第二个参数可传入 <code>NULL</code>。）</p>
+<p>另一提示：在校验成功以后，我们不再使用 <code>end</code> 指针去检测 <code>strtod()</code> 的正确性，第二个参数可传入 <code>NULL</code>。）</p>
 <p>首先，如同 <code>lept_parse_whitespace()</code>，我们使用一个指针 <code>p</code> 来表示当前的解析字符位置。这样做有两个好处，一是代码更简单，二是在某些编译器下性能更好（因为不能确定 <code>c</code> 会否被改变，从而每次更改 <code>c-&gt;json</code> 都要做一次间接访问）。如果校验成功，才把 <code>p</code> 赋值至 <code>c-&gt;json</code>。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lept_parse_number</span><span class="params">(lept_context* c, lept_value* v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* p = c-&gt;json;</span><br><span class="line">    <span class="comment">/* 负号 ... */</span></span><br><span class="line">    <span class="comment">/* 整数 ... */</span></span><br><span class="line">    <span class="comment">/* 小数 ... */</span></span><br><span class="line">    <span class="comment">/* 指数 ... */</span></span><br><span class="line">    v-&gt;n = strtod(c-&gt;json, <span class="literal">NULL</span>);</span><br><span class="line">    v-&gt;type = LEPT_NUMBER;</span><br><span class="line">    c-&gt;json = p;</span><br><span class="line">    <span class="keyword">return</span> LEPT_PARSE_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -412,7 +412,7 @@ var _hmt = _hmt || [];
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/项目/">项目<span>2</span></a></li>
+    <li><a href="/categories/项目/">项目<span>5</span></a></li>
   </li>
 
     </ul>
@@ -425,7 +425,7 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/json/">json<span>2</span></a></li>
+  <li><a href="/tags/json/">json<span>5</span></a></li>
   
     </ul>
 	</div>

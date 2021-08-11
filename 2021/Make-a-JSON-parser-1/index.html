@@ -188,8 +188,7 @@ var _hmt = _hmt || [];
 <p>先定义两个API：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lept_parse</span><span class="params">(lept_value* v, <span class="keyword">const</span> <span class="keyword">char</span>* json)</span></span>;</span><br><span class="line"><span class="function">lept_type <span class="title">lept_get_type</span><span class="params">(<span class="keyword">const</span> lept_value* v)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<p>前一个用来解析json，参数json是不应该被改动的，所以使用<code>const char*</code> 类型。</p>
-<p>返回值是以下这些枚举值，无错误会返回 <code>LEPT_PARSE_OK</code>，其他值在后面解释。</p>
+<p>前一个函数用来解析json，参数json是不应该被改动的，所以使用<code>const char*</code> 类型。返回值是以下这些枚举值，无错误会返回 <code>LEPT_PARSE_OK</code>，其他值在后面解释。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">    LEPT_PARSE_OK = <span class="number">0</span>,</span><br><span class="line">    LEPT_PARSE_EXPECT_VALUE,</span><br><span class="line">    LEPT_PARSE_INVALID_VALUE,</span><br><span class="line">    LEPT_PARSE_ROOT_NOT_SINGULAR</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>后一个函数用来获取该<code>lept_value</code>节点的数据类型。</p>
@@ -462,7 +461,7 @@ var _hmt = _hmt || [];
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/项目/">项目<span>2</span></a></li>
+    <li><a href="/categories/项目/">项目<span>5</span></a></li>
   </li>
 
     </ul>
@@ -475,7 +474,7 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/json/">json<span>2</span></a></li>
+  <li><a href="/tags/json/">json<span>5</span></a></li>
   
     </ul>
 	</div>

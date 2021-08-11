@@ -1,0 +1,493 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>跟着做一个JSON解析器（五） | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="跟着做一个JSON解析器（五）"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 跟着做一个JSON解析器（五）</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>跟着github上的项目json-tutorial完成一个json解析器。本文对应该项目的第四单元，重点在解析\uXXXX类型的字符串。<a id="more"></a></p>
+<p>👉<a target="_blank" rel="noopener" href="https://github.com/miloyip/json-tutorial">原项目地址</a></p>
+<h1 id="一、JSON数组"><a href="#一、JSON数组" class="headerlink" title="一、JSON数组"></a>一、JSON数组</h1><p>一个 JSON 数组可以包含零至多个元素，而这些元素也可以是数组类型。换句话说，我们可以表示嵌套（nested）的数据结构。先来看看 JSON 数组的语法：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">array</span> = <span class="meta">%x5B</span> ws [ <span class="keyword">value</span> *( ws <span class="meta">%x2C</span> ws <span class="keyword">value</span> ) ] ws <span class="meta">%x5D</span></span><br></pre></td></tr></table></figure>
+
+<p>当中，<code>%x5B</code> 是左中括号 <code>[</code>，<code>%x2C</code> 是逗号 <code>,</code>，<code>%x5D</code> 是右中括号 <code>]</code> ，<code>ws</code> 是空白字符。一个数组可以包含零至多个值，以逗号分隔，例如 <code>[]</code>、<code>[1,2,true]</code>、<code>[[1,2],[3,4],&quot;abc&quot;]</code> 都是合法的数组。但注意 JSON 不接受末端额外的逗号，例如 <code>[1,2,]</code> 是不合法的（许多编程语言如 C/C++、Javascript、Java、C# 都容许数组初始值包含末端逗号）。</p>
+<p>JSON 数组的语法很简单，实现的难点不在语法上，而是怎样管理内存。</p>
+<h1 id="二、数据结构"><a href="#二、数据结构" class="headerlink" title="二、数据结构"></a>二、数据结构</h1><p>首先，我们需要设计存储 JSON 数组类型的数据结构。</p>
+<p>JSON 数组存储零至多个元素，最简单就是使用 C 语言的数组。数组最大的好处是能以 O(1) 用索引访问任意元素，次要好处是内存布局紧凑，省内存之余还有高缓存一致性（cache coherence）。但数组的缺点是不能快速插入元素，而且我们在解析 JSON 数组的时候，还不知道应该分配多大的数组才合适。</p>
+<p>另一个选择是链表（linked list），它的最大优点是可快速地插入元素（开端、末端或中间），但需要以 O(n) 时间去经索引取得内容。如果我们只需顺序遍历，那么是没有问题的。还有一个小缺点，就是相对数组而言，链表在存储每个元素时有额外内存开销（存储下一节点的指针），而且遍历时元素所在的内存可能不连续，令缓存不命中（cache miss）的机会上升。</p>
+<p>我见过一些 JSON 库选择了链表，而这里则选择了数组。我们将会通过之前在解析字符串时实现的堆栈，来解决解析 JSON 数组时未知数组大小的问题。</p>
+<p>决定之后，我们在 <code>lept_value</code> 的 <code>union</code> 中加入数组的结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">lept_value</span> <span class="title">lept_value</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">lept_value</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span> lept_value* e; <span class="keyword">size_t</span> size; &#125;a; <span class="comment">/* array */</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span> <span class="keyword">char</span>* s; <span class="keyword">size_t</span> len; &#125;s;</span><br><span class="line">        <span class="keyword">double</span> n;</span><br><span class="line">    &#125;u;</span><br><span class="line">    lept_type type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>由于 <code>lept_value</code> 内使用了自身类型的指针，我们必须前向声明（forward declare）此类型。</p>
+<p>另外，注意这里 <code>size</code> 是元素的个数，不是字节单位。我们增加两个 API 去访问 JSON 数组类型的值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">lept_get_array_size</span><span class="params">(<span class="keyword">const</span> lept_value* v)</span> </span>&#123;</span><br><span class="line">    assert(v != <span class="literal">NULL</span> &amp;&amp; v-&gt;type == LEPT_ARRAY);</span><br><span class="line">    <span class="keyword">return</span> v-&gt;u.a.size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">lept_value* <span class="title">lept_get_array_element</span><span class="params">(<span class="keyword">const</span> lept_value* v, <span class="keyword">size_t</span> index)</span> </span>&#123;</span><br><span class="line">    assert(v != <span class="literal">NULL</span> &amp;&amp; v-&gt;type == LEPT_ARRAY);</span><br><span class="line">    assert(index &lt; v-&gt;u.a.size);</span><br><span class="line">    <span class="keyword">return</span> &amp;v-&gt;u.a.e[index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>暂时我们不考虑增删数组元素，这些功能留待第八单元讨论。</p>
+<p>然后，我们写一个单元测试去试用这些 API（练习需要更多测试）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(_MSC_VER)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXPECT_EQ_SIZE_T(expect, actual) EXPECT_EQ_BASE((expect) == (actual), (size_t)expect, (size_t)actual, <span class="meta-string">&quot;%Iu&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXPECT_EQ_SIZE_T(expect, actual) EXPECT_EQ_BASE((expect) == (actual), (size_t)expect, (size_t)actual, <span class="meta-string">&quot;%zu&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test_parse_array</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    lept_value v;</span><br><span class="line"></span><br><span class="line">    lept_init(&amp;v);</span><br><span class="line">    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&amp;v, <span class="string">&quot;[ ]&quot;</span>));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_ARRAY, lept_get_type(&amp;v));</span><br><span class="line">    EXPECT_EQ_SIZE_T(<span class="number">0</span>, lept_get_array_size(&amp;v));</span><br><span class="line">    lept_free(&amp;v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在之前的单元中，作者已多次重申，C 语言的数组大小应该使用 <code>size_t</code> 类型。因为我们要验证 <code>lept_get_array_size()</code> 返回值是否正确，所以再为单元测试框架添加一个宏 <code>EXPECT_EQ_SIZE_T</code>。麻烦之处在于，ANSI C（C89）并没有的 <code>size_t</code> 打印方法，在 C99 则加入了 <code>&quot;%zu&quot;</code>，但 VS2015 中才有，之前的 VC 版本使用非标准的 <code>&quot;%Iu&quot;</code>。因此，上面的代码使用条件编译去区分 VC 和其他编译器。虽然这部分不跨平台也不是 ANSI C 标准，但它只在测试程序中，不太影响程序库的跨平台性。</p>
+<h1 id="三、解析过程"><a href="#三、解析过程" class="headerlink" title="三、解析过程"></a>三、解析过程</h1><p>我们在解析 JSON 字符串时，因为在开始时不能知道字符串的长度，而又需要进行转义，所以需要一个临时缓冲区去存储解析后的结果。我们为此实现了一个动态增长的堆栈，可以不断压入字符，最后一次性把整个字符串弹出，复制至新分配的内存之中。</p>
+<p>对于 JSON 数组，我们也可以用相同的方法，而且，我们可以用同一个堆栈！我们只需要把每个解析好的元素压入堆栈，解析到数组结束时，再一次性把所有元素弹出，复制至新分配的内存之中。</p>
+<p>但和字符串有点不一样，如果把 JSON 当作一棵树的数据结构，JSON 字符串是叶节点，而 JSON 数组是中间节点。在叶节点的解析函数中，我们怎样使用那个堆栈也可以，只要最后还原就好了。但对于数组这样的中间节点，共用这个堆栈没问题么？</p>
+<p>答案是：只要在解析函数结束时还原堆栈的状态，就没有问题。为了直观地了解这个解析过程，我们用连环图去展示 <code>[&quot;abc&quot;,[1,2],3]</code> 的解析过程。</p>
+<p>首先，我们遇到 <code>[</code>，进入 <code>lept_parse_array()</code>：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miloyip/json-tutorial/blob/master/tutorial05/images/parse_array01.png"><img src="/2021/Make-a-JSON-parser-5/parse_array01.png" alt=" "></a></p>
+<p>生成一个临时的 <code>lept_value</code>，用于存储之后的元素。我们再调用 <code>lept_parse_value()</code> 去解析这个元素值，因为遇到 <code>&quot;</code> 进入 <code>lept_parse_string()</code>：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miloyip/json-tutorial/blob/master/tutorial05/images/parse_array02.png"><img src="/2021/Make-a-JSON-parser-5/parse_array02.png" alt=" "></a></p>
+<p>在 <code>lept_parse_string()</code> 中，不断解析字符直至遇到 <code>&quot;</code>，过程中把每个字符压栈：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miloyip/json-tutorial/blob/master/tutorial05/images/parse_array03.png"><img src="https://github.com/miloyip/json-tutorial/raw/master/tutorial05/images/parse_array03.png" alt=" "></a></p>
+<p>最后在 <code>lept_parse_string()</code> 中，把栈上 3 个字符弹出，分配内存，生成字符串值：</p>
+<p><img src="/2021/Make-a-JSON-parser-5/parse_array04.png" alt=" "></p>
+<p>返回上一层 <code>lept_parse_array()</code>，把临时元素压栈：</p>
+<p><img src="/2021/Make-a-JSON-parser-5/parse_array05.png"></p>
+<p>然后我们再遇到 <code>[</code>，进入另一个 <code>lept_parse_array()</code>。它发现第一个元素是数字类型，所认调用 <code>lept_parse_number()</code>，生成一个临时的元素值：</p>
+<p><img src="https://github.com/miloyip/json-tutorial/raw/master/tutorial05/images/parse_array06.png"></p>
+<p>之后把该临时的元素值压栈：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miloyip/json-tutorial/blob/master/tutorial05/images/parse_array07.png"><img src="https://github.com/miloyip/json-tutorial/raw/master/tutorial05/images/parse_array07.png" alt=" "></a></p>
+<p>接着再解析第二个元素。我们遇到了 <code>]</code>，从栈上弹出 2 个元素，分配内存，生成数组（虚线代表是连续的内存）：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miloyip/json-tutorial/blob/master/tutorial05/images/parse_array08.png"><img src="/2021/Make-a-JSON-parser-5/parse_array08.png" alt=" "></a></p>
+<p>那个数组是上层数组的元素，我们把它压栈。现时栈内已有两个元素，我们再继续解析下一个元素：</p>
+<p><img src="/2021/Make-a-JSON-parser-5/parse_array09.png" alt=" "></p>
+<p>最后，遇到了 <code>]</code>，可以弹出栈内 3 个元素，分配内存，生成数组：</p>
+<p><img src="/2021/Make-a-JSON-parser-5/parse_array10.png"></p>
+<h1 id="四、实现"><a href="#四、实现" class="headerlink" title="四、实现"></a>四、实现</h1><p>经过这个详细的图解，实现 <code>lept_parse_array()</code> 应该没有难度。以下是半制成品：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lept_parse_value</span><span class="params">(lept_context* c, lept_value* v)</span></span>; <span class="comment">/* 前向声明 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lept_parse_array</span><span class="params">(lept_context* c, lept_value* v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> size = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ret;</span><br><span class="line">    EXPECT(c, <span class="string">&#x27;[&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (*c-&gt;json == <span class="string">&#x27;]&#x27;</span>) &#123;</span><br><span class="line">        c-&gt;json++;</span><br><span class="line">        v-&gt;type = LEPT_ARRAY;</span><br><span class="line">        v-&gt;u.a.size = <span class="number">0</span>;</span><br><span class="line">        v-&gt;u.a.e = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> LEPT_PARSE_OK;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        lept_value e;</span><br><span class="line">        lept_init(&amp;e);</span><br><span class="line">        <span class="keyword">if</span> ((ret = lept_parse_value(c, &amp;e)) != LEPT_PARSE_OK)</span><br><span class="line">            <span class="keyword">return</span> ret;</span><br><span class="line">        <span class="built_in">memcpy</span>(lept_context_push(c, <span class="keyword">sizeof</span>(lept_value)), &amp;e, <span class="keyword">sizeof</span>(lept_value));</span><br><span class="line">        size++;</span><br><span class="line">        <span class="keyword">if</span> (*c-&gt;json == <span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            c-&gt;json++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (*c-&gt;json == <span class="string">&#x27;]&#x27;</span>) &#123;</span><br><span class="line">            c-&gt;json++;</span><br><span class="line">            v-&gt;type = LEPT_ARRAY;</span><br><span class="line">            v-&gt;u.a.size = size;</span><br><span class="line">            size *= <span class="keyword">sizeof</span>(lept_value);</span><br><span class="line">            <span class="built_in">memcpy</span>(v-&gt;u.a.e = (lept_value*)<span class="built_in">malloc</span>(size), lept_context_pop(c, size), size);</span><br><span class="line">            <span class="keyword">return</span> LEPT_PARSE_OK;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> LEPT_PARSE_MISS_COMMA_OR_SQUARE_BRACKET;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lept_parse_value</span><span class="params">(lept_context* c, lept_value* v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (*c-&gt;json) &#123;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;[&#x27;</span>:  <span class="keyword">return</span> lept_parse_array(c, v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单说明的话，就是在循环中建立一个临时值（<code>lept_value e</code>），然后调用 <code>lept_parse_value()</code> 去把元素解析至这个临时值，完成后把临时值压栈。当遇到 <code>]</code>，把栈内的元素弹出，分配内存，生成数组值。</p>
+<p>注意到，<code>lept_parse_value()</code> 会调用 <code>lept_parse_array()</code>，而 <code>lept_parse_array()</code> 又会调用 <code>lept_parse_value()</code>，<u>这是互相引用，所以必须要加入函数前向声明</u>。</p>
+<p>最后，我想告诉同学，实现这个函数时，我曾经制造一个不明显的 bug。这个函数有两个 <code>memcpy()</code>，第一个「似乎」是可以避免的，先压栈取得元素的指针，给 <code>lept_parse_value</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (;;) &#123;</span><br><span class="line">    <span class="comment">/* bug! */</span></span><br><span class="line">    lept_value* e = lept_context_push(c, <span class="keyword">sizeof</span>(lept_value));</span><br><span class="line">    lept_init(e);</span><br><span class="line">    size++;</span><br><span class="line">    <span class="keyword">if</span> ((ret = lept_parse_value(c, e)) != LEPT_PARSE_OK)</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种写法为什么会有 bug？这是第 5 条练习题。</p>
+<h1 id="五、总结与练习答案"><a href="#五、总结与练习答案" class="headerlink" title="五、总结与练习答案"></a>五、总结与练习答案</h1><ol>
+<li>编写 <code>test_parse_array()</code> 单元测试，解析以下 2 个 JSON。由于数组是复合的类型，不能使用一个宏去测试结果，请使用各个 API 检查解析后的内容。</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="literal">null</span> , <span class="literal">false</span> , <span class="literal">true</span> , <span class="number">123</span> , <span class="string">&quot;abc&quot;</span> ]</span><br><span class="line">[ [ ] , [ <span class="number">0</span> ] , [ <span class="number">0</span> , <span class="number">1</span> ] , [ <span class="number">0</span> , <span class="number">1</span> , <span class="number">2</span> ] ]</span><br></pre></td></tr></table></figure>
+
+<p>这个练习纯粹为了熟习数组的访问 API。新增的第一个 JSON 只需平凡的检测。第二个 JSON 有特定模式，第 i 个子数组的长度为 i，每个子数组的第 j 个元素是数字值 j，所以可用两层 for 循环测试。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test_parse_array</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> i, j;</span><br><span class="line">    lept_value v;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">    lept_init(&amp;v);</span><br><span class="line">    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&amp;v, <span class="string">&quot;[ null , false , true , 123 , \&quot;abc\&quot; ]&quot;</span>));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_ARRAY, lept_get_type(&amp;v));</span><br><span class="line">    EXPECT_EQ_SIZE_T(<span class="number">5</span>, lept_get_array_size(&amp;v));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_NULL,   lept_get_type(lept_get_array_element(&amp;v, <span class="number">0</span>)));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_FALSE,  lept_get_type(lept_get_array_element(&amp;v, <span class="number">1</span>)));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_TRUE,   lept_get_type(lept_get_array_element(&amp;v, <span class="number">2</span>)));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_NUMBER, lept_get_type(lept_get_array_element(&amp;v, <span class="number">3</span>)));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_STRING, lept_get_type(lept_get_array_element(&amp;v, <span class="number">4</span>)));</span><br><span class="line">    EXPECT_EQ_DOUBLE(<span class="number">123.0</span>, lept_get_number(lept_get_array_element(&amp;v, <span class="number">3</span>)));</span><br><span class="line">    EXPECT_EQ_STRING(<span class="string">&quot;abc&quot;</span>, lept_get_string(lept_get_array_element(&amp;v, <span class="number">4</span>)), lept_get_string_length(lept_get_array_element(&amp;v, <span class="number">4</span>)));</span><br><span class="line">    lept_free(&amp;v);</span><br><span class="line"></span><br><span class="line">    lept_init(&amp;v);</span><br><span class="line">    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&amp;v, <span class="string">&quot;[ [ ] , [ 0 ] , [ 0 , 1 ] , [ 0 , 1 , 2 ] ]&quot;</span>));</span><br><span class="line">    EXPECT_EQ_INT(LEPT_ARRAY, lept_get_type(&amp;v));</span><br><span class="line">    EXPECT_EQ_SIZE_T(<span class="number">4</span>, lept_get_array_size(&amp;v));</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">        lept_value* a = lept_get_array_element(&amp;v, i);</span><br><span class="line">        EXPECT_EQ_INT(LEPT_ARRAY, lept_get_type(a));</span><br><span class="line">        EXPECT_EQ_SIZE_T(i, lept_get_array_size(a));</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">            lept_value* e = lept_get_array_element(a, j);</span><br><span class="line">            EXPECT_EQ_INT(LEPT_NUMBER, lept_get_type(e));</span><br><span class="line">            EXPECT_EQ_DOUBLE((<span class="keyword">double</span>)j, lept_get_number(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    lept_free(&amp;v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>现时的测试结果应该是失败的，因为 <code>lept_parse_array()</code> 里没有处理空白字符，加进合适的 <code>lept_parse_whitespace()</code> 令测试通过。</li>
+</ol>
+<p>按现时的 <code>lept_parse_array()</code> 的编写方式，需要加入 3 个 <code>lept_parse_whitespace()</code> 调用，分别是解析 <code>[</code> 之后，元素之后，以及 <code>,</code> 之后：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lept_parse_array</span><span class="params">(lept_context* c, lept_value* v)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">    EXPECT(c, <span class="string">&#x27;[&#x27;</span>);</span><br><span class="line">    lept_parse_whitespace(c);</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">        <span class="keyword">if</span> ((ret = lept_parse_value(c, &amp;e)) != LEPT_PARSE_OK)</span><br><span class="line">            <span class="keyword">return</span> ret;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">        lept_parse_whitespace(c);</span><br><span class="line">        <span class="keyword">if</span> (*c-&gt;json == <span class="string">&#x27;,&#x27;</span>) &#123;</span><br><span class="line">            c-&gt;json++;</span><br><span class="line">            lept_parse_whitespace(c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="3">
+<li>使用<a target="_blank" rel="noopener" href="https://github.com/miloyip/json-tutorial/blob/master/tutorial03_answer/tutorial03_answer.md">第三单元解答篇</a>介绍的检测内存泄漏工具，会发现测试中有内存泄漏。很明显在 <code>lept_parse_array()</code> 中使用到 <code>malloc()</code> 分配内存，但却没有对应的 <code>free()</code>。应该在哪里释放内存？修改代码，使工具不再检测到相关的内存泄漏。</li>
+</ol>
+<p>成功测试那 3 个 JSON 后，使用内存泄漏检测工具会发现 <code>lept_parse_array()</code> 用 <code>malloc()</code>分配的内存没有被释放：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">==<span class="number">154</span>== <span class="number">124</span> (<span class="number">120</span> direct, <span class="number">4</span> indirect) bytes <span class="keyword">in</span> <span class="number">1</span> blocks are definitely lost <span class="keyword">in</span> loss record <span class="number">2</span> of <span class="number">4</span></span><br><span class="line">==<span class="number">154</span>==    at <span class="number">0</span>x4C28C20: malloc (vg_replace_malloc.c:<span class="number">296</span>)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x409D82: lept_parse_array (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x409E91: lept_parse_value (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x409F14: lept_parse (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x405261: test_parse_array (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x408C72: test_parse (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x40916A: main (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>== </span><br><span class="line">==<span class="number">154</span>== <span class="number">240</span> (<span class="number">96</span> direct, <span class="number">144</span> indirect) bytes <span class="keyword">in</span> <span class="number">1</span> blocks are definitely lost <span class="keyword">in</span> loss record <span class="number">4</span> of <span class="number">4</span></span><br><span class="line">==<span class="number">154</span>==    at <span class="number">0</span>x4C28C20: malloc (vg_replace_malloc.c:<span class="number">296</span>)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x409D82: lept_parse_array (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x409E91: lept_parse_value (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x409F14: lept_parse (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x40582C: test_parse_array (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x408C72: test_parse (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br><span class="line">==<span class="number">154</span>==    by <span class="number">0</span>x40916A: main (<span class="keyword">in</span> <span class="regexp">/json-tutorial/</span>tutorial05<span class="regexp">/build/</span>leptjson_test)</span><br></pre></td></tr></table></figure>
+
+<p>很明显，有 <code>malloc()</code> 就要有对应的 <code>free()</code>。正确的释放位置应该放置在 <code>lept_free()</code>，当值被释放时，该值拥有的内存也在那里释放。之前字符串的释放也是放在这里：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lept_free</span><span class="params">(lept_value* v)</span> </span>&#123;</span><br><span class="line">    assert(v != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (v-&gt;type == LEPT_STRING)</span><br><span class="line">        <span class="built_in">free</span>(v-&gt;u.s.s);</span><br><span class="line">    v-&gt;type = LEPT_NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但对于数组，我们应该先把数组内的元素通过递归调用 <code>lept_free()</code> 释放，然后才释放本身的 <code>v-&gt;u.a.e</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lept_free</span><span class="params">(lept_value* v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> i;</span><br><span class="line">    assert(v != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">switch</span> (v-&gt;type) &#123;</span><br><span class="line">        <span class="keyword">case</span> LEPT_STRING:</span><br><span class="line">            <span class="built_in">free</span>(v-&gt;u.s.s);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> LEPT_ARRAY:</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; v-&gt;u.a.size; i++)</span><br><span class="line">                lept_free(&amp;v-&gt;u.a.e[i]);</span><br><span class="line">            <span class="built_in">free</span>(v-&gt;u.a.e);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>: <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    v-&gt;type = LEPT_NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改之后，再运行内存泄漏检测工具，确保问题已被修正。</p>
+<ol start="4">
+<li>开启 test.c 中两处被 <code>#if 0 ... #endif</code> 关闭的测试，本来 <code>lept_parse_array()</code> 已经能处理这些测试。然而，运行时会发现 <code>Assertion failed: (c.top == 0)</code> 断言失败。这是由于，当错误发生时，仍然有一些临时值在堆栈里，既没有放进数组，也没有被释放。修改 <code>lept_parse_array()</code>，当遇到错误时，从堆栈中弹出并释放那些临时值，然后才返回错误码。</li>
+</ol>
+<p>遇到解析错误时，我们可能在之前已压入了一些值在自定义堆栈上。如果没有处理，最后会在 <code>lept_parse()</code> 中发现堆栈上还有一些值，做成断言失败。所以，遇到解析错误时，我们必须弹出并释放那些值。</p>
+<p>在 <code>lept_parse_array</code> 中，原本遇到解析失败时，会直接返回错误码。我们把它改为 <code>break</code> 离开循环，在循环结束后的地方用 <code>lept_free()</code> 释放从堆栈弹出的值，然后才返回错误码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lept_parse_array</span><span class="params">(lept_context* c, lept_value* v)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">        <span class="keyword">if</span> ((ret = lept_parse_value(c, &amp;e)) != LEPT_PARSE_OK)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">        <span class="keyword">if</span> (*c-&gt;json == <span class="string">&#x27;,&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">/* ... */</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (*c-&gt;json == <span class="string">&#x27;]&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">/* ... */</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            ret = LEPT_PARSE_MISS_COMMA_OR_SQUARE_BRACKET;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* Pop and free values on the stack */</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">        lept_free((lept_value*)lept_context_pop(c, <span class="keyword">sizeof</span>(lept_value)));</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="5">
+<li>第 4 节那段代码为什么会有 bug？</li>
+</ol>
+<p>这个 bug 源于压栈时，会获得一个指针 <code>e</code>，指向从堆栈分配到的空间：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (;;) &#123;</span><br><span class="line">    <span class="comment">/* bug! */</span></span><br><span class="line">    lept_value* e = lept_context_push(c, <span class="keyword">sizeof</span>(lept_value));</span><br><span class="line">    lept_init(e);</span><br><span class="line">    size++;</span><br><span class="line">    <span class="keyword">if</span> ((ret = lept_parse_value(c, e)) != LEPT_PARSE_OK)</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，我们把这个指针调用 <code>lept_parse_value(c, e)</code>，这里会出现问题，因为 <code>lept_parse_value()</code> 及之下的函数都需要调用 <code>lept_context_push()</code>，而 <code>lept_context_push()</code> 在发现栈满了的时候会用 <code>realloc()</code> 扩容。这时候，我们上层的 <code>e</code> 就会失效，变成一个悬挂指针（dangling pointer），而且 <code>lept_parse_value(c, e)</code> 会通过这个指针写入解析结果，造成非法访问。</p>
+<p>在使用 C++ 容器时，也会遇到类似的问题。从容器中取得的迭代器（iterator）后，如果改动容器内容，之前的迭代器会失效。这里的悬挂指针问题也是相同的。</p>
+<p>但这种 bug 有时可能在简单测试中不能自动发现，因为问题只有堆栈满了才会出现。从测试的角度看，我们需要一些压力测试（stress test），测试更大更复杂的数据。但从编程的角度看，我们要谨慎考虑变量的生命周期，尽量从编程阶段避免出现问题。例如把 <code>lept_context_push()</code> 的 API 改为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">lept_context_push</span><span class="params">(lept_context* c, <span class="keyword">const</span> <span class="keyword">void</span>* data, <span class="keyword">size_t</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这样就确把数据压入栈内，避免了返回指针的生命周期问题。但我们之后会发现，原来的 API 设计在一些情况会更方便一些，例如在把字符串值转化（stringify）为 JSON 时，我们可以预先在堆栈分配字符串所需的最大空间，而当时是未有数据填充进去的。</p>
+<p>无论如何，我们编程时都要考虑清楚变量的生命周期，特别是指针的生命周期。</p>
+<p>经过对数组的解析，我们也了解到如何利用递归处理复合型的数据类型解析。与一些用链表或自动扩展的动态数组的实现比较，我们利用了自定义堆栈作为缓冲区，能分配最紧凑的数组作存储之用，会比其他实现更省内存。我们完成了数组类型后，只余下对象类型了。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/Make-a-JSON-parser-4/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-08-11 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/项目/">项目<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/json/">json<span>5</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81JSON%E6%95%B0%E7%BB%84"><span class="toc-article-text">一、JSON数组</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-article-text">二、数据结构</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-article-text">三、解析过程</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E7%8E%B0"><span class="toc-article-text">四、实现</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E7%BB%83%E4%B9%A0%E7%AD%94%E6%A1%88"><span class="toc-article-text">五、总结与练习答案</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

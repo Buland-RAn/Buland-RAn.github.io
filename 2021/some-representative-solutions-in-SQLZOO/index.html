@@ -127,6 +127,7 @@ var _hmt = _hmt || [];
 
 	  <p>SQLZOO是一个MySQL的在线练习平台，本文记录了其中的一些典型题目。<a id="more"></a></p>
 <p>SQLZOO：<a target="_blank" rel="noopener" href="https://sqlzoo.net/">https://sqlzoo.net/</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/77780577">SQLZOO习题全解，答案参考-英文版</a></p>
 <h3 id="ROUND-to-the-nearest-1000"><a href="#ROUND-to-the-nearest-1000" class="headerlink" title="ROUND to the nearest 1000"></a>ROUND to the nearest 1000</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720112918353.png" alt="image-20210720112918353"></p>
 <h3 id="how-to-type-umlaut"><a href="#how-to-type-umlaut" class="headerlink" title="how to type umlaut"></a>how to type umlaut</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210720135006641.png" alt="image-20210720135006641"></p>
 <p><a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/%C3%9C#/Keyboarding">如何打出Ü：wiki</a></p>
@@ -176,7 +177,26 @@ var _hmt = _hmt || [];
 <li>需要展示的信息是title、leading actor name -&gt; 需要连接movie、actor、casting三张表</li>
 <li>要求是’Julie Andrews’这个actor参演过的电影 -&gt; 子查询</li>
 </ol>
+<p>最后的数据表有点难理解，解释如下：</p>
+<p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210725215153850.png" alt="image-20210725215153850"></p>
+<p>先查看一下表的数据：</p>
+<p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210726175647758.png" alt="image-20210726175647758"></p>
+<blockquote>
+<p>We got the name of the stop, the bus <em>number,</em> and the bus <em>company</em>. We learned from an earlier problem that we would usually refer to a bus by their num and company like ‘124 SMT’. So, by looking at our table we could assume that at the stop in Aberlady we can get the 124 SMT bus.</p>
+</blockquote>
+<p>pos这个字段有点儿难理解，它指的是这辆车走的路线中这个站的顺序（第几个到达的）。</p>
+<p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210726175931308.png" alt="image-20210726175931308"></p>
+<blockquote>
+<p>If we order by the <em>num</em> then by <em>position</em>, we’ll see that the ‘1 LRT’ bus, for example, leaves from Leith then goes on a round trip until it gets back to Leith after stopping at 9 other stops. If we go down the table, we see that not all buses go on a round trip as they won’t always end up at the same stop where they started.</p>
+</blockquote>
+<p>最后一题的解析：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/77790284">SQLZOO-self join最后一题解析-复杂自联结应用（附加where判断条件的数组应用拓展）</a></p>
+<p>另一篇解析（写得太好了）：<a target="_blank" rel="noopener" href="https://hackernoon.com/learning-self-join-queries-with-sqlzoo-xc163ue7">Learning Self JOIN Queries With SQLZOO</a></p>
 <h3 id="complex-self-join"><a href="#complex-self-join" class="headerlink" title="complex self join"></a>complex self join</h3><p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210721220204544.png"></p>
+<p>列出从Craiglockhart到lochend的换乘选项，需要的5个内容分别是第一辆车号，哪家公司运营，换乘站，第二辆车号，哪家公司运营。</p>
+<blockquote>
+<p>In other words, we need to find the buses that stop at Craiglockhart and have stops in common with the buses that stop at Lochend. Because that’s where they can get off and change buses. </p>
+</blockquote>
+<p><img src="/2021/some-representative-solutions-in-SQLZOO/image-20210726181516286.png" alt="image-20210726181516286"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT v1.num,v1.company, name,v2.num,v2.company</span><br><span class="line">&#x2F;&#x2F; 找出经过Craiglockhart的车辆和其途径的其它站点集合v1(num,company,stop)</span><br><span class="line">FROM </span><br><span class="line">(SELECT r1.num ,r1.company ,r2.stop</span><br><span class="line">   FROM route AS r1 JOIN route AS r2 ON (r1.num&#x3D;r2.num </span><br><span class="line">   AND r1.company&#x3D;r2.company)JOIN stops ON r1.stop&#x3D;stops.id </span><br><span class="line">  WHERE stops.name&#x3D;&#39;Craiglockhart&#39;  AND r2.stop!&#x3D; r1.stop) AS v1 </span><br><span class="line"></span><br><span class="line">JOIN</span><br><span class="line">&#x2F;&#x2F; 找出经过Lochend的车辆和其途径的其它站点集合v2(num,company,stop)</span><br><span class="line">(SELECT r1.num,r1.company,r2.stop</span><br><span class="line">   FROM route AS r1 JOIN route AS r2 ON (r1.num&#x3D;r2.num AND</span><br><span class="line">r1.company&#x3D;r2.company)JOIN stops ON r1.stop&#x3D;stops.id </span><br><span class="line">  WHERE stops.name&#x3D;&#39;Lochend&#39;  AND r2.stop!&#x3D; r1.stop) AS v2 </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; v1和v2需要经过同一个站点作为周转站点</span><br><span class="line">ON v1.stop&#x3D;v2.stop</span><br><span class="line"></span><br><span class="line">JOIN stops ON v1.stop&#x3D;stops.id</span><br></pre></td></tr></table></figure>
 
 
