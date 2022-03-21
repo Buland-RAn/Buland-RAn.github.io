@@ -1,0 +1,511 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>用户登录凭证Token的刷新策略 | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="用户登录凭证Token的刷新策略"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 用户登录凭证Token的刷新策略</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>-<a id="more"></a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44852935/article/details/108066849">jwt+shiro+redis实现token的自动刷新和token的可控性</a></li>
+<li><a target="_blank" rel="noopener" href="https://ld246.com/article/1578589691571">SpringBoot 框架下 shiro 与 jwt 的结合的用户登录</a></li>
+<li><a target="_blank" rel="noopener" href="https://ld246.com/article/1594861530113">关于 JWT Token 自动续期的解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/31b57201312d">JWT【关于刷新和作废的思考】</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.clloz.com/programming/front-end/js/2020/12/15/token-refresh/">token 机制和实现方式</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html">阮一峰-JSON Web Token 入门教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jspxcms.com/knowledge/465.html">授权及认证机制：Session、JWT与OAuth 2</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/guxin/p/what-is-http-session-expire.html">【Web】关于Session过期/失效的理解</a></li>
+</ol>
+<p>accessToken控制刷新间隔，refreshToken控制最长过期时间</p>
+<p>Min过期时间 = refreshToken过期时间 - accessToken过期时间</p>
+<p>Max过期时间 = refreshToken过期时间</p>
+<p>实际过期时间是一个范围，在（Min过期时间 ~ Max过期时间）之间</p>
+<p>如：refreshToken过期时间1小时，accessToken过期时间为5分钟</p>
+<p>则实际过期时间是55分钟 ~ 60分钟</p>
+<p>因此，refreshToken过期时间和accessToken过期时间相差越大，实际过期时间就越精确</p>
+<p>这其实就是Token的续签问题，我们看一下网上提到的一些解决方案：</p>
+<h1 id="1-更新Payload里面的过期时间。"><a href="#1-更新Payload里面的过期时间。" class="headerlink" title="1.更新Payload里面的过期时间。"></a>1.更新Payload里面的过期时间。</h1><p>JWT的Payload里面可以设置一个过期时间，我们可以在用户每次访问的时候把这个过期时间更新一下。由于JWT的secret加密机制，只要exp变了，整个Token就变了，所以这种机制相当于每次重新颁发了一个新的Token。</p>
+<p>这种方案简单粗暴，存在性能问题，还有安全问题，以前的那么多Token咋办？</p>
+<h1 id="2-快过期的时候更新Token"><a href="#2-快过期的时候更新Token" class="headerlink" title="2.快过期的时候更新Token"></a>2.快过期的时候更新Token</h1><p>比如说离过期时间还有不到1个小时的时候才更新Token，性能上面可能好一点，但是如果一个用户一直在访问，但是恰好最后一个1个小时内没有访问网站，那岂不是也gg了？</p>
+<h1 id="3-使用Cache记录Token过期时间"><a href="#3-使用Cache记录Token过期时间" class="headerlink" title="3.使用Cache记录Token过期时间"></a>3.使用Cache记录Token过期时间</h1><p>Token本身不设置过期时间，然后我们在redis或memcached等缓存里面单独设置一个有效期，每次访问的时候刷新过期时间。</p>
+<p>其实这个方案和使用session机制无异，session也可以保存在redis或者memcached里面的。所以，有人戏说这是重新发明了session 。。。</p>
+<h1 id="4-使用refreshToken"><a href="#4-使用refreshToken" class="headerlink" title="4.使用refreshToken"></a>4.使用refreshToken</h1><p>借鉴 oauth2 的设计，返回给客户端一个 refreshToken，允许客户端主动刷新JWT。一般而言，jwt 的过期时间可以设置为数小时，而 refreshToken 的过期时间设置为数天。 我对oauth2不太熟悉，不过很明显这个方案更加复杂了，而且为什么不拿旧的Token去刷新JWT呢？</p>
+<h1 id="5-推荐方案"><a href="#5-推荐方案" class="headerlink" title="5.推荐方案"></a>5.推荐方案</h1><p>最后说一下我觉得比较合适的方案，当服务器接受到一个Token后，如果它已经过期，但是已过期的时间在xx天内，比如说30天，我们就返回一个新的Token。比如说Token的有效期是7天，但是如果过期时间不超过30天就可以用旧的Token换取一个新的Token，如果超过了30天那就需要重新登录。</p>
+<h1 id="Token作废问题"><a href="#Token作废问题" class="headerlink" title="Token作废问题"></a>Token作废问题</h1><p>当用户退出登录、修改密码之后，讲道理我们是需要作废之前的Token，比如说用户的Token被盗用了，只能通过修改密码来防止账号被盗用。如果使用session机制就很简单了，我们清空服务器session，或者使用新的session替换之前旧的session也行。</p>
+<p>由于Token是无状态的，理论上只要不过期就可以一直用，你说这咋办？为了安全，必须得做一些额外的工作！</p>
+<h1 id="1-Cache"><a href="#1-Cache" class="headerlink" title="1.Cache"></a>1.Cache</h1><p>如果你之前是采用把Token存在cache里面这种方案，那么你只要删除cache里面的key就可以了。不过如果你真的是采用这种方案，还不如直接用session，这时候的Token和sessionid没区别。</p>
+<h1 id="2-用户关联"><a href="#2-用户关联" class="headerlink" title="2.用户关联"></a>2.用户关联</h1><p>有人说，建一张表把uid和Token关联起来，这样一个用户只有一个有效的Token，或者存cache也行，建立uid和Token的一对一关系，这方案和1差不多。无论是存表还存cache，每次访问都必不可免的需要访问库或cache。</p>
+<h1 id="3-黑名单"><a href="#3-黑名单" class="headerlink" title="3.黑名单"></a>3.黑名单</h1><p>在数据表或cache里面维护一个黑名单，也避免不了查库或者查cache，为了避免这个库内容过多，可以定期清理数据库，或者给cache设置一个有效期。比如说在上面说的例子里面，有效期应该设置为30天，30天之后就不用管了。</p>
+<p>其实我比较喜欢第3种方案，第2种方案如果用户多了对库压力大，而第3种，除非用户经常修改密码或者退出登录，不然这个数据集不会很大。</p>
+<p>如果不考虑安全，我们完全可以不考虑Token作废问题，那么我们就必须在防止XSS攻击上面做好工作，比如说使用https，cookies设置httpOnly。。。</p>
+<h1 id="是否需要使用JWT-Token？"><a href="#是否需要使用JWT-Token？" class="headerlink" title="是否需要使用JWT Token？"></a>是否需要使用JWT Token？</h1><p>看完之后大家是否发现原来JWT Token并没有那么好用，这也是很多人说的不要采用JWT的原因了: 讲真，别再使用JWT了！、请停止使用 JWT 认证 。。。</p>
+<p>仔细看完这些文章其实大家会发现JWT尤其适合那些一次性验证的应用，比如说有些网站的文件下载为了防止盗链，会在url后面追加一些字符串，这些字符串其实就是Token，它里面可能包含了用户信息和过期时间，你发送给别人下载或者想盗链就非常麻烦了。</p>
+<p>至于用不用我觉得还是看需求，你觉得呢？</p>
+<p>仅仅使用jwt+shiro还不能实现token的可控性，和token的自动刷新。这样就会导致token如果在30min后过期，那么如果用户30min后仍然需要使用系统，那么可能就需要重新登录，这是非常不好的用户体验。其次在token的有效期内，即使用户退出了登录，token依然有效，依然可以使用，这是不安全的，所以需要使用redis来进行可控性操作。</p>
+<p>Token缓存策略</p>
+<p>AccessToken和RefreshToken</p>
+<p>2-1. Shiro + JWT实现无状态鉴权机制</p>
+<ol>
+<li><p>首先post用户名与密码到login进行登入，如果成功在请求头Header返回一个加密的Authorization，失败的话直接返回10001未登录等状态码，以后访问都带上这个Authorization即可。</p>
+</li>
+<li><p>鉴权流程主要是要重写shiro的入口过滤器BasicHttpAuthenticationFilter，在此基础上进行拦截、token验证授权等操作</p>
+</li>
+</ol>
+<p>2-2. 关于AccessToken及RefreshToken概念说明</p>
+<ol>
+<li><p>AccessToken：用于接口传输过程中的用户授权标识，客户端每次请求都需携带，出于安全考虑通常有效时长较短。</p>
+</li>
+<li><p>RefreshToken：与AccessToken为共生关系，一般用于刷新AccessToken，保存于服务端，客户端不可见，有效时长较长。</p>
+</li>
+</ol>
+<p>2-3. 关于Redis中保存RefreshToken信息(做到JWT的可控性)</p>
+<ol>
+<li><p>登录认证通过后返回AccessToken信息(在AccessToken中保存当前的时间戳和帐号)，同时在Redis中设置一条以帐号为Key，Value为当前时间戳(登录时间)的RefreshToken，现在认证时必须AccessToken没失效以及Redis存在所对应的RefreshToken，且RefreshToken时间戳和AccessToken信息中时间戳一致才算认证通过，这样可以做到JWT的可控性，如果重新登录获取了新的AccessToken，旧的AccessToken就认证不了，因为Redis中所存放的的RefreshToken时间戳信息只会和最新的AccessToken信息中携带的时间戳一致，这样每个用户就只能使用最新的AccessToken认证。</p>
+</li>
+<li><p>Redis的RefreshToken也可以用来判断用户是否在线，如果删除Redis的某个RefreshToken，那这个RefreshToken所对应的AccessToken之后也无法通过认证了，就相当于控制了用户的登录，可以剔除用户</p>
+</li>
+</ol>
+<p>2-4. 关于根据RefreshToken自动刷新AccessToken</p>
+<ol>
+<li><p>本身AccessToken的过期时间为5分钟(配置文件可配置)，RefreshToken过期时间为30分钟(配置文件可配置)，当登录后时间过了5分钟之后，当前AccessToken便会过期失效，再次带上AccessToken访问JWT会抛出TokenExpiredException异常说明Token过期，开始判断是否要进行AccessToken刷新，首先redis查询RefreshToken是否存在，以及时间戳和过期AccessToken所携带的时间戳是否一致，如果存在且一致就进行AccessToken刷新。</p>
+</li>
+<li><p>刷新后新的AccessToken过期时间依旧为5分钟(配置文件可配置)，时间戳为当前最新时间戳，同时也设置RefreshToken中的时间戳为当前最新时间戳，刷新过期时间重新为30分钟过期(配置文件可配置)，最终将刷新的AccessToken存放在Response的Header中的Authorization字段返回。</p>
+</li>
+<li><p>同时前端进行获取替换，下次用新的AccessToken进行访问即可。</p>
+</li>
+</ol>
+<p>用户登录分为下面几种情况</p>
+<ol>
+<li><p>浏览界面时 token 未过期</p>
+<blockquote>
+<p>正常浏览</p>
+</blockquote>
+</li>
+<li><p>浏览界面时 token 过期,refreshToken 没有过期</p>
+<blockquote>
+<p>正常浏览,返回新的 token,生成新的 refreshToken</p>
+</blockquote>
+</li>
+<li><p>浏览界面时 token 过期,refreshToken 过期</p>
+<blockquote>
+<p>返回登录界面,清除 cookie 中的 token</p>
+</blockquote>
+</li>
+<li><p>登录时 token 未过期</p>
+<blockquote>
+<p>正常登录</p>
+</blockquote>
+</li>
+<li><p>登录时 token 过期,refreshToken 没有过期</p>
+<blockquote>
+<p>正常浏览,返回新的 token,生成新的 refreshToken</p>
+</blockquote>
+</li>
+<li><p>登录时 token 过期,refreshToken 过期</p>
+<blockquote>
+<p>通过数据库判断用户信息</p>
+</blockquote>
+</li>
+<li><p>浏览时 token 未过期但与 refreshToken 不匹配</p>
+<blockquote>
+<p>重新登录</p>
+</blockquote>
+</li>
+<li><p>登录时 token 未过期但与 refreshToken 不匹配</p>
+<blockquote>
+<p>通过数据库判断用户信息</p>
+</blockquote>
+</li>
+</ol>
+<p>在前后端分离的开发模式下，前端用户登录成功后后端服务会给用户颁发一个 jwt token。前端(如 vue)在接收到 jwt token 后会将 token 存储到 LocalStorage 中。</p>
+<p>后续每次请求都会将此 token 放在请求头中传递到后端服务，后端服务会有一个过滤器对 token 进行拦截校验，校验 token 是否过期，如果 token 过期则会让前端跳转到登录页面重新登录。</p>
+<p>因为 jwt token 中一般会包含用户的基础信息，为了保证 token 的安全性，一般会将 token 的过期时间设置的比较短。</p>
+<p>但是这样又会导致前端用户需要频繁登录（token 过期），甚至有的表单比较复杂，前端用户在填写表单时需要思考较长时间，等真正提交表单时后端校验发现 token 过期失效了不得不跳转到登录页面，对用户非常不友好。</p>
+<p>jwt token 自动续期的实现原理如下：</p>
+<ol>
+<li>登录成功后将用户生成的 <code>jwt token</code> 作为 key、value 存储到 cache 缓存里面 (这时候 key、value 值一样)，将缓存有效期设置为 token 有效时间的 2 倍。</li>
+<li>当该用户再次请求时，通过后端的一个 <code>jwt Filter</code> 校验<strong>前端 token</strong> 是否是有效 token，如果 token 无效表明是非法请求，直接抛出异常即可；</li>
+<li>根据规则取出 cache token，判断 cache token 是否存在，此时主要分以下几种情况：   <ul>
+<li>cache token 不存在<br> 这种情况表明该用户账户空闲超时，返回用户信息已失效，请重新登录。</li>
+<li>cache token 存在，则需要<strong>使用 jwt 工具类验证该 cache token 是否过期超时</strong>，不过期无需处理。<br><u>过期则表示该用户一直在操作只是 token 失效了</u>，后端程序会给 token 对应的 key 映射的 value 值重新生成 jwt token 并覆盖 value 值，该缓存生命周期重新计算。</li>
+</ul>
+</li>
+</ol>
+<p><strong>实现逻辑的核心原理：</strong><br> 前端请求 Header 中设置的 token 保持不变，校验有效性以缓存中的 token 为准。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2021/to-understand-CDM/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/null/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-08-18 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/项目/">项目<span>10</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/认证/">认证<span>1</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-article-text">参考资料</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-%E6%9B%B4%E6%96%B0Payload%E9%87%8C%E9%9D%A2%E7%9A%84%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E3%80%82"><span class="toc-article-text">1.更新Payload里面的过期时间。</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-%E5%BF%AB%E8%BF%87%E6%9C%9F%E7%9A%84%E6%97%B6%E5%80%99%E6%9B%B4%E6%96%B0Token"><span class="toc-article-text">2.快过期的时候更新Token</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#3-%E4%BD%BF%E7%94%A8Cache%E8%AE%B0%E5%BD%95Token%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="toc-article-text">3.使用Cache记录Token过期时间</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#4-%E4%BD%BF%E7%94%A8refreshToken"><span class="toc-article-text">4.使用refreshToken</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#5-%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="toc-article-text">5.推荐方案</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Token%E4%BD%9C%E5%BA%9F%E9%97%AE%E9%A2%98"><span class="toc-article-text">Token作废问题</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-Cache"><span class="toc-article-text">1.Cache</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-%E7%94%A8%E6%88%B7%E5%85%B3%E8%81%94"><span class="toc-article-text">2.用户关联</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#3-%E9%BB%91%E5%90%8D%E5%8D%95"><span class="toc-article-text">3.黑名单</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8JWT-Token%EF%BC%9F"><span class="toc-article-text">是否需要使用JWT Token？</span></a>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

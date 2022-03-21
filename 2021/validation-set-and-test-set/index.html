@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>验证集、测试集的区别及分割方法 | AYu</title>
+  <meta name="author" content="AYu">
+  
+  <meta name="description" content="学习生活片段记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="验证集、测试集的区别及分割方法"/>
+  <meta property="og:site_name" content="AYu"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.ico" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="atom.xml" title="AYu" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">AYu</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archive" title="All the articles.">
+			  <i class=""></i>Archive
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 验证集、测试集的区别及分割方法</h1>
+		</div>
+	
+
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>在看《机器学习》的时候发现测试集与验证集的概念有些模糊，就上网去搜索了各种解释，还没有全部阅读消化，整理如下以便之后再看。<a id="more"></a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://easyaitech.medium.com/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82-ai-%E6%95%B0%E6%8D%AE%E9%9B%86-%E8%AE%AD%E7%BB%83%E9%9B%86-%E9%AA%8C%E8%AF%81%E9%9B%86-%E6%B5%8B%E8%AF%95%E9%9B%86-%E9%99%84-%E5%88%86%E5%89%B2%E6%96%B9%E6%B3%95-%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-9b3afd37fd58">一文看懂 AI 数据集：训练集、验证集、测试集（附：分割方法+交叉验证）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48976706">训练集、验证集和测试集</a></p>
+</li>
+<li><p>⭐<a target="_blank" rel="noopener" href="https://machinelearningmastery.com/difference-test-validation-datasets/">What is the Difference Between Test and Validation Datasets?</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xfzhang/archive/2013/05/24/3096412.html">综 训练集(train set) 验证集(validation set) 测试集(test set)</a></p>
+</li>
+<li><p>⭐<a target="_blank" rel="noopener" href="https://stats.stackexchange.com/questions/19048/what-is-the-difference-between-test-set-and-validation-set">What is the difference between test set and validation set?-StackExchange</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lfri/p/10546147.html">交叉验证与训练集、验证集、测试集</a></p>
+</li>
+</ol>
+<h1 id="验证集"><a href="#验证集" class="headerlink" title="验证集"></a>验证集</h1><p>当我们的模型训练好之后，我们并不知道他的表现如何。这个时候就可以使用验证集（Validation Dataset）来看看模型在新数据（验证集和测试集是不同的数据）上的表现如何。<strong>同时通过调整超参数，让模型处于最好的状态</strong>。</p>
+<p><img src="https://miro.medium.com/max/875/0*p9bvO7zRsFJmgMg0.png" alt="img"></p>
+<p>验证集有2个主要的作用：</p>
+<ol>
+<li>评估模型效果，为了调整超参数而服务</li>
+<li>调整超参数，使得模型在验证集上的效果最好</li>
+</ol>
+<p>同时验证集在训练过程中还可以用来监控模型是否发生过拟合，一般来说验证集表现稳定后，若继续训练，训练集表现还会继续上升，但是验证集会出现不升反降的情况，这样一般就发生了过拟合。所以验证集也用来判断何时停止训练。</p>
+<p>说明：</p>
+<ol>
+<li>验证集不像训练集和测试集，它是非必需的。如果不需要调整超参数，就可以不使用验证集，直接用测试集来评估效果。</li>
+<li>验证集评估出来的效果并非模型的最终效果，主要是用来调整超参数的，模型最终效果以测试集的评估结果为准。</li>
+</ol>
+<h1 id="测试集"><a href="#测试集" class="headerlink" title="测试集"></a>测试集</h1><p>训练集直接参与了模型调慘的过程，显然不能用来反映模型真实的能力，这样一些 对课本死记硬背的学生(过拟合)将会拥有最好的成绩，显然不对。同理，由于验证集参与了人工调参(超参数)的过程，也不能用来最终评判一个模型，就像刷题库的学生也不能算是学习好的学生是吧。所以要通过最终的考试(测试集)来考察一个学(模)生(型)真正的能力。</p>
+<p>但是仅凭一次考试就对模型的好坏进行评判显然是不合理的，所以就要用到<strong>交叉验证法</strong>。</p>
+<p>通过测试集（Test Dataset）来做最终的评估。通过测试集的评估，我们会得到一些最终的评估指标，例如：准确率、精确率、召回率、F1等，用来近似估计模型的泛化能力。此时假设有两个不同的机器学习模型，犹豫不决的时候，可以通过训练两个模型，然后对比他们在测试数据上的泛化误差，选择泛化能力强的模型。</p>
+<h1 id="二者区别"><a href="#二者区别" class="headerlink" title="二者区别"></a>二者区别</h1><p><img src="/2021/validation-set-and-test-set/fe247fe4498c18e4bda2e6ab2984960d1603777645740.png" alt="交叉验证与训练集、验证集、测试集1"></p>
+<p>测试集是用于从几个不同模型中选出最好的，而验证集则是通过调参将某一模型调整为最好的状态。</p>
+<p>若直接拿测试集去调整超参数，那么可以直接将模型调整到测试集上的最佳，甚至误差为0，但这样的模型放在真实环境中表现可能会很差，因为实际上调参的过程也是“训练”模型的过程。这种现象叫做<strong>信息泄露</strong>。</p>
+<p>我们使用测试集作为泛化误差的近似，所以不到最后是不能将测试集的信息泄露出去的，就好比考试一样，我们平时做的题相当于训练集，测试集相当于最终的考试，我们通过最终的考试来检验我们最终的学习能力，将测试集信息泄露出去，相当于学生提前知道了考试题目，那最后再考这些提前知道的考试题目，当然代表不了什么，你在最后的考试中得再高的分数，也不能代表你学习能力强。而如果通过测试集来调节模型，相当于不仅知道了考试的题目，学生还都学会怎么做这些题了（因为我们肯定会人为的让模型在测试集上的误差最小，因为这是你调整超参数的目的），那再拿这些题考试的话，人人都有可能考满分，但是并没有起到检测学生学习能力的作用。原来我们通过测试集来近似泛化误差，也就是通过考试来检验学生的学习能力，但是由于信息泄露，此时的测试集即考试无任何意义，现实中可能学生的能力很差。所以，我们在学习的时候，老师会准备一些小测试来帮助我们查缺补漏，这些小测试也就是要说的验证集。我们通过验证集来作为调整模型的依据，这样不至于将测试集中的信息泄露。</p>
+<blockquote>
+<p><em>Peeking is a consequence of using test-set performance to both choose a hypothesis and evaluate it. The way to avoid this is to really hold the test set out—lock it away until you are completely done with learning and simply wish to obtain an independent evaluation of the final hypothesis. (And then, if you don’t like the results … you have to obtain, and lock away, a completely new test set if you want to go back and find a better hypothesis.)</em></p>
+</blockquote>
+<blockquote>
+<p><em>If the test set is locked away, but you still want to measure performance on unseen data as a way of selecting a good hypothesis, then divide the available data (without the test set) into a training set and a validation set.</em></p>
+</blockquote>
+<p>也就是说我们将数据划分训练集、验证集和测试集。在训练集上训练模型，在验证集上评估模型，一旦找到的最佳的参数，就在测试集上最后测试一次，测试集上的误差作为泛化误差的近似。</p>
+<h1 id="划分数据集"><a href="#划分数据集" class="headerlink" title="划分数据集"></a>划分数据集</h1><p>对于留出法：</p>
+<ol>
+<li>对于小规模样本集（几万量级），常用的分配比例是 60% 训练集、20% 验证集、20% 测试集。</li>
+<li>对于大规模样本集（百万级以上），只要验证集和测试集的数量足够即可，例如有 100w 条数据，那么留 1w 验证集，1w 测试集即可。1000w 的数据，同样留 1w 验证集和 1w 测试集。</li>
+<li>超参数越少，或者超参数很容易调整，那么可以减少验证集的比例，更多的分配给训练集。</li>
+</ol>
+<p>交叉验证法（cross-validation）：</p>
+<p>常用的是留少部分做测试集。然后对其余N个样本采用K折交叉验证法。就是将样本打乱，然后均匀分成K份，轮流选择其中K－1份训练，剩余的一份做验证，计算预测误差平方和，最后把K次的预测误差平方和再做平均作为选择最优模型结构的依据。特别的K取N，就是留一法（leave one out）。</p>
+<p><img src="https://miro.medium.com/max/875/0*Tkli0USuUcWbOQTC.png"></p>
+<p>理解：</p>
+<p>交叉验证法既可以用来区分训练集和测试集，也可以用来区分训练数据和验证数据。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2021/Make-a-JSON-parser-6/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/Make-a-JSON-parser-5/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!-- 
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+ -->
+
+
+    <section id="comment">
+        <h2 class="title">
+            留言
+        </h2>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8FWjWdEoyYxwoFgc2ET6DcSh-gzGzoHsz',
+                appKey: 'DqH3LDGq73YqdepEDCcPgWhl',
+                visitor: true,
+                // avatar: 'hide',
+                avatar: 'retro',
+                // 这里设置CDN, 默认微博表情CDN
+                // emojiCDN: 'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+                // // 表情title和图片映射
+                // emojiMaps: {
+                //     "smile": "e3/2018new_weixioa02_org.png",
+                //     "lovely": "09/2018new_keai_org.png",
+                //     // ... 更多表情
+                // }
+            })
+        </script>
+    </section>
+
+
+    <style type="text/css">
+        h2.title {
+            font-size: 25px;
+            margin-bottom: 27px;
+        }
+
+        .v[data-class=v] .vwrap {
+            border: 3px solid #f0f0f0;
+        }
+    
+        .v[data-class=v] .vwrap .vheader .vinput {
+            border-bottom: 1.8px dashed #f5f5f5;
+            color: #bebaba;
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .veditor {
+            font-size: 1.2em;
+            color: #b5b5b5;
+        }
+
+        .v[data-class=v] .vrow .vcol {
+            
+            font-size: 17px;
+        }
+
+        .v[data-class=v] .vicon {
+            fill: #bebebe;
+        }
+
+        .v[data-class=v] .vrow {
+            font-size: 0;
+            padding: 10px 0 0;
+        }
+
+        .v[data-class=v] .vbtn {
+            color: #d0cdcd;
+        }
+        
+        .v[data-class=v] .vsys {
+            padding: 0em 0em;
+        }
+
+        .v[data-class=v] .vcards .vcard {
+            padding-top: 0em;
+        }
+
+        .v[data-class=v] p {
+            margin-bottom: 0;
+            color: #c0c0c0;
+        }
+
+        a:hover {
+            font-weight: 800 !important;
+        }
+
+        .v[data-class=v] a:hover{
+            color: #c66400;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] a.vnick:hover{
+            color: #c66400 !important;
+            background: bottom !important;
+        }
+
+        .v[data-class=v] .vwrap .vheader .vinput:focus {
+            border-bottom-color: #ff7c29;
+        }
+
+    </style>
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-08-12 
+	</div>
+	
+	<span id="busuanzi_container_page_pv">
+		<i class="fa fa-eye"></i>
+  		<span id="busuanzi_value_page_pv"></span>
+    </span>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/AI/">AI<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/机器学习/">机器学习<span>1</span></a></li>
+  
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83"><span class="toc-article-text">参考</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-article-text">验证集</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%B5%8B%E8%AF%95%E9%9B%86"><span class="toc-article-text">测试集</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E8%80%85%E5%8C%BA%E5%88%AB"><span class="toc-article-text">二者区别</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%88%92%E5%88%86%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-article-text">划分数据集</span></a>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 AYu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br>     
+     <span id="busuanzi_container_site_pv">
+    	👀: <span id="busuanzi_value_site_pv"></span>    |   🙋: <span id="busuanzi_value_site_uv"></span>
+	</span>
+</p>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
