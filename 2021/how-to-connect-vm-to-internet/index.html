@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>机器学习：PCA图像处理 | AYu</title>
+  <title>如何将VMware虚拟机联网 | AYu</title>
   <meta name="author" content="AYu">
   
   <meta name="description" content="学习生活片段记录">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="机器学习：PCA图像处理"/>
+  <meta property="og:title" content="如何将VMware虚拟机联网"/>
   <meta property="og:site_name" content="AYu"/>
 
   
@@ -107,7 +107,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> 机器学习：PCA图像处理</h1>
+			<h1> 如何将VMware虚拟机联网</h1>
 		</div>
 	
 
@@ -125,35 +125,21 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  		
 
-	  <p>.<a id="more"></a></p>
+	  <a id="more"></a>
+
+
+
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://builtin.com/data-science/step-step-explanation-principal-component-analysis">A Step-by-Step Explanation of Principal Component Analysis (PCA)</a></li>
-<li><a target="_blank" rel="noopener" href="https://jakevdp.github.io/PythonDataScienceHandbook/05.09-principal-component-analysis.html">In Depth: Principal Component Analysis</a></li>
-<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/principal-component-analysis-in-depth-understanding-through-image-visualization-892922f77d9f">Principal Component Analysis: In-depth understanding through image visualization</a></li>
-<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/a-one-stop-shop-for-principal-component-analysis-5582fb7e0a9c">A One-Stop Shop for Principal Component Analysis</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.machinelearningplus.com/machine-learning/principal-components-analysis-pca-better-explained/">Understanding Concepts behind PCA</a></li>
-<li><a target="_blank" rel="noopener" href="https://sebastianraschka.com/Articles/2015_pca_in_3_steps.html">Principal Component Analysis in 3 Simple Steps</a></li>
-<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/principal-component-analysis-in-depth-understanding-through-image-visualization-892922f77d9f">Principal Component Analysis: In-depth understanding through image visualization</a></li>
-<li><a target="_blank" rel="noopener" href="https://sebastianraschka.com/Articles/2014_pca_step_by_step.html">Implementing a Principal Component Analysis (PCA) – in Python, step by step</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/332489601">sklearn-官方数据集的正确打开方法</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2020/12/an-end-to-end-comprehensive-guide-for-pca/">An end-to-end comprehensive guide for PCA</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/iliangwei0/article/details/78853586">Python 计算彩色图像信噪比</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/55297233">PCA推导</a></li>
+<li><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000024580532">VmWare网络配置，只此一篇就够了</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37131111/article/details/54000029">VMware 虚拟机如何连接网络</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/91954595">VMware虚拟机三种联网方法及原理</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/130984945">VMware虚拟机网络配置-NAT篇</a></p>
+</li>
 <li></li>
 </ol>
-<p>Organizing information in principal components this way, will allow you to reduce dimensionality without losing much information, and this by discarding the components with low information and considering the remaining components as your new variables.</p>
-<p>An important thing to realize here is that, the principal components are less interpretable and don’t have any real meaning since they are constructed as linear combinations of the initial variables.</p>
-<p>Geometrically speaking, principal components represent the directions of the data that explain a <strong>maximal amount of variance</strong>, that is to say, the lines that capture most information of the data. The relationship between variance and information here, is that, the larger the variance carried by a line, the larger the dispersion of the data points along it, and the larger the dispersion along a line, the more the information it has. To put all this simply, just think of principal components as new axes that provide the best angle to see and evaluate the data, so that the differences between the observations are better visible.</p>
-<h1 id="How-does-PCA-work"><a href="#How-does-PCA-work" class="headerlink" title="How does PCA work?"></a>How does PCA work?</h1><ul>
-<li><p>We are going to calculate a matrix that summarizes how our variables all relate to one another.</p>
-</li>
-<li><p>We’ll then break this matrix down into two separate components: direction and magnitude. We can then understand the “directions” of our data and its “magnitude” (or how “important” each direction is). </p>
-</li>
-<li><p>We will transform our original data to align with these important directions (which are combinations of our original variables). </p>
-</li>
-<li><p>While the visual example here is two-dimensional (and thus we have two “directions”), think about a case where our data has more dimensions. By identifying which “directions” are most “important,” we can compress or project our data into a smaller space by dropping the “directions” that are the “least important.” By projecting our data into a smaller space, we’re reducing the dimensionality of our feature space.</p>
-</li>
-</ul>
 	  
 	</div>
 
@@ -163,13 +149,13 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2021/a-mistake-with-endian-and-pointer/" type="button" class="btn btn-default"><i
+    <a href="/2021/processing-images-with-PCA/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> 上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2021/how-to-connect-vm-to-internet/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2021/introduction-to-WSD/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -301,7 +287,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2021-11-13 
+	2021-11-09 
 	</div>
 	
 	<span id="busuanzi_container_page_pv">
@@ -321,7 +307,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-article-text">参考资料</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#How-does-PCA-work"><span class="toc-article-text">How does PCA work?</span></a>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-article-text">参考资料</span></a></li></ol>
 		</div>
 	
 	</div>
